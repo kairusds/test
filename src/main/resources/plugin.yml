@@ -1,0 +1,15 @@
+name: test
+main: github.kairusds.Main
+version: "1.0.0"
+api: ["1.0.13"]
+load: POSTWORLD
+author: kairusds
+
+permissions:
+  test.command.imgmap:
+    description: "poggers"
+    default: op
+#   children:
+#     exampleplugin.command.example.test:
+#       description: "Use the test feature in the example command"
+#       default: true
