@@ -23,8 +23,8 @@ public class ImageMapCommand extends Command implements PluginIdentifiableComman
 		setPermission("test.command.imagemap");
 		plugin = plugin;
 		commandParameters.clear();
-		commandParameters.put("default", new CommandParameter[]{
-			CommandParameter.newType("player", CommandParamType.STRING)
+		commandParameters.put("imagemap", new CommandParameter[]{
+			CommandParameter.newType("url", CommandParamType.STRING)
 		});
 	}
 
