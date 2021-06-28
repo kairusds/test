@@ -21,7 +21,7 @@ public class Main extends PluginBase implements Listener{
 	public void onEnable(){
 		getLogger().info(TextFormat.DARK_GREEN + "I've been enabled!");
 		getLogger().info(String.valueOf(this.getDataFolder().mkdirs()));
-		getServer().getPluginManager().registerEvents(new EventListener(this), this);
+		getServer().getPluginManager().registerEvents(this, this);
 		getServer().getCommandMap().register("Test", new ImageMapCommand(this));
 	}
 
