@@ -6,7 +6,7 @@ load: POSTWORLD
 author: kairusds
 
 permissions:
-  test.command.imgmap:
+  test.command.imagemap:
     description: "poggers"
     default: op
 #   children:

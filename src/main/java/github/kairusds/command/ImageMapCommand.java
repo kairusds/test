@@ -20,7 +20,7 @@ public class ImageMapCommand extends Command implements PluginIdentifiableComman
 
 	public Main(Main plugin){
 		super("imagemap", "get a map with a custom image from a url", "/imgmap <url>", new String[]{"im"});
-		setPermission("test.command.mapimage");
+		setPermission("test.command.imagemap");
 		plugin = plugin;
 		commandParameters.clear();
 		commandParameters.put("default", new CommandParameter[]{
