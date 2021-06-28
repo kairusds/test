@@ -17,7 +17,7 @@
     <repositories>
         <repository>
             <id>cn.nukkit</id>
-            <url>http://repo.nukkitx.com/maven-snapshots/</url>
+            <url>https://repo.opencollab.dev/main/</url>
         </repository>
     </repositories>
 
