@@ -47,8 +47,9 @@ public class ImageMapCommand extends Command implements PluginIdentifiableComman
 		}
 
 		ItemMap map = new ItemMap();
-		Inventory inventory = sender.getInventory();
-		
+		Player player = (Player) sender; // fuck maven compiler
+		Inventory inventory = player.getInventory();
+
 		try{
 			sender.sendMessage("Getting url...");
 			URL url = new URL(args[0]);
