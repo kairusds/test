@@ -52,7 +52,7 @@ public class ImageMapCommand extends Command implements PluginIdentifiableComman
 		try{
 			sender.sendMessage("Getting url...");
 			URL url = new URL(args[0]);
-			HttpURLConnection connection = url.openConnection();
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("HEAD");
 
 			if(connection.getResponseCode() != 200){
