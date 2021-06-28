@@ -71,6 +71,7 @@ public class ImageMapCommand extends Command implements PluginIdentifiableComman
 		if(inventory.canAddItem(map)){
 			inventory.addItem(map);
 		}
+		return true;
 	}
 
 }
