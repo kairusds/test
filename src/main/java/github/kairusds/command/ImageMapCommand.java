@@ -19,7 +19,7 @@ public class ImageMapCommand extends Command implements PluginIdentifiableComman
 	private Main plugin;
 
 	public ImageMapCommand(Main plugin){
-		super("imagemap", "get a map with a custom image from a url", "/imgmap <url>", new String[]{"im"});
+		super("imagemap", "get a map with a custom image from a url", "/imagemap <url>", new String[]{"im"});
 		setPermission("test.command.imagemap");
 		plugin = plugin;
 		commandParameters.clear();
@@ -40,6 +40,7 @@ public class ImageMapCommand extends Command implements PluginIdentifiableComman
 		}
 		if(!sender.isPlayer()){
 			sender.sendMessage("no console allowed");
+			return true;
 		}
 		if(args.length < 1){
 			sender.sendMessage("Usage: " + usageMessage);
