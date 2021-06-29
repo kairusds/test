@@ -13,7 +13,8 @@ import java.util.UUID;
 
 public class Main extends PluginBase implements Listener{
 
-	private HtopTask htopTask, ArrayList<UUID> htopUsers = new ArrayList<>();
+	private HtopTask htopTask;
+	private ArrayList<UUID> htopUsers = new ArrayList<>();
 
 	@Override
 	public void onLoad(){

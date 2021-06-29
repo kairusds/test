@@ -21,7 +21,7 @@ public class SetScoreboardIdentityPacket extends DataPacket{
 		for(int i = 0; i < (int) getUnsignedVarInt(); ++i){
 			entry = new Entry();
 			entry.scoreboardId = getVarLong();
-			if(type === TYPE_REGISTER_IDENTITY){
+			if(type == TYPE_REGISTER_IDENTITY){
 				entry.entityUniqueId = getEntityUniqueId();
 			}
 			entries.add(entry);
@@ -33,7 +33,7 @@ public class SetScoreboardIdentityPacket extends DataPacket{
 		putUnsignedVarInt(entries.size());
 		for(Entry entry : entries){
 			putVarLong(entry.scoreboardId);
-			if(type === TYPE_REGISTER_IDENTITY){
+			if(type == TYPE_REGISTER_IDENTITY){
 				putEntityUniqueId(entry.entityUniqueId);
 			}
 		}
