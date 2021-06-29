@@ -14,7 +14,7 @@ import java.util.UUID;
 public class Main extends PluginBase implements Listener{
 
 	private HtopTask htopTask;
-	private ArrayList<UUID> htopUsers = new ArrayList<>();
+	private ArrayList<UUID> htopUsers = new ArrayList<UUID>();
 
 	@Override
 	public void onLoad(){
@@ -59,15 +59,15 @@ public class Main extends PluginBase implements Listener{
 	}
 
 	public boolean isHtopUser(Player player){
-		return htopUsers.contains(player.getUniqueId());
+		return htopUsers.contains((UUID) player.getUniqueId());
 	}
 
 	public void addHtopUser(Player player){
-		htopUsers.add(player.getUniqueId());
+		htopUsers.add((UUID) player.getUniqueId());
 	}
 
 	public void removeHtopUser(Player player){
-		htopUsers.remove(htopUsers.indexOf(player.getUniqueId()));
+		htopUsers.remove((UUID) htopUsers.indexOf(player.getUniqueId()));
 	}
 
 	@Override
