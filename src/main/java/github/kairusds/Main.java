@@ -2,7 +2,6 @@ package github.kairusds;
 
 import cn.nukkit.Player;
 import cn.nukkit.command.Command;
-import cn.nukkit.event.Listener;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.TextFormat;
 import github.kairusds.command.*;
@@ -11,9 +10,9 @@ import github.kairusds.task.HtopTask;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Main extends PluginBase implements Listener{
+public class Main extends PluginBase{
 
-	private HtopTask htopTask = null;
+	private HtopTask htopTask;
 	private ArrayList<UUID> htopUsers = new ArrayList<>();
 
 	@Override
@@ -27,6 +26,10 @@ public class Main extends PluginBase implements Listener{
 		getServer().getPluginManager().registerEvents(new EventListener(this), this);
 		registerCommands();
 		registerPackets();
+	}
+
+	public static Main getInstance(){
+		return this;
 	}
 
 	private void registerCommands(){
@@ -44,30 +47,30 @@ public class Main extends PluginBase implements Listener{
 		getServer().getNetwork().registerPacket(SetScorePacket.NETWORK_ID, SetScorePacket.class);
 	}
 
-	public boolean isHtopTaskRunning(){
+	public boolean isHtopTaskActive(){
 		return htopTask != null;
 	}
 
 	public void startHtopTask(){
-		this.htopTask = new HtopTask(this);
-		this.getServer().getScheduler().scheduleRepeatingTask(this, htopTask, 20);
+		htopTask = new HtopTask(this);
+		getServer().getScheduler().scheduleRepeatingTask(this, htopTask, 20);
 	}
 
 	public void stopHtopTask(){
-		this.htopTask.cancel();
-		this.htopTask = null;
+		htopTask.cancel();
+		htopTask = null;
 	}
 
 	public boolean isHtopUser(Player player){
-		return this.htopUsers.contains(player.getUniqueId());
+		return htopUsers.contains(player.getUniqueId());
 	}
 
 	public void addHtopUser(Player player){
-		this.htopUsers.add(player.getUniqueId());
+		htopUsers.add(player.getUniqueId());
 	}
 
 	public void removeHtopUser(Player player){
-		this.htopUsers.remove(htopUsers.indexOf(player.getUniqueId()));
+		htopUsers.remove(htopUsers.indexOf(player.getUniqueId()));
 	}
 
 	@Override
