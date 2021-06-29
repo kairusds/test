@@ -23,7 +23,7 @@ public class SetScorePacket extends DataPacket{
 			entry.scoreboardId = getVarLong();
 			entry.objectiveName = getString();
 			entry.score = getLInt();
-			if(type != this.TYPE_REMOVE){
+			if(type != TYPE_REMOVE){
 				entry.type = getByte();
 				switch(entry.type){
 					case Entry.TYPE_PLAYER:
@@ -48,7 +48,7 @@ public class SetScorePacket extends DataPacket{
 			putVarLong(entry.scoreboardId);
 			putString(entry.objectiveName);
 			putLInt(entry.score);
-			if(type != this.TYPE_REMOVE){
+			if(type != TYPE_REMOVE){
 				putByte(entry.type);
 				switch(entry.type){
 					case Entry.TYPE_PLAYER:

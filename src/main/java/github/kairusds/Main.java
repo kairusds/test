@@ -31,7 +31,7 @@ public class Main extends PluginBase implements Listener{
 
 	private void registerCommands(){
 		ArrayList<Command> commands = new ArrayList<>();
-		commands.add(new ImageMapCommand(this))
+		commands.add(new ImageMapCommand(this));
 		commands.add(new HtopCommand(this));
 		getServer().getCommandMap().registerAll("test", commands);
 	}
