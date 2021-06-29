@@ -17,6 +17,11 @@ public class SetScorePacket extends DataPacket{
 	public List<Entry> entries = new ArrayList<>();
 
 	@Override
+	public byte pid(){
+		return NETWORK_ID;
+	}
+
+	@Override
 	public void decode(){
 		type = getByte();
 		for(int i = 0, i2 = (int) getUnsignedVarInt();  i < i2; ++i){

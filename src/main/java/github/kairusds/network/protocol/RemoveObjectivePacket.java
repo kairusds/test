@@ -11,7 +11,7 @@ public class RemoveObjectivePacket extends DataPacket{
 	public String objectiveName;
 
 	@Override
-	public byte pid() {
+	public byte pid(){
 		return NETWORK_ID;
 	}
 
