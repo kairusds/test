@@ -15,7 +15,7 @@ public class HtopCommand extends Command implements PluginIdentifiableCommand{
 	public HtopCommand(Main main){
 		super("htop", "toggle server status hud", null, new String[0]);
 		setPermission("test.command.htop");
-		this.plugin = main;
+		plugin = main;
 	}
 
 	@Override
