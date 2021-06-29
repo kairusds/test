@@ -14,9 +14,9 @@ public class HtopTask extends PluginTask<Main>{
 	}
 
 	public void onRun(int currentTick){
-		for(Player player : getServer().getOnlinePlayers().values()){
+		Server server = getOwner().getServer();
+		for(Player player : server.getOnlinePlayers().values()){
 			String tpsColor = "§a";
-			Server server = getOwner().getServer();
 			float tps = server.getTicksPerSecond();
 
 			if(tps < 17){
@@ -39,7 +39,7 @@ public class HtopTask extends PluginTask<Main>{
 			}
 
 			String msg = "§7TPS: " + tpsColor + NukkitMath.round(tps, 2) + " §8||| §7Load: " + tpsColor + server.getTickUsage() + "§r\n";
-			Strig msg = "§7Memory: " + usageColor + usedMB + "§8/§b" + totalMB + "MB " + usageColor + NukkitMath.round(usage, 2) + "§7%";
+			String msg += "§7Memory: " + usageColor + usedMB + "§8/§b" + totalMB + "MB " + usageColor + NukkitMath.round(usage, 2) + "§7%";
 			player.sendActionBar(msg);
 		}
 	}

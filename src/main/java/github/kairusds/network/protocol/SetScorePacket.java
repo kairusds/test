@@ -2,6 +2,7 @@ package github.kairusds.network.protocol;
 
 import cn.nukkit.network.protocol.DataPacket;
 import lombok.ToString;
+import java.util.ArrayList;
 import java.util.List;
 
 @ToString
@@ -13,12 +14,12 @@ public class SetScorePacket extends DataPacket{
 	public static final int TYPE_REMOVE = 1;
 
 	public int type;
-	public List<Entry> entries = new List<>();
+	public List<Entry> entries = new ArrayList<>();
 
 	@Override
 	public void decode(){
 		type = getByte();
-		for(int i = 0;  i < (int) getUnsignedVarInt(); ++i){
+		for(int i = 0;  i < getUnsignedVarInt().intValue(); ++i){
 			Entry entry = new Entry();
 			entry.scoreboardId = getVarLong();
 			entry.objectiveName = getString();
@@ -41,7 +42,8 @@ public class SetScorePacket extends DataPacket{
 		}
 	}
 
-	public void encodePayload(){
+	@Override
+	public void encode(){
 		putByte(type);
 		putUnsignedVarInt(entries.size());
 		for(Entry entry : entries){
@@ -73,11 +75,10 @@ public class SetScorePacket extends DataPacket{
 
 		public int scoreboardId;
 		public String objectiveName;
-		public int $score;
-		public int $type;
+		public int score;
+		public int type;
 
-		// another hack ig
-		public Object entityUniqueId;
-		public Object customName;
+		public long entityUniqueId;
+		public String customName;
 	}
 }

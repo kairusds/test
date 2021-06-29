@@ -3,6 +3,7 @@ package github.kairusds.network.protocol;
 import cn.nukkit.network.protocol.DataPacket;
 import lombok.ToString;
 import java.util.List;
+import java.util.ArrayList;
 
 @ToString
 public class SetScoreboardIdentityPacket extends DataPacket{
@@ -13,13 +14,13 @@ public class SetScoreboardIdentityPacket extends DataPacket{
 	public static final int TYPE_CLEAR_IDENTITY = 1;
 
 	public int type;
-	public List<Entry> entries = new List<>();
+	public List<Entry> entries = new ArrayList<>();
 
 	@Override
 	public void decode(){
 		type = getByte();
-		for(int i = 0; i < (int) getUnsignedVarInt(); ++i){
-			entry = new Entry();
+		for(int i = 0; i < getUnsignedVarInt().intValue(); ++i){
+			Entry entry = new Entry();
 			entry.scoreboardId = getVarLong();
 			if(type == TYPE_REGISTER_IDENTITY){
 				entry.entityUniqueId = getEntityUniqueId();
@@ -28,7 +29,8 @@ public class SetScoreboardIdentityPacket extends DataPacket{
 		}
 	}
 
-	public void encodePayload(){
+	@Override
+	public void encode(){
 		putByte(type);
 		putUnsignedVarInt(entries.size());
 		for(Entry entry : entries){
@@ -41,7 +43,7 @@ public class SetScoreboardIdentityPacket extends DataPacket{
 
 	@ToString
 	public static class Entry{
-		public int scoreboardId;
-		public Object entityUniqueId;
+		public long scoreboardId;
+		public long entityUniqueId;
 	}
 }
