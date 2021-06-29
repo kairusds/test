@@ -64,7 +64,6 @@ public class Main extends PluginBase{
 	}
 
 	public boolean isHtopUser(Player player){
-		if(htopUsers.isEmpty()) return false;
 		return htopUsers.contains(player.getUniqueId());
 	}
 

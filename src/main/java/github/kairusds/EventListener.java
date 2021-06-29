@@ -14,12 +14,12 @@ public class EventListener implements Listener{
 
 	private Main plugin;
 
-	public EventListener(Main plugin){
-		this.plugin = plugin;
+	public EventListener(Main main){
+		plugin = main;
 	}
 
 	public Server getServer(){
-		return this.plugin.getServer();
+		return plugin.getServer();
 	}
 
 	@EventHandler
@@ -37,13 +37,13 @@ public class EventListener implements Listener{
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event){
-		this.plugin.startHtopTask();
+		plugin.startHtopTask();
 	}
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event){
-		if(this.plugin.isHtopActive() && getServer().getOnlinePlayers().size() < 1){
-			this.plugin.stopHtopTask();
+		if(plugin.isHtopActive() && getServer().getOnlinePlayers().size() < 1){
+			plugin.stopHtopTask();
 		}
 	}
 }

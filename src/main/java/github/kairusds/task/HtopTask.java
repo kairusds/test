@@ -16,31 +16,33 @@ public class HtopTask extends PluginTask<Main>{
 	public void onRun(int currentTick){
 		Server server = getOwner().getServer();
 		for(Player player : server.getOnlinePlayers().values()){
-			String tpsColor = "§a";
-			float tps = server.getTicksPerSecond();
-
-			if(tps < 17){
-				tpsColor = "§e";
-			}else if (tps < 12){
-				tpsColor = "§c";
+			if(getOwner().isHtopUser(player)){
+				String tpsColor = "§a";
+				float tps = server.getTicksPerSecond();
+	
+				if(tps < 17){
+					tpsColor = "§e";
+				}else if (tps < 12){
+					tpsColor = "§c";
+				}
+	
+				Runtime runtime = Runtime.getRuntime();
+				double totalMB = NukkitMath.round(((double) runtime.totalMemory()) / 1024 / 1024, 2);
+				double usedMB = NukkitMath.round((double) (runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024, 2);
+				double maxMB = NukkitMath.round(((double) runtime.maxMemory()) / 1024 / 1024, 2);
+				double usage = usedMB / maxMB * 100;
+				String usageColor = "§a";
+	
+				if(usage < 70){
+					usageColor = "§e";
+				}else if(usage > 70){
+					usageColor = "§c";
+				}
+	
+				String msg = "§7TPS: " + tpsColor + NukkitMath.round(tps, 2) + " §8||| §7Load: " + tpsColor + server.getTickUsage() + "§7%§r\n";
+				msg += "§7Memory: " + usageColor + usedMB + "§8/§b" + totalMB + "MB " + usageColor + NukkitMath.round(usage, 2) + "§7%";
+				player.sendActionBar(msg);
 			}
-
-			Runtime runtime = Runtime.getRuntime();
-			double totalMB = NukkitMath.round(((double) runtime.totalMemory()) / 1024 / 1024, 2);
-			double usedMB = NukkitMath.round((double) (runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024, 2);
-			double maxMB = NukkitMath.round(((double) runtime.maxMemory()) / 1024 / 1024, 2);
-			double usage = usedMB / maxMB * 100;
-			String usageColor = "§a";
-
-			if(usage < 70){
-				usageColor = "§e";
-			}else if(usage > 70){
-				usageColor = "§c";
-			}
-
-			String msg = "§7TPS: " + tpsColor + NukkitMath.round(tps, 2) + " §8||| §7Load: " + tpsColor + server.getTickUsage() + "§7%§r\n";
-			msg += "§7Memory: " + usageColor + usedMB + "§8/§b" + totalMB + "MB " + usageColor + NukkitMath.round(usage, 2) + "§7%";
-			player.sendActionBar(msg);
 		}
 	}
 

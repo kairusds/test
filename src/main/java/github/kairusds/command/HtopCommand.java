@@ -12,10 +12,10 @@ public class HtopCommand extends Command implements PluginIdentifiableCommand{
 
 	private Main plugin;
 
-	public HtopCommand(Main plugin){
+	public HtopCommand(Main main){
 		super("htop", "toggle server status hud", null, new String[0]);
 		setPermission("test.command.htop");
-		plugin = plugin;
+		this.plugin = main;
 	}
 
 	@Override
@@ -31,14 +31,14 @@ public class HtopCommand extends Command implements PluginIdentifiableCommand{
 		}
 
 		Player player = (Player) sender;
-		/*if(plugin.isHtopUser(player)){
+		if(plugin.isHtopUser(player)){
 			sender.sendMessage("Disabled htop.");
-			getPlugin().removeHtopUser(player);
+			plugin.removeHtopUser(player);
 			return true;
-		}*/
+		}
 
 		sender.sendMessage("Enabled htop.");
-		getPlugin().addHtopUser(player);
+		plugin.addHtopUser(player);
 		return true;
 	}
 
