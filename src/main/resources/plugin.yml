@@ -1,15 +1,26 @@
 name: test
 main: github.kairusds.Main
-version: "1.0.0"
+version: "1.1.0"
 api: ["1.0.13"]
 load: POSTWORLD
 author: kairusds
 
 permissions:
-  test.command.imagemap:
-    description: "poggers"
-    default: op
-#   children:
-#     exampleplugin.command.example.test:
-#       description: "Use the test feature in the example command"
-#       default: true
+  test:
+    default: false
+    children:
+      test.message:
+        default: false
+        children:
+          test.message.device:
+            description: "nanodesu"
+            default: op
+      test.command:
+        default: false
+        children:
+          test.command.imagemap:
+            description: "poggers"
+            default: op
+          test.command.htop:
+            description: "sugoi"
+            default: true

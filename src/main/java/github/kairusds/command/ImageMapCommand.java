@@ -1,7 +1,6 @@
 package github.kairusds.command;
 
 import cn.nukkit.Player;
-import github.kairusds.Main;
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.PluginIdentifiableCommand;
@@ -9,6 +8,7 @@ import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.item.ItemMap;
 import cn.nukkit.inventory.Inventory;
+import github.kairusds.Main;
 import java.net.URL;
 import java.net.HttpURLConnection;
 import javax.imageio.ImageIO;
@@ -48,8 +48,7 @@ public class ImageMapCommand extends Command implements PluginIdentifiableComman
 		}
 
 		ItemMap map = new ItemMap();
-		Player player = (Player) sender; // fuck maven compiler
-		Inventory inventory = player.getInventory();
+		Inventory inventory = ((Player) sender).getInventory(); // fuck java for this unholy solution
 
 		try{
 			sender.sendMessage("Getting url...");
