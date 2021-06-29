@@ -14,6 +14,7 @@ public class Main extends PluginBase{
 
 	private HtopTask htopTask = null;
 	private ArrayList<UUID> htopUsers = new ArrayList<>();
+	private static Main instance;
 
 	@Override
 	public void onLoad(){
@@ -22,14 +23,15 @@ public class Main extends PluginBase{
 
 	@Override
 	public void onEnable(){
+		instance = this;
 		getLogger().info(TextFormat.DARK_GREEN + "I've been enabled!");
 		getServer().getPluginManager().registerEvents(new EventListener(this), this);
 		registerCommands();
 		registerPackets();
 	}
 
-	public Main getInstance(){
-		return this;
+	public static Main getInstance(){
+		return instance;
 	}
 
 	private void registerCommands(){

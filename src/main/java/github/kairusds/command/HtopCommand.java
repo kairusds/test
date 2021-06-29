@@ -31,11 +31,11 @@ public class HtopCommand extends Command implements PluginIdentifiableCommand{
 		}
 
 		Player player = (Player) sender;
-		if(plugin.isHtopUser(player)){
+		/*if(plugin.isHtopUser(player)){
 			sender.sendMessage("Disabled htop.");
 			getPlugin().removeHtopUser(player);
 			return true;
-		}
+		}*/
 
 		sender.sendMessage("Enabled htop.");
 		getPlugin().addHtopUser(player);
