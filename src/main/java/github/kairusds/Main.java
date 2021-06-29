@@ -14,7 +14,7 @@ import java.util.UUID;
 public class Main extends PluginBase implements Listener{
 
 	private HtopTask htopTask = null;
-	private ArrayList<UUID> htopUsers = new ArrayList<UUID>();
+	private ArrayList<UUID> htopUsers = new ArrayList<>();
 
 	@Override
 	public void onLoad(){
@@ -49,25 +49,25 @@ public class Main extends PluginBase implements Listener{
 	}
 
 	public void startHtopTask(){
-		htopTask = new HtopTask(this);
-		getServer().getScheduler().scheduleRepeatingTask(this, htopTask, 20);
+		this.htopTask = new HtopTask(this);
+		this.getServer().getScheduler().scheduleRepeatingTask(this, htopTask, 20);
 	}
 
 	public void stopHtopTask(){
-		htopTask.cancel();
-		htopTask = null;
+		this.htopTask.cancel();
+		this.htopTask = null;
 	}
 
 	public boolean isHtopUser(Player player){
-		return htopUsers.contains((UUID) player.getUniqueId());
+		return this.htopUsers.contains('player.getUniqueId());
 	}
 
 	public void addHtopUser(Player player){
-		htopUsers.add((UUID) player.getUniqueId());
+		this.htopUsers.add(player.getUniqueId());
 	}
 
 	public void removeHtopUser(Player player){
-		htopUsers.remove(htopUsers.indexOf((UUID) player.getUniqueId()));
+		this.htopUsers.remove(htopUsers.indexOf(player.getUniqueId()));
 	}
 
 	@Override
