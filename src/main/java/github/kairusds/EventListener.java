@@ -22,7 +22,7 @@ public class EventListener implements Listener{
 		return plugin.getServer();
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onLogin(PlayerLoginEvent event){
 		LoginChainData loginData = event.getPlayer().getLoginChainData();
 		String info = "Device Model:" + loginData.getDeviceModel() + "\nDevice ID:" + loginData.getDeviceId() + "\nDevice OS:" + loginData.getDeviceOS();
@@ -35,17 +35,15 @@ public class EventListener implements Listener{
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onJoin(PlayerJoinEvent event){
-		if(!plugin.isHtopTaskActive()){
-			plugin.startHtopTask();
-		}
+		this.plugin.startHtopTask();
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onQuit(PlayerQuitEvent event){
 		if(plugin.isHtopTaskActive() && getServer().getOnlinePlayers().size() < 1){
-			plugin.stopHtopTask();
+			this.plugin.stopHtopTask();
 		}
 	}
 }

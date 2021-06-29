@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class Main extends PluginBase{
 
-	private HtopTask htopTask;
+	private HtopTask htopTask = null;
 	private ArrayList<UUID> htopUsers = new ArrayList<>();
 
 	@Override
@@ -47,7 +47,7 @@ public class Main extends PluginBase{
 		getServer().getNetwork().registerPacket(SetScorePacket.NETWORK_ID, SetScorePacket.class);
 	}
 
-	public boolean isHtopTaskActive(){
+	public boolean isHtopActive(){
 		return htopTask != null;
 	}
 
@@ -62,6 +62,7 @@ public class Main extends PluginBase{
 	}
 
 	public boolean isHtopUser(Player player){
+		if(htopUsers.isEmpty()) return false;
 		return htopUsers.contains(player.getUniqueId());
 	}
 
