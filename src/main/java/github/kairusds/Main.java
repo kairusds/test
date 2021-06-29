@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public class Main extends PluginBase implements Listener{
 
-	private HtopTask htopTask;
+	private HtopTask htopTask = null;
 	private ArrayList<UUID> htopUsers = new ArrayList<UUID>();
 
 	@Override
@@ -67,7 +67,7 @@ public class Main extends PluginBase implements Listener{
 	}
 
 	public void removeHtopUser(Player player){
-		htopUsers.remove((UUID) htopUsers.indexOf(player.getUniqueId()));
+		htopUsers.remove(htopUsers.indexOf((UUID) player.getUniqueId()));
 	}
 
 	@Override
