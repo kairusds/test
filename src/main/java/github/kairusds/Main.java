@@ -2,7 +2,7 @@ package github.kairusds;
 
 import cn.nukkit.Player;
 import cn.nukkit.command.Command;
-import cn.nukkit.network.protocol.DataPacket;
+import cn.nukkit.event.Listener;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.TextFormat;
 import github.kairusds.command.*;

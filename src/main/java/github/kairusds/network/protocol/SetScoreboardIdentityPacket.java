@@ -28,7 +28,7 @@ public class SetScoreboardIdentityPacket extends DataPacket{
 		}
 	}
 
-	protected function encodePayload(){
+	public void encodePayload(){
 		putByte(type);
 		putUnsignedVarInt(entries.size());
 		for(Entry entry : entries){
