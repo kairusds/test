@@ -28,7 +28,7 @@ public class Main extends PluginBase{
 		registerPackets();
 	}
 
-	public static Main getInstance(){
+	public Main getInstance(){
 		return this;
 	}
 
