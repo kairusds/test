@@ -59,7 +59,7 @@ public class Main extends PluginBase implements Listener{
 	}
 
 	public boolean isHtopUser(Player player){
-		return this.htopUsers.contains('player.getUniqueId());
+		return this.htopUsers.contains(player.getUniqueId());
 	}
 
 	public void addHtopUser(Player player){
