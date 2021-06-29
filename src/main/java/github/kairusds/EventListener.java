@@ -37,14 +37,14 @@ public class EventListener implements Listener{
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onJoin(PlayerJoinEvent event){
-		if(htopTask == null){
+		if(!plugin.isHtopTaskRunning()){
 			plugin.startHtopTask();
 		}
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onQuit(PlayerQuitEvent event){
-		if(htop != null && getServer().getOnlinePlayers().size() < 1){
+		if(!plugin.isHtopTaskRunning() && getServer().getOnlinePlayers().size() < 1){
 			plugin.stopHtopTask();
 		}
 	}

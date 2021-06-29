@@ -19,7 +19,7 @@ public class SetScoreboardIdentityPacket extends DataPacket{
 	@Override
 	public void decode(){
 		type = getByte();
-		for(int i = 0; i < getUnsignedVarInt().intValue(); ++i){
+		for(int i = 0, i2 = (int) getUnsignedVarInt();  i < i2; ++i){
 			Entry entry = new Entry();
 			entry.scoreboardId = getVarLong();
 			if(type == TYPE_REGISTER_IDENTITY){
@@ -31,7 +31,7 @@ public class SetScoreboardIdentityPacket extends DataPacket{
 
 	@Override
 	public void encode(){
-		putByte(type);
+		putByte((byte) type);
 		putUnsignedVarInt(entries.size());
 		for(Entry entry : entries){
 			putVarLong(entry.scoreboardId);

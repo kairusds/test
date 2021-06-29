@@ -19,7 +19,7 @@ public class SetScorePacket extends DataPacket{
 	@Override
 	public void decode(){
 		type = getByte();
-		for(int i = 0;  i < getUnsignedVarInt().intValue(); ++i){
+		for(int i = 0, i2 = (int) getUnsignedVarInt();  i < i2; ++i){
 			Entry entry = new Entry();
 			entry.scoreboardId = getVarLong();
 			entry.objectiveName = getString();
@@ -44,14 +44,14 @@ public class SetScorePacket extends DataPacket{
 
 	@Override
 	public void encode(){
-		putByte(type);
+		putByte((byte) type);
 		putUnsignedVarInt(entries.size());
 		for(Entry entry : entries){
 			putVarLong(entry.scoreboardId);
 			putString(entry.objectiveName);
 			putLInt(entry.score);
 			if(type != TYPE_REMOVE){
-				putByte(entry.type);
+				putByte((byte) entry.type);
 				switch(entry.type){
 					case Entry.TYPE_PLAYER:
 					case Entry.TYPE_ENTITY:
@@ -73,7 +73,7 @@ public class SetScorePacket extends DataPacket{
 		public static final int TYPE_ENTITY = 2;
 		public static final int TYPE_FAKE_PLAYER = 3;
 
-		public int scoreboardId;
+		public long scoreboardId;
 		public String objectiveName;
 		public int score;
 		public int type;

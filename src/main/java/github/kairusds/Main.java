@@ -44,6 +44,10 @@ public class Main extends PluginBase implements Listener{
 		getServer().getNetwork().registerPacket(SetScorePacket.NETWORK_ID, SetScorePacket.class);
 	}
 
+	public boolean isHtopTaskRunning(){
+		return htopTask != null;
+	}
+
 	public void startHtopTask(){
 		htopTask = new HtopTask(this);
 		getServer().getScheduler().scheduleRepeatingTask(this, htopTask, 20);
