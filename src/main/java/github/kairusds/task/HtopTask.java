@@ -38,8 +38,8 @@ public class HtopTask extends PluginTask<Main>{
 				usageColor = "§c";
 			}
 
-			String msg = "§7TPS: " + tpsColor + NukkitMath.round(tps, 2) + " §8||| §7Load: " + tpsColor + server.getTickUsage() + "§r\n";
-			String msg += "§7Memory: " + usageColor + usedMB + "§8/§b" + totalMB + "MB " + usageColor + NukkitMath.round(usage, 2) + "§7%";
+			String msg = "§7TPS: " + tpsColor + NukkitMath.round(tps, 2) + " §8||| §7Load: " + tpsColor + server.getTickUsage() + "§7%§r\n";
+			msg += "§7Memory: " + usageColor + usedMB + "§8/§b" + totalMB + "MB " + usageColor + NukkitMath.round(usage, 2) + "§7%";
 			player.sendActionBar(msg);
 		}
 	}
