@@ -44,7 +44,7 @@ public class EventListener implements Listener{
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onQuit(PlayerQuitEvent event){
-		if(!plugin.isHtopTaskRunning() && getServer().getOnlinePlayers().size() < 1){
+		if(plugin.isHtopTaskRunning() && getServer().getOnlinePlayers().size() < 1){
 			plugin.stopHtopTask();
 		}
 	}
