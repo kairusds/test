@@ -8,7 +8,7 @@ import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.entity.EntityDamageEvent;
 import static cn.nukkit.event.entity.EntityDamageEvent.DamageCause.*; // why am i doing this
-import cn.nukkiy.event.player.PlayerFormRespondedEvent;
+import cn.nukkit.event.player.PlayerFormRespondedEvent;
 import cn.nukkit.event.player.PlayerInteractEvent;
 import static cn.nukkit.event.player.PlayerInteractEvent.Action.*;
 import cn.nukkit.event.player.PlayerJoinEvent;
@@ -48,12 +48,15 @@ public class EventListener implements Listener{
 	@EventHandler
 	public void onFormRespond(PlayerFormRespondedEvent event){
 		Player player = event.getPlayer();
+		FormWindow window = event.getWindow();
 		FormResponse response = event.getResponse();
 
 		if(event.wasClosed()){
 			player.sendMessage("Form closed");
 		}
-		player.sendMessage(response.getClickedButtonId() + " " + response.getClickedButton().getText());
+		if(window instanceof FormWindowSimple){
+			player.sendMessage(response.getClickedButtonId() + " " + response.getClickedButton().getText());
+		}
 	}
 
 	@EventHandler
