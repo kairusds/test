@@ -15,6 +15,7 @@ import cn.nukkit.event.player.PlayerJoinEvent;
 import cn.nukkit.event.player.PlayerLoginEvent;
 import cn.nukkit.event.player.PlayerQuitEvent;
 import cn.nukkit.form.response.FormResponse;
+import cn.nukkit.form.response.FormResponseSimple;
 import cn.nukkit.form.window.FormWindow;
 import cn.nukkit.form.window.FormWindowSimple;
 import cn.nukkit.level.Sound;
@@ -40,7 +41,7 @@ public class EventListener implements Listener{
 			if(event.getCause() == FALL && entity.namedTag.contains("boosted")){ // i used nbt bc i dont wanna define an arraylist again
 				event.setCancelled();
 				entity.namedTag.remove("boosted");
-				player.getLevel().addSound(player, Sound.FALL_AMETHYST_BLOCK);
+				entity.getLevel().addSound(player, Sound.FALL_AMETHYST_BLOCK);
 			}
 		}
 	}
@@ -54,8 +55,10 @@ public class EventListener implements Listener{
 		if(event.wasClosed()){
 			player.sendMessage("Form closed");
 		}
+
 		if(window instanceof FormWindowSimple){
-			player.sendMessage(response.getClickedButtonId() + " " + response.getClickedButton().getText());
+			FormResponseSimple simpleResponse = (FormResponseSimple) response;
+			player.sendMessage(simpleResponse.getClickedButtonId() + " " + simpleResponse.getClickedButton().getText());
 		}
 	}
 
