@@ -9,7 +9,7 @@ import github.kairusds.Main;
 public class FormCommand extends BaseCommand{
 
 	public FormCommand(Main plugin){
-		super(plugin, "form", "show a simple form", "/form <title> <content>");
+		this(plugin, "form", "show a simple form", "/form <title> <content>");
 		commandParameters.clear();
 		commandParameters.put("default", new CommandParameter[]{
 			CommandParameter.newType("title", CommandParamType.STRING),

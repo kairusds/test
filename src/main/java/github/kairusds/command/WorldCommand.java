@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class WorldCommand extends BaseCommand{
 
 	public WorldCommand(Main plugin){
-		super(plugin, "world", "teleport to a world or list available ones", "/world [worldName]");
+		this(plugin, "world", "teleport to a world or list available ones", "/world [worldName]");
 		commandParameters.clear();
 		commandParameters.put("default", new CommandParameter[]{
 			CommandParameter.newType("worldName", CommandParamType.STRING)

@@ -8,7 +8,7 @@ import github.kairusds.Main;
 
 public class BaseCommand extends Command implements PluginIdentifiableCommand{
 
-	private Main plugin;
+	protected Main plugin;
 
 	// plugin, name, description, usage, aliases, permission
 	public BaseCommand(Main main, String name, String description){

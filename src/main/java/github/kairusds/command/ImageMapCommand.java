@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 public class ImageMapCommand extends BaseCommand{
 
 	public ImageMapCommand(Main plugin){
-		super(plugin, "imagemap", "get a map with a custom image", null, new String[]{"im"});
+		this(plugin, "imagemap", "get a map with a custom image", null, new String[]{"im"});
 		setPermission("kairusds.command.imagemap");
 	}
 

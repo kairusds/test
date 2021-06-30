@@ -8,7 +8,7 @@ import github.kairusds.manager.HtopManager;
 public class HtopCommand extends BaseCommand{
 
 	public HtopCommand(Main plugin){
-		super(plugin, "htop", "toggle server status hud");
+		this(plugin, "htop", "toggle server status hud");
 		setPermission("kairusds.command.htop");
 	}
 
@@ -21,7 +21,7 @@ public class HtopCommand extends BaseCommand{
 		}
 
 		Player player = (Player) sender;
-		HtopManager manager = plugin.getHtopManager();
+		HtopManager manager = getPlugin().getHtopManager();
 		if(manager.isUser(player)){
 			sender.sendMessage("§7Disabled htop.");
 			manager.removeUser(player);
