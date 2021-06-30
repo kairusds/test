@@ -41,7 +41,7 @@ public class EventListener implements Listener{
 			if(event.getCause() == FALL && entity.namedTag.contains("boosted")){ // i used nbt bc i dont wanna define an arraylist again
 				event.setCancelled();
 				entity.namedTag.remove("boosted");
-				entity.getLevel().addSound(player, Sound.FALL_AMETHYST_BLOCK);
+				entity.getLevel().addSound(entity, Sound.FALL_AMETHYST_BLOCK);
 			}
 		}
 	}
