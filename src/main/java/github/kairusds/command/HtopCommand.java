@@ -8,13 +8,13 @@ import github.kairusds.manager.HtopManager;
 public class HtopCommand extends BaseCommand{
 
 	public HtopCommand(Main plugin){
-		this(plugin, "htop", "toggle server status hud");
+		super(plugin, "htop", "toggle server status hud");
 		setPermission("kairusds.command.htop");
 	}
 
 	@Override
 	public boolean execute(CommandSender sender, String commandLabel, String[] args){
-		super(sender, commandLabel, args);
+		super.execute(sender, commandLabel, args);
 		if(!sender.isPlayer()){
 			sender.sendMessage("no console allowed");
 			return true;

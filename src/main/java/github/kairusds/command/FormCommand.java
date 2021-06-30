@@ -9,7 +9,7 @@ import github.kairusds.Main;
 public class FormCommand extends BaseCommand{
 
 	public FormCommand(Main plugin){
-		this(plugin, "form", "show a simple form", "/form <title> <content>");
+		super(plugin, "form", "show a simple form", "/form <title> <content>");
 		commandParameters.clear();
 		commandParameters.put("default", new CommandParameter[]{
 			CommandParameter.newType("title", CommandParamType.STRING),
@@ -20,7 +20,7 @@ public class FormCommand extends BaseCommand{
 
 	@Override
 	public boolean execute(CommandSender sender, String commandLabel, String[] args){
-		super(sender, commandLabel, args);
+		super.execute(sender, commandLabel, args);
 		if(!sender.isPlayer()){
 			sender.sendMessage("no console allowed");
 			return true;

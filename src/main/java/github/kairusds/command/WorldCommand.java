@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class WorldCommand extends BaseCommand{
 
 	public WorldCommand(Main plugin){
-		this(plugin, "world", "teleport to a world or list available ones", "/world [worldName]");
+		super(plugin, "world", "teleport to a world or list available ones", "/world [worldName]");
 		commandParameters.clear();
 		commandParameters.put("default", new CommandParameter[]{
 			CommandParameter.newType("worldName", CommandParamType.STRING)
@@ -21,7 +21,7 @@ public class WorldCommand extends BaseCommand{
 
 	@Override
 	public boolean execute(CommandSender sender, String commandLabel, String[] args){
-		super(sender, commandLabel, args);
+		super.execute(sender, commandLabel, args);
 		if(!sender.isPlayer()){
 			sender.sendMessage("no console allowed");
 			return true;

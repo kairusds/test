@@ -13,13 +13,13 @@ import java.awt.image.BufferedImage;
 public class ImageMapCommand extends BaseCommand{
 
 	public ImageMapCommand(Main plugin){
-		this(plugin, "imagemap", "get a map with a custom image", null, new String[]{"im"});
+		super(plugin, "imagemap", "get a map with a custom image", null, new String[]{"im"});
 		setPermission("kairusds.command.imagemap");
 	}
 
 	@Override
 	public boolean execute(CommandSender sender, String commandLabel, String[] args){
-		super(sender, commandLabel, args);
+		super.execute(sender, commandLabel, args);
 		if(!sender.isPlayer()){
 			sender.sendMessage("no console allowed");
 			return true;
