@@ -15,7 +15,7 @@ public class HtopManager{
 	private ArrayList<UUID> users = new ArrayList<>();
 
 	public HtopManager(Main main){
-		plugin = Main;
+		plugin = main;
 	}
 
 	Server getServer(){
