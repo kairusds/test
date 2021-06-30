@@ -8,19 +8,22 @@ import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.entity.EntityDamageEvent;
 import static cn.nukkit.event.entity.EntityDamageEvent.DamageCause.*; // why am i doing this
+import cn.nukkiy.event.player.PlayerFormRespondedEvent;
 import cn.nukkit.event.player.PlayerInteractEvent;
 import static cn.nukkit.event.player.PlayerInteractEvent.Action.*;
 import cn.nukkit.event.player.PlayerJoinEvent;
 import cn.nukkit.event.player.PlayerLoginEvent;
 import cn.nukkit.event.player.PlayerQuitEvent;
+import cn.nukkit.form.response.FormResponse;
+import cn.nukkit.form.window.FormWindow;
+import cn.nukkit.form.window.FormWindowSimple;
+import cn.nukkit.level.Sound;
 import cn.nukkit.utils.LoginChainData;
 import github.kairusds.manager.*;
 
 public class EventListener implements Listener{
 
 	private Main plugin;
-
-	private final String NO_FALL_NAME = "boosted";
 
 	public EventListener(Main main){
 		plugin = main;
@@ -34,11 +37,23 @@ public class EventListener implements Listener{
 	public void onDamage(EntityDamageEvent event){
 		Entity entity = event.getEntity();
 		if(entity instanceof Player){
-			if(event.getCause() == FALL && entity.namedTag.contains(NO_FALL_NAME)){ // i used nbt bc i dont wanna define an arraylist again
+			if(event.getCause() == FALL && entity.namedTag.contains("boosted")){ // i used nbt bc i dont wanna define an arraylist again
 				event.setCancelled();
-				entity.namedTag.remove(NO_FALL_NAME);
+				entity.namedTag.remove("boosted");
+				player.getLevel().addSound(player, Sound.FALL_AMETHYST_BLOCK);
 			}
 		}
+	}
+
+	@EventHandler
+	public void onFormRespond(PlayerFormRespondedEvent event){
+		Player player = event.getPlayer();
+		FormResponse response = event.getResponse();
+
+		if(event.wasClosed()){
+			player.sendMessage("Form closed");
+		}
+		player.sendMessage(response.getClickedButtonId() + " " + response.getClickedButton().getText());
 	}
 
 	@EventHandler
@@ -67,9 +82,10 @@ public class EventListener implements Listener{
 	public void onInteract(PlayerInteractEvent event){
 		Player player = event.getPlayer();
 		if(event.getAction() == RIGHT_CLICK_AIR && player.getInventory().getItemInHand().getId() == 280){
-			if(!player.namedTag.contains(NO_FALL_NAME)) player.namedTag.putByte(NO_FALL_NAME, 1);
+			if(!player.namedTag.contains("boosted")) player.namedTag.putByte("boosted", 1);
 			player.setMotion(event.getTouchVector());
-			// add sound and particles
+			player.getLevel().addSound(player, Sound.MOB_SHULKER_SHOOT);
+			// particle later
 		}
 	}
 
