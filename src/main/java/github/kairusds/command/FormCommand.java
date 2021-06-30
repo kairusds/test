@@ -5,7 +5,6 @@ import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.PluginIdentifiableCommand;
 import github.kairusds.Main;
-import github.kairusds.Permissions;
 
 public class FormCommand extends Command implements PluginIdentifiableCommand{
 
@@ -14,7 +13,7 @@ public class FormCommand extends Command implements PluginIdentifiableCommand{
 	public FormCommand(Main main){
 		super("form", "show a simple form", "/form <title> <content>");
 		plugin = main;
-		setPermission(Permissions.COMMAND_FORM);
+		setPermission("kairusds.command.form");
 	}
 
 	@Override

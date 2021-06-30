@@ -5,7 +5,6 @@ import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.PluginIdentifiableCommand;
 import github.kairusds.Main;
-import github.kairusds.Permissions;
 import github.kairusds.manager.HtopManager;
 
 public class HtopCommand extends Command implements PluginIdentifiableCommand{
@@ -15,7 +14,7 @@ public class HtopCommand extends Command implements PluginIdentifiableCommand{
 	public HtopCommand(Main main){
 		super("htop", "toggle server status hud");
 		plugin = main;
-		setPermission(Permissions.COMMAND_HTOP);
+		setPermission("kairusds.command.htop");
 	}
 
 	@Override

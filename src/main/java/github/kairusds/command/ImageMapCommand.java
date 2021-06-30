@@ -21,7 +21,7 @@ public class ImageMapCommand extends Command implements PluginIdentifiableComman
 	public ImageMapCommand(Main main){
 		super("imagemap", "get a map with a custom image", null, new String[]{"im"});
 		plugin = main;
-		setPermission(Permissions.COMMAND_IMAGE_MAP);
+		setPermission("kairusds.command.imagemap");
 	}
 
 	@Override

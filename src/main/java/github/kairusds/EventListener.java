@@ -48,7 +48,7 @@ public class EventListener implements Listener{
 		getServer().getLogger().info(msg);
 
 		for(Player player : getServer().getOnlinePlayers().values()){
-			if(player.hasPermission(Permissions.DEVICE_INFO_MESSAGE)){
+			if(player.hasPermission("kairusds.message.device")){
 				player.sendMessage(msg);
 			}
 		}
