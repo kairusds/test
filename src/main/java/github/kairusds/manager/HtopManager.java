@@ -28,7 +28,7 @@ public class HtopManager{
 
 	public void startTask(){
 		task = new HtopTask(plugin);
-		getServer().getScheduler().scheduleRepeatingTask(this, task, 20);
+		getServer().getScheduler().scheduleRepeatingTask(plugin, task, 20);
 	}
 
 	public void stopTask(){
