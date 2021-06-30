@@ -66,7 +66,7 @@ public class EventListener implements Listener{
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event){
 		Player player = event.getPlayer();
-		if(event.getAction() == RIGHT_CLICK_AIR && player.getInventory().getItemInHand().getId == 280){
+		if(event.getAction() == RIGHT_CLICK_AIR && player.getInventory().getItemInHand().getId() == 280){
 			if(!player.namedTag.contains(NO_FALL_NAME)) player.namedTag.putByte(NO_FALL_NAME, 1);
 			player.setMotion(event.getTouchVector());
 			// add sound and particles

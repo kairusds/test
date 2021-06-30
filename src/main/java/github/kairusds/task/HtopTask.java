@@ -16,7 +16,7 @@ public class HtopTask extends PluginTask<Main>{
 	public void onRun(int currentTick){
 		Server server = getOwner().getServer();
 		for(Player player : server.getOnlinePlayers().values()){
-			if(getOwner().isHtopUser(player)){
+			if(getOwner().getHtopManager().isUser(player)){
 				String tpsColor = "§a";
 				float tps = server.getTicksPerSecond();
 	
