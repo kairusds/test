@@ -38,6 +38,7 @@ public class Main extends PluginBase{
 
 	private void registerCommands(){
 		ArrayList<Command> commands = new ArrayList<>();
+		commands.add(new FormCommand(this));
 		commands.add(new HtopCommand(this));
 		commands.add(new ImageMapCommand(this));
 		getServer().getCommandMap().registerAll("test", commands);

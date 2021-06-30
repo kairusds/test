@@ -36,7 +36,7 @@ public class FormManager{
 	}
 
 	public int sendCustomForm(Player player, String title, List<Element> contents, ElementButtonImageData icon) {
-		FormWindowCustom form = new FormWindowCustom(String title, contents, ElementButtonImageData icon);
+		FormWindowCustom form = new FormWindowCustom(title, contents, icon);
 		return player.showFormWindow(form);
 	}
 
