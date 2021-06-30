@@ -18,7 +18,7 @@ permissions:
             description: "nanodesu"
             default: op
       kairusds.command:
-        default: false
+        default: op
         children:
           kairusds.command.form:
             description: "doshite"
@@ -28,4 +28,7 @@ permissions:
             default: true
           kairusds.command.imagemap:
             description: "poggers"
+            default: op
+          kairusds.command.world:
+            description: "nandayo"
             default: op

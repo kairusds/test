@@ -3,27 +3,19 @@ package github.kairusds.command;
 import cn.nukkit.Player;
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
-import cn.nukkit.command.PluginIdentifiableCommand;
 import github.kairusds.Main;
 import github.kairusds.manager.HtopManager;
 
-public class HtopCommand extends Command implements PluginIdentifiableCommand{
+public class HtopCommand extends BaseCommand{
 
-	private Main plugin;
-
-	public HtopCommand(Main main){
-		super("htop", "toggle server status hud");
-		plugin = main;
+	public HtopCommand(Main plugin){
+		super(plugin, "htop", "toggle server status hud");
 		setPermission("kairusds.command.htop");
 	}
 
 	@Override
-	public Main getPlugin() {
-		return plugin;
-	}
-
-	@Override
 	public boolean execute(CommandSender sender, String commandLabel, String[] args){
+		super(sender, commandLabel, args);
 		if(!sender.isPlayer()){
 			sender.sendMessage("no console allowed");
 			return true;

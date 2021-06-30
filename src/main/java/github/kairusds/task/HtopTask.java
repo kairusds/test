@@ -38,9 +38,9 @@ public class HtopTask extends PluginTask<Main>{
 				}else if(usage > 70){
 					usageColor = "§c";
 				}
-	
-				String msg = "§7TPS: " + tpsColor + NukkitMath.round(tps, 2) + " §8||| §7Load: " + tpsColor + server.getTickUsage() + "§7%§r\n";
-				msg += "§7Memory: " + usageColor + usedMB + "§8/§b" + totalMB + "MB " + usageColor + NukkitMath.round(usage, 2) + "§7%";
+
+				StringBuilder msg = new StringBuilder("§7TPS: " + tpsColor + NukkitMath.round(tps, 2) + " §8— §7Load: " + tpsColor + server.getTickUsage() + "§7%§r\n");
+				msg.append("§7Memory: " + usageColor + usedMB + "§8/§b" + totalMB + "MB §8(" + usageColor + NukkitMath.round(usage, 2) + "§7%§8)");
 				player.sendActionBar(msg);
 			}
 		}

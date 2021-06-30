@@ -30,7 +30,7 @@ public class EventListener implements Listener{
 		plugin = main;
 	}
 
-	Server getServer(){
+	protected Server getServer(){
 		return plugin.getServer();
 	}
 
@@ -53,7 +53,7 @@ public class EventListener implements Listener{
 		FormResponse response = event.getResponse();
 
 		if(event.wasClosed()){
-			player.sendMessage("Form closed");
+			player.sendMessage("§7Form closed.");
 		}
 
 		if(window instanceof FormWindowSimple){

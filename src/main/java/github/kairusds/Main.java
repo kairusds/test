@@ -16,16 +16,17 @@ public class Main extends PluginBase{
 	private static Main instance;
 	private FormManager formManager;
 	private HtopManager htopManager;
+	private ImageMapManager imageMapManager;
 
 	@Override
 	public void onLoad(){
-		getLogger().info(TextFormat.WHITE + "I've been loaded!");
+		getLogger().info(TextFormat.WHITE + "Let's");
 	}
 
 	@Override
 	public void onEnable(){
 		instance = this;
-		getLogger().info(TextFormat.DARK_GREEN + "I've been enabled!");
+		getLogger().info(TextFormat.DARK_GREEN + "FUCKING GOOOOOOOOO");
 		getServer().getPluginManager().registerEvents(new EventListener(this), this);
 		registerCommands();
 		registerPackets();
@@ -55,6 +56,7 @@ public class Main extends PluginBase{
 	public void setManagers(){
 		formManager = new FormManager(this);
 		htopManager = new HtopManager(this);
+		imageMapManager = new ImageMapManager(this);
 	}
 
 	public FormManager getFormManager(){
@@ -65,8 +67,12 @@ public class Main extends PluginBase{
 		return htopManager;
 	}
 
+	public ImageMapManager getImageMapManager(){
+		return imageMapManager;
+	}
+
 	@Override
 	public void onDisable(){
-		getLogger().info(TextFormat.DARK_RED + "I've been disabled!");
+		getLogger().info(TextFormat.DARK_RED + "deez nuts");
 	}
 }

@@ -3,9 +3,6 @@ package github.kairusds.command;
 import cn.nukkit.Player;
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
-import cn.nukkit.command.PluginIdentifiableCommand;
-import cn.nukkit.command.data.CommandParameter;
-import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.item.ItemMap;
 import cn.nukkit.inventory.Inventory;
 import github.kairusds.Main;
@@ -14,26 +11,16 @@ import java.net.HttpURLConnection;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
-public class ImageMapCommand extends Command implements PluginIdentifiableCommand{
+public class ImageMapCommand extends BaseCommand{
 
-	private Main plugin;
-
-	public ImageMapCommand(Main main){
-		super("imagemap", "get a map with a custom image", null, new String[]{"im"});
-		plugin = main;
+	public ImageMapCommand(Main plugin){
+		super(plugin, "imagemap", "get a map with a custom image", null, new String[]{"im"});
 		setPermission("kairusds.command.imagemap");
 	}
 
 	@Override
-	public Main getPlugin() {
-		return plugin;
-	}
-
-	@Override
 	public boolean execute(CommandSender sender, String commandLabel, String[] args){
-		if(!this.testPermission(sender)){
-			return true;
-		}
+		super(sender, commandLabel, args);
 		if(!sender.isPlayer()){
 			sender.sendMessage("no console allowed");
 			return true;
