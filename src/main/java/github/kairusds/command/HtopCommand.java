@@ -1,7 +1,6 @@
 package github.kairusds.command;
 
 import cn.nukkit.Player;
-import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import github.kairusds.Main;
 import github.kairusds.manager.HtopManager;

@@ -1,6 +1,7 @@
 package github.kairusds.command;
 
 import cn.nukkit.Player;
+import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.level.Level;
