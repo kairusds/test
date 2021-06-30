@@ -7,7 +7,7 @@ import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.entity.EntityDamageEvent;
-import static cn.nukkit.event.player.EntityDamageEvent.DamageCause.*; // why am i doing this
+import static cn.nukkit.event.entity.EntityDamageEvent.DamageCause.*; // why am i doing this
 import cn.nukkit.event.player.PlayerInteractEvent;
 import static cn.nukkit.event.player.PlayerInteractEvent.Action.*;
 import cn.nukkit.event.player.PlayerJoinEvent;
