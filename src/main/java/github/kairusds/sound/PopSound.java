@@ -1,7 +1,7 @@
 package github.kairusds.sound;
 
 import cn.nukkit.math.Vector3;
-import cn.nukkit.network.protocol.LevelEventPacket;
+import cn.nukkit.level.sound.LevelEventSound;
 
 public class PopSound extends LevelEventSound {
 

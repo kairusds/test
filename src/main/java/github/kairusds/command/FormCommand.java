@@ -7,11 +7,11 @@ import cn.nukkit.command.PluginIdentifiableCommand;
 import github.kairusds.Main;
 import github.kairusds.Permissions;
 
-public class HtopCommand extends Command implements PluginIdentifiableCommand{
+public class FormCommand extends Command implements PluginIdentifiableCommand{
 
 	private Main plugin;
 
-	public HtopCommand(Main main){
+	public FormCommand(Main main){
 		super("form", "show a simple form", "/form <title> <content>");
 		plugin = main;
 		setPermission(Permissions.COMMAND_FORM);

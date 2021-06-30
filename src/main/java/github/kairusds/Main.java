@@ -6,7 +6,7 @@ import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.TextFormat;
 import github.kairusds.command.*;
 import github.kairusds.protocol.*;
-import github.kaurusds.manager.*;
+import github.kairusds.manager.*;
 import github.kairusds.task.HtopTask;
 import java.util.ArrayList;
 import java.util.UUID;
