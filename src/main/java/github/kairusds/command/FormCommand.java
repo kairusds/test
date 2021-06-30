@@ -6,16 +6,15 @@ import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.PluginIdentifiableCommand;
 import github.kairusds.Main;
 import github.kairusds.Permissions;
-import github.kairusds.manager.HtopManager;
 
 public class HtopCommand extends Command implements PluginIdentifiableCommand{
 
 	private Main plugin;
 
 	public HtopCommand(Main main){
-		super("htop", "toggle server status hud");
+		super("form", "show a simple form", "/form <title> <content>");
 		plugin = main;
-		setPermission(Permissions.COMMAND_HTOP);
+		setPermission(Permissions.COMMAND_FORM);
 	}
 
 	@Override
@@ -25,21 +24,20 @@ public class HtopCommand extends Command implements PluginIdentifiableCommand{
 
 	@Override
 	public boolean execute(CommandSender sender, String commandLabel, String[] args){
+		if(!this.testPermission(sender)){
+			return true;
+		}
+
 		if(!sender.isPlayer()){
 			sender.sendMessage("no console allowed");
 			return true;
 		}
 
-		Player player = (Player) sender;
-		HtopManager manager = plugin.getHtopManager();
-		if(manager.isUser(player)){
-			sender.sendMessage("§7Disabled htop.");
-			manager.removeUser(player);
-			return true;
+		if(args.length < 2){
+			sender.sendMessage("§7" + usageMessage);
 		}
 
-		sender.sendMessage("§aEnabled htop.");
-		manager.addUser(player);
+		plugin.getFormManager().sendSimpleForm((Player) sender, args[0], args[1]);
 		return true;
 	}
 

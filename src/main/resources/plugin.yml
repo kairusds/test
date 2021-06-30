@@ -1,26 +1,31 @@
-name: test
+name: Magnolia
 main: github.kairusds.Main
-version: "1.1.0"
+version: "1.2.0"
 api: ["1.0.13"]
 load: POSTWORLD
 author: kairusds
+description: "Life is an endless abyss with no purpose, we were all born to slave away for nothing and then die in complete agony."
+website: "https://github.com/kairusds"
 
 permissions:
-  test:
+  kairusds:
     default: false
     children:
-      test.message:
+      kairusds.message:
         default: false
         children:
-          test.message.device:
+          kairusds.message.device:
             description: "nanodesu"
             default: op
-      test.command:
+      kairusds.command:
         default: false
         children:
-          test.command.imagemap:
-            description: "poggers"
+          kairusds.command.form:
+            description: "doshite"
             default: op
-          test.command.htop:
+          kairusds.command.htop:
             description: "sugoi"
             default: true
+          kairusds.command.imagemap:
+            description: "poggers"
+            default: op

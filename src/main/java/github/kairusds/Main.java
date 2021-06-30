@@ -5,16 +5,17 @@ import cn.nukkit.command.Command;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.TextFormat;
 import github.kairusds.command.*;
-import github.kairusds.network.protocol.*;
+import github.kairusds.protocol.*;
+import github.kaurusds.manager.*;
 import github.kairusds.task.HtopTask;
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class Main extends PluginBase{
 
-	private HtopTask htopTask = null;
-	private ArrayList<UUID> htopUsers = new ArrayList<>();
 	private static Main instance;
+	private FormManager formManager;
+	private HtopManager htopManager;
 
 	@Override
 	public void onLoad(){
@@ -28,6 +29,7 @@ public class Main extends PluginBase{
 		getServer().getPluginManager().registerEvents(new EventListener(this), this);
 		registerCommands();
 		registerPackets();
+		setManagers();
 	}
 
 	public static Main getInstance(){
@@ -36,8 +38,8 @@ public class Main extends PluginBase{
 
 	private void registerCommands(){
 		ArrayList<Command> commands = new ArrayList<>();
-		commands.add(new ImageMapCommand(this));
 		commands.add(new HtopCommand(this));
+		commands.add(new ImageMapCommand(this));
 		getServer().getCommandMap().registerAll("test", commands);
 	}
 
@@ -49,30 +51,17 @@ public class Main extends PluginBase{
 		getServer().getNetwork().registerPacket(SetScorePacket.NETWORK_ID, SetScorePacket.class);
 	}
 
-	public boolean isHtopActive(){
-		return htopTask != null;
+	public void setManagers(){
+		formManager = new FormManager(this);
+		htopManager = new HtopManager(this);
 	}
 
-	public void startHtopTask(){
-		htopTask = new HtopTask(this);
-		getServer().getScheduler().scheduleRepeatingTask(this, htopTask, 20);
+	public FormManager getFormManager(){
+		return formManager;
 	}
 
-	public void stopHtopTask(){
-		htopTask.cancel();
-		htopTask = null;
-	}
-
-	public boolean isHtopUser(Player player){
-		return htopUsers.contains(player.getUniqueId());
-	}
-
-	public void addHtopUser(Player player){
-		htopUsers.add(player.getUniqueId());
-	}
-
-	public void removeHtopUser(Player player){
-		htopUsers.remove(htopUsers.indexOf(player.getUniqueId()));
+	public HtopManager getHtopManager(){
+		return htopManager;
 	}
 
 	@Override

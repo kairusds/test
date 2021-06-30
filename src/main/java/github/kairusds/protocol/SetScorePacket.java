@@ -1,4 +1,4 @@
-package github.kairusds.network.protocol;
+package github.kairusds.protocol;
 
 import cn.nukkit.network.protocol.DataPacket;
 import lombok.ToString;

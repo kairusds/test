@@ -18,14 +18,10 @@ public class ImageMapCommand extends Command implements PluginIdentifiableComman
 
 	private Main plugin;
 
-	public ImageMapCommand(Main plugin){
-		super("imagemap", "get a map with a custom image from a url", "/imagemap <url>", new String[]{"im"});
-		setPermission("test.command.imagemap");
-		plugin = plugin;
-		commandParameters.clear();
-		commandParameters.put("imagemap", new CommandParameter[]{
-			CommandParameter.newType("url", CommandParamType.STRING)
-		});
+	public ImageMapCommand(Main main){
+		super("imagemap", "get a map with a custom image", null, new String[]{"im"});
+		plugin = main;
+		setPermission(Permissions.COMMAND_IMAGE_MAP);
 	}
 
 	@Override
@@ -42,30 +38,28 @@ public class ImageMapCommand extends Command implements PluginIdentifiableComman
 			sender.sendMessage("no console allowed");
 			return true;
 		}
-		if(args.length < 1){
-			sender.sendMessage("Usage: " + usageMessage);
-			return true;
-		}
 
 		ItemMap map = new ItemMap();
 		Inventory inventory = ((Player) sender).getInventory(); // fuck java for this unholy solution
 
 		try{
-			sender.sendMessage("Getting url...");
+			sender.sendMessage("§7Fetching image...");
 			URL url = new URL(args[0]);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("HEAD");
 
 			if(connection.getResponseCode() != 200){
-				sender.sendMessage("Failed. Cannot fetch image from URL.");
+				sender.sendMessage("§cImage URL is inaccessible.");
 				return true;
 			}
 
 			BufferedImage image = ImageIO.read(url);
 			map.setImage(image);
+			sender.sendMessage("§bImage Map §ahas been successfully created.");
 			connection.disconnect();
 		}catch(Exception error){
-			sender.sendMessage("Failure.");
+			sender.sendMessage("§cA fatal error has occured, check the server console for more details.");
+			plugin.getServer().getLogger().error(error.toString());
 		}
 		
 		if(inventory.canAddItem(map)){
