@@ -4,9 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>github.kairusds</groupId>
-	<artifactId>test</artifactId>
-	<version>1.0.0</version>
-	<name>Test</name>
+	<artifactId>Magnolia</artifactId>
+	<version>1.2.0</version>
+	<name>Magnolia</name>
+	<description>Nukkity</description>
+	<url>https://github.com/kairusds</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
