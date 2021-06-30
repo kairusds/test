@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class WorldCommand extends BaseCommand{
 
-	public FormCommand(Main plugin){
+	public WorldCommand(Main plugin){
 		super(plugin, "world", "teleport to a world or list available ones", "/world [worldName]");
 		commandParameters.clear();
 		commandParameters.put("default", new CommandParameter[]{
