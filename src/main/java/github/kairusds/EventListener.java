@@ -24,8 +24,8 @@ import cn.nukkit.level.Level;
 import cn.nukkit.level.Sound;
 import cn.nukkit.level.particle.CriticalParticle;
 import cn.nukkit.level.particle.LavaDripParticle;
+import cn.nukkit.math.Vector3;
 import cn.nukkit.utils.LoginChainData;
-import cn.nukkit.utils.Vector3;
 import github.kairusds.manager.*;
 import java.util.HashMap;
 
