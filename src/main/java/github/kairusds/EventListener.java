@@ -197,7 +197,7 @@ public class EventListener implements Listener{
 			if(!inventory.contains(Item.ARROW) && !inventory.canAddItem(Item.get(Item.ARROW))) return;
 			inventory.addItem(Item.get(Item.ARROW));
 			heldItem.onRelease(player, 5);
-			inventory.setItemInHand(Item.get(heldItem, 0));
+			inventory.setItemInHand(Item.get(heldItem.getId(), 0));
 		}
 	}
 
