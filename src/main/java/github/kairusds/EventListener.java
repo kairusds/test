@@ -116,7 +116,7 @@ public class EventListener implements Listener{
 				}
 
 				if(player.getNameTag() != nameTag){
-					player.setDisplayName(nameTag);
+					player.setNameTag(nameTag);
 					changes.append("§enametag §7-> §b" + nameTag);
 				}
 
