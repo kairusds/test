@@ -61,7 +61,7 @@ public class EventListener implements Listener{
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onFormRespond(PlayerFormRespondedEvent event){
 		Player player = event.getPlayer();
 		FormWindow window = event.getWindow();
@@ -84,6 +84,7 @@ public class EventListener implements Listener{
 				for(HashMap.Entry<Integer, Object> element : ((FormResponseCustom) response).getResponses().entrySet()){
 					player.sendMessage(element.getKey() + " - " + element.getValue().toString());
 				}
+				manager.removeUser(player);
 			}
 		}
 
@@ -125,8 +126,8 @@ public class EventListener implements Listener{
 			event.setCancelled();
 			if(!player.namedTag.contains("boosted")) player.namedTag.putByte("boosted", 1);
 			player.setAllowFlight(true);
-			player.setMotion(touchVector.multiply(1.3));
-			level.addSound(player, Sound.MOB_SHULKER_SHOOT, 4.0f, 5.0f);
+			player.setMotion(touchVector.multiply(1.7));
+			level.addSound(player, Sound.MOB_SHULKER_SHOOT);
 			level.addParticle(new CriticalParticle(touchVector.north(1)));
 			level.addParticle(new CriticalParticle(touchVector.south(1)));
 			level.addParticle(new CriticalParticle(touchVector.east(1)));
