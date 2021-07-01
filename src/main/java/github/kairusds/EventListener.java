@@ -4,7 +4,6 @@ import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.event.EventHandler;
-import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.entity.EntityDamageEvent;
 import static cn.nukkit.event.entity.EntityDamageEvent.DamageCause.*; // why am i doing this
@@ -61,7 +60,7 @@ public class EventListener implements Listener{
 		}
 	}
 
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler
 	public void onFormRespond(PlayerFormRespondedEvent event){
 		Player player = event.getPlayer();
 		FormWindow window = event.getWindow();
