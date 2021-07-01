@@ -180,7 +180,7 @@ public class EventListener implements Listener{
 				player.namedTag.putByte("boosted", 1);
 				player.setCheckMovement(false);
 			}
-			player.setMotion(event.getTouchVector().multiply(2.7).up(2));
+			player.setMotion(event.getTouchVector().multiply(2.7).up());
 			player.getLevel().addSound(player, Sound.MOB_ENDERDRAGON_FLAP);
 		}
 	}
