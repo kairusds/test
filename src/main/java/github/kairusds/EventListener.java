@@ -46,7 +46,7 @@ public class EventListener implements Listener{
 			if(event.getCause() == FALL && entity.namedTag.contains("boosted")){ // i used nbt bc i dont wanna define an arraylist again
 				event.setCancelled();
 				entity.namedTag.remove("boosted");
-				entity.getLevel().addSound(entity, Sound.MOB_BLAZE_HIT);
+				entity.getLevel().addSound(entity, Sound.MOB_BLAZE_HIT, 0.6f, 1.0f);
 				((Player) entity).setCheckMovement(true);
 			}
 		}
@@ -190,7 +190,7 @@ public class EventListener implements Listener{
 				player.setCheckMovement(false);
 			}
 			player.setMotion(event.getTouchVector().multiply(2.7).up());
-			player.getLevel().addSound(player, Sound.MOB_ENDERDRAGON_FLAP);
+			player.getLevel().addSound(player, Sound.MOB_ENDERDRAGON_FLAP, 0.6f, 1.0f);
 		}
 
 		if(event.getAction() == LEFT_CLICK_AIR && heldItem.getId() == Item.BOW){
@@ -198,6 +198,7 @@ public class EventListener implements Listener{
 			if(!inventory.contains(arrow) && !inventory.canAddItem(arrow)) return;
 			inventory.addItem(arrow);
 			heldItem.onRelease(player, 5);
+			player.getLevel().addSound(player, Sound.NOTE_BASS, 0.6f, 1.0f);
 			inventory.setItemInHand(Item.get(heldItem.getId(), 0));
 		}
 	}
