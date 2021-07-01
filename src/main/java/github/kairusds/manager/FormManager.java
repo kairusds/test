@@ -51,7 +51,6 @@ public class FormManager{
 
 	public int sendSimpleForm(Player player, String title, String content, List<ElementButton> buttons){
 		FormWindowSimple form = new FormWindowSimple(title, content, buttons);
-		if(buttons.isEmpty()) form.addButton(new ElementButton("Close"));
 		return player.showFormWindow(form);
 	}
 
