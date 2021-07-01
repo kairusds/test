@@ -18,10 +18,11 @@ import cn.nukkit.form.response.FormResponseCustom;
 import cn.nukkit.form.element.Element;
 import cn.nukkit.form.window.FormWindow;
 import cn.nukkit.form.window.FormWindowCustom;
+import cn.nukkit.item.Item;
+import cn.nukkit.item.ItemMap;
 import cn.nukkit.level.Sound;
 import cn.nukkit.utils.LoginChainData;
-import cn.nukkit.item.ItemMap;
-import cn.nukkit.inventory.Inventory;
+import cn.nukkit.inventory.PlayerInventory;
 import github.kairusds.manager.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -92,7 +93,7 @@ public class EventListener implements Listener{
 				map.setImage(image);
 				player.sendMessage("§bImage Map §ahas been successfully created.");
 
-				Inventory inventory = player.getInventory();
+				PlayerInventory inventory = player.getInventory();
 				if(inventory.canAddItem(map)){
 					inventory.addItem(map);
 				}else{
@@ -117,23 +118,23 @@ public class EventListener implements Listener{
 
 				if(!player.getDisplayName().equals(displayName)){
 					player.setDisplayName(displayName);
-					changes.add("§edisplay name §7-> §b" + displayName);
+					changes.add("§edisplay name §7> §b" + displayName);
 				}
 
 				if(!player.getNameTag().equals(nameTag)){
 					player.setNameTag(nameTag);
-					changes.add("§enametag §7-> §b" + nameTag);
+					changes.add("§enametag §7> §b" + nameTag);
 				}
 
 				if(player.getGamemode() != gamemode){
 					player.setGamemode(gamemode);
-					changes.add("§egamemode §7-> §b" + Server.getGamemodeString(gamemode));
+					changes.add("§egamemode §7> §b" + Server.getGamemodeString(gamemode));
 				}
 
 				if(player.getDataFlag(Entity.DATA_FLAGS, Entity.DATA_FLAG_INVISIBLE) != invisible){
 					player.setDataFlag(Entity.DATA_FLAGS, Entity.DATA_FLAG_INVISIBLE, invisible);
 					player.setNameTagVisible(invisible ? false : true);
-					changes.add("§einvisibility §7-> §b" + displayName);
+					changes.add("§einvisibility §7> §b" + (invisible ? "on" : "off"));
 				}
 
 				if(player.isSurvival() || player.isAdventure()){
@@ -141,11 +142,11 @@ public class EventListener implements Listener{
 					boolean flight = res.getToggleResponse(5);
 					if(player.isFoodEnabled() != hunger){
 						player.setFoodEnabled(hunger);
-						changes.add("§ehunger §7-> §b" + (hunger ? "on" : "off"));
+						changes.add("§ehunger §7> §b" + (hunger ? "on" : "off"));
 					}
 					if(player.getAllowFlight() != flight){
 						player.setAllowFlight(flight);
-						changes.add("§eflight §7-> §b" + (flight ? "on" : "off"));
+						changes.add("§eflight §7> §b" + (flight ? "on" : "off"));
 					}
 				}
 				if(changes.size() > 0) player.sendMessage("§7Settings saved. Changes: " + String.join("§8, ", changes));
@@ -179,7 +180,10 @@ public class EventListener implements Listener{
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event){
 		Player player = event.getPlayer();
-		if(event.getAction() == RIGHT_CLICK_AIR && player.getInventory().getItemInHand().getId() == 280){
+		PlayerInventory inventory = player.getInventory();
+		Item heldItem = inventory.getItemInHand();
+
+		if(event.getAction() == RIGHT_CLICK_AIR && heldItem.getId() == Item.STICK){
 			event.setCancelled();
 			if(!player.namedTag.contains("boosted") && (player.isSurvival() || player.isAdventure())){
 				player.namedTag.putByte("boosted", 1);
@@ -187,6 +191,13 @@ public class EventListener implements Listener{
 			}
 			player.setMotion(event.getTouchVector().multiply(2.7).up());
 			player.getLevel().addSound(player, Sound.MOB_ENDERDRAGON_FLAP);
+		}
+
+		if(event.getAction() == LEFT_CLICK_AIR && heldItem.getId() == Item.BOW){
+			if(!inventory.contains(Item.ARROW) && !inventory.canAddItem(Item.get(Item.ARROW))) return;
+			inventory.addItem(Item.get(Item.ARROW));
+			heldItem.onRelease(player, 5);
+			inventory.setItemInHand(Item.get(heldItem, 0));
 		}
 	}
 
