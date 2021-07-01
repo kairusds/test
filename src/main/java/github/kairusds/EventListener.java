@@ -19,6 +19,7 @@ import cn.nukkit.form.response.FormResponseCustom;
 import cn.nukkit.form.response.FormResponseSimple;
 import cn.nukkit.form.element.Element;
 import cn.nukkit.form.window.FormWindow;
+import cn.nukkit.form.window.FormWindowCustom;
 import cn.nukkit.form.window.FormWindowSimple;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Sound;
@@ -72,7 +73,7 @@ public class EventListener implements Listener{
 
 		if(window instanceof FormWindowCustom){
 			if(manager.isUser(player)){
-				for(HashMap.Entry<Integer, Object> element : response.getResponses().entrySet()){
+				for(HashMap.Entry<Integer, Object> element : ((FormResponseCustom) response).getResponses().entrySet()){
 					player.sendMessage(element.getKey() + " - " + element.getValue().toString());
 				}
 			}
