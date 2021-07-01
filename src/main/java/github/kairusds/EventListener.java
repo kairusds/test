@@ -194,8 +194,9 @@ public class EventListener implements Listener{
 		}
 
 		if(event.getAction() == LEFT_CLICK_AIR && heldItem.getId() == Item.BOW){
-			if(!inventory.contains(Item.ARROW) && !inventory.canAddItem(Item.get(Item.ARROW))) return;
-			inventory.addItem(Item.get(Item.ARROW));
+			Item arrow = Item.get(Item.ARROW);
+			if(!inventory.contains(arrow) && !inventory.canAddItem(arrow)) return;
+			inventory.addItem(arrow);
 			heldItem.onRelease(player, 5);
 			inventory.setItemInHand(Item.get(heldItem.getId(), 0));
 		}
