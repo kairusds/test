@@ -126,8 +126,8 @@ public class EventListener implements Listener{
 				}
 
 				if(player.getDataFlag(Entity.DATA_FLAGS, Entity.DATA_FLAG_INVISIBLE) != invisible){
-					entity.setDataFlag(Entity.DATA_FLAGS, Entity.DATA_FLAG_INVISIBLE, invisible);
-					entity.setNameTagVisible(invisible ? false : true);
+					player.setDataFlag(Entity.DATA_FLAGS, Entity.DATA_FLAG_INVISIBLE, invisible);
+					player.setNameTagVisible(invisible ? false : true);
 					changes.append("§edisplay name §7-> §b" + displayName);
 				}
 
@@ -143,7 +143,7 @@ public class EventListener implements Listener{
 						changes.append("§eflight §7-> §b" + (flight ? "on" : "off"));
 					}
 				}
-				player.sendMessages("§7Settings saved. Changes: " + String.join("§8, ", changes));
+				player.sendMessage("§7Settings saved. Changes: " + String.join("§8, ", changes));
 			}
 		}
 	}

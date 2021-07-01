@@ -36,7 +36,7 @@ public class SettingsManager{
 		gamemodes.add("Spectator");
 
 		contents.add(new ElementInput("", "Display Name", player.getDisplayName()));
-		contents.add(new ElementInput("", "Nametag", player.getgetNameTag()));
+		contents.add(new ElementInput("", "Nametag", player.getNameTag()));
 		contents.add(new ElementDropdown("Gamemode", gamemodes, player.getGamemode()));
 		contents.add(new ElementToggle("Invisible", player.getDataFlag(Entity.DATA_FLAGS, Entity.DATA_FLAG_INVISIBLE)));
 
