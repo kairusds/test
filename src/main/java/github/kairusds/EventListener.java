@@ -14,6 +14,7 @@ import cn.nukkit.event.player.PlayerJoinEvent;
 import cn.nukkit.event.player.PlayerLoginEvent;
 import cn.nukkit.event.player.PlayerQuitEvent;
 import cn.nukkit.form.response.FormResponse;
+import cn.nukkit.form.response.FormResponseCustom;
 import cn.nukkit.form.response.FormResponseSimple;
 import cn.nukkit.form.element.Element;
 import cn.nukkit.form.window.FormWindow;
@@ -73,7 +74,7 @@ public class EventListener implements Listener{
 					return;
 				}
 
-				String imageUrl = response.getInputResponse(0);
+				String imageUrl = ((FormResponseSimple) response).getInputResponse(0);
 				if(imageUrl.isEmpty()){
 					player.sendMessage("§7Image URL cannot be empty");
 					return;
