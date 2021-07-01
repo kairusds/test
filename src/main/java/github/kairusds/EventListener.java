@@ -43,7 +43,6 @@ public class EventListener implements Listener{
 		if(entity instanceof Player){
 			if(event.getCause() == FALL && entity.namedTag.contains("boosted")){ // i used nbt bc i dont wanna define an arraylist again
 				event.setCancelled();
-				((Player) entity).setAllowFlight(false);
 				entity.namedTag.remove("boosted");
 				entity.getLevel().addSound(entity, Sound.FALL_AMETHYST_BLOCK);
 			}
@@ -111,7 +110,6 @@ public class EventListener implements Listener{
 		if(event.getAction() == RIGHT_CLICK_AIR && player.getInventory().getItemInHand().getId() == 280){
 			event.setCancelled();
 			if(!player.namedTag.contains("boosted")) player.namedTag.putByte("boosted", 1);
-			player.setAllowFlight(true);
 			player.setMotion(event.getTouchVector().multiply(2.5));
 			player.getLevel().addSound(player, Sound.MOB_SHULKER_SHOOT);
 		}
