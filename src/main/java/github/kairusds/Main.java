@@ -17,6 +17,7 @@ public class Main extends PluginBase{
 	private FormManager formManager;
 	private HtopManager htopManager;
 	private ImageMapManager imageMapManager;
+	private SettingsManager settingsManager;
 
 	@Override
 	public void onLoad(){
@@ -58,6 +59,7 @@ public class Main extends PluginBase{
 		formManager = new FormManager(this);
 		htopManager = new HtopManager(this);
 		imageMapManager = new ImageMapManager(this);
+		settingsManager = new SettingsManager(this);
 	}
 
 	public FormManager getFormManager(){
@@ -70,6 +72,10 @@ public class Main extends PluginBase{
 
 	public ImageMapManager getImageMapManager(){
 		return imageMapManager;
+	}
+
+	public SettingsManager getSettingsManager(){
+		return settingsManager;
 	}
 
 	@Override

@@ -15,20 +15,15 @@ import cn.nukkit.event.player.PlayerLoginEvent;
 import cn.nukkit.event.player.PlayerQuitEvent;
 import cn.nukkit.form.response.FormResponse;
 import cn.nukkit.form.response.FormResponseCustom;
-import cn.nukkit.form.response.FormResponseSimple;
 import cn.nukkit.form.element.Element;
 import cn.nukkit.form.window.FormWindow;
 import cn.nukkit.form.window.FormWindowCustom;
-import cn.nukkit.form.window.FormWindowSimple;
 import cn.nukkit.level.Sound;
 import cn.nukkit.utils.LoginChainData;
 import cn.nukkit.item.ItemMap;
 import cn.nukkit.inventory.Inventory;
 import github.kairusds.manager.*;
 import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-import java.net.URL;
-import java.net.HttpURLConnection;
 
 public class EventListener implements Listener{
 
@@ -49,72 +44,107 @@ public class EventListener implements Listener{
 			if(event.getCause() == FALL && entity.namedTag.contains("boosted")){ // i used nbt bc i dont wanna define an arraylist again
 				event.setCancelled();
 				entity.namedTag.remove("boosted");
-				entity.getLevel().addSound(entity, Sound.FALL_AMETHYST_BLOCK);
+				entity.getLevel().addSound(entity, Sound.MOB_BLAZE_HIT);
+				((Player) entity).setCheckMovement(true);
 			}
 		}
 	}
 
+	// beware of messy code
 	@EventHandler
 	public void onFormRespond(PlayerFormRespondedEvent event){
 		Player player = event.getPlayer();
 		FormWindow window = event.getWindow();
 		FormResponse response = event.getResponse();
-		ImageMapManager manager = plugin.getImageMapManager();
+		ImageMapManager mapManager = plugin.getImageMapManager();
+		SettingsManager settingsManager = plugin.getSettingsManager();
 
 		if(event.wasClosed()){
-			if(manager.isUser(player)){
-				manager.removeUser(player);
+			if(mapManager.isUser(player)){
+				mapManager.removeUser(player);
+			}
+			if(settingsManager.isUser(player)){
+				settingsManager.removeUser(player);
 			}
 		}
 
 		if(window instanceof FormWindowCustom){
-			if(manager.isUser(player)){
+			FormResponseCustom res = (FormResponseCustom) response;
+
+			if(mapManager.isUser(player)){
 				if(response == null){
-					manager.removeUser(player);
+					mapManager.removeUser(player);
 					return;
 				}
 
-				String imageUrl = ((FormResponseCustom) response).getInputResponse(0);
-				if(imageUrl.isEmpty()){
+				String url = res.getInputResponse(0);
+				if(url.isEmpty()){
 					player.sendMessage("§7Image URL cannot be empty");
 					return;
 				}
-				ItemMap map = new ItemMap();
-				Inventory inventory = player.getInventory();
 
-				try{
-					player.sendMessage("§7Fetching image...");
-					URL url = new URL(imageUrl);
-					HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-					connection.setRequestMethod("HEAD");
-
-					if(connection.getResponseCode() != 200){
-						player.sendMessage("§cImage URL is inaccessible.");
-						return;
-					}
-
-					BufferedImage image = ImageIO.read(url);
-					map.setImage(image);
-					player.sendMessage("§bImage Map §ahas been successfully created.");
-					connection.disconnect();
-				}catch(Exception error){
-					player.sendMessage("§cA fatal error has occured, check the server console for more details.");
-					getServer().getLogger().error(error.toString());
+				player.sendMessage("§7Creating map item...");
+				BufferedImage image = Utils.getImageFromUrl(url);
+				if(image == null){
+					player.sendMessage("§cFailed to fetch image from URL.");
 				}
-				
+
+				ItemMap map = new ItemMap();
+				map.setImage(image);
+				player.sendMessage("§bImage Map §ahas been successfully created.");
+
+				Inventory inventory = player.getInventory();
 				if(inventory.canAddItem(map)){
 					inventory.addItem(map);
 				}else{
 					player.sendMessage("§7Inventory full, dropping item instead.");
 					player.getLevel().dropItem(player, map);
 				}
-				manager.removeUser(player);
+				mapManager.removeUser(player);
 			}
-		}
 
-		if(window instanceof FormWindowSimple){
-			FormResponseSimple simpleResponse = (FormResponseSimple) response;
-			player.sendMessage(simpleResponse.getClickedButtonId() + " " + simpleResponse.getClickedButton().getText());
+			if(settingsManager.isUser(player)){
+				StringBuilder changes = new StringBuilder();
+				String displayName = res.getInputResponse(0);
+				String nameTag = res.getInputResponse(1);
+				int gamemode = Server.getGamemodeFromString(res.getDropdownResponse(2).getElementContent()); // cool chain
+				boolean invisible = res.getToggleResponse(3);
+
+				if(player.getDisplayName() != displayName){
+					player.setDisplayName(displayName);
+					changes.append("§edisplay name §7-> §b" + displayName);
+				}
+
+				if(player.getNameTag() != nameTag){
+					player.setDisplayName(nameTag);
+					changes.append("§enametag §7-> §b" + nameTag);
+				}
+
+				if(player.getGamemode() != gamemode){
+					player.setGamemode(gamemode);
+					changes.append("§egamemode §7-> §b" + Server.getGamemodeString(gamemode));
+				}
+
+				if(player.getDataFlag(Entity.DATA_FLAGS, Entity.DATA_FLAG_INVISIBLE) != invisible){
+					entity.setDataFlag(Entity.DATA_FLAGS, Entity.DATA_FLAG_INVISIBLE, invisible);
+					entity.setNameTagVisible(invisible ? false : true);
+					changes.append("§edisplay name §7-> §b" + displayName);
+				}
+
+				if(player.isSurvival() || player.isAdventure()){
+					boolean hunger = res.getToggleResponse(4);
+					boolean flight = res.getToggleResponse(5);
+					if(player.isFoodEnabled() != hunger){
+						player.setFoodEnabled(hunger);
+						changes.append("§ehunger §7-> §b" + (hunger ? "on" : "off"));
+					}
+					if(player.getAllowFlight() != flight){
+						player.setAllowFlight(flight);
+						changes.append("§eflight §7-> §b" + (flight ? "on" : "off"));
+					}
+				}
+				player.sendMessages("§7Settings saved. Changes: " + String.join("§8, ", changes));
+			}
 		}
 	}
 
@@ -145,9 +175,12 @@ public class EventListener implements Listener{
 		Player player = event.getPlayer();
 		if(event.getAction() == RIGHT_CLICK_AIR && player.getInventory().getItemInHand().getId() == 280){
 			event.setCancelled();
-			if(!player.namedTag.contains("boosted")) player.namedTag.putByte("boosted", 1);
-			player.setMotion(event.getTouchVector().multiply(2.7));
-			player.getLevel().addSound(player, Sound.MOB_SHULKER_SHOOT);
+			if(!player.namedTag.contains("boosted") && (player.isSurvival() || player.isAdventure())){
+				player.namedTag.putByte("boosted", 1);
+				player.setCheckMovement(false);
+			}
+			player.setMotion(event.getTouchVector().multiply(2.7).up(2));
+			player.getLevel().addSound(player, Sound.MOB_ENDERDRAGON_FLAP);
 		}
 	}
 
