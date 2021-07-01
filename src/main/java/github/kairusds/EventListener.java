@@ -70,15 +70,13 @@ public class EventListener implements Listener{
 		}
 
 		if(window instanceof FormWindowCustom){
-			FormResponseCustom res = (FormResponseCustom) response;
-
 			if(mapManager.isUser(player)){
 				if(response == null){
 					mapManager.removeUser(player);
 					return;
 				}
 
-				String url = res.getInputResponse(0);
+				String url = ((FormResponseCustom) response).getInputResponse(0);
 				if(url.isEmpty()){
 					player.sendMessage("§7Image URL cannot be empty");
 					return;
@@ -110,6 +108,7 @@ public class EventListener implements Listener{
 					return;
 				}
 
+				FormResponseCustom res = (FormResponseCustom) response;
 				ArrayList<String> changes = new ArrayList<>();
 				String displayName = res.getInputResponse(0);
 				String nameTag = res.getInputResponse(1);
@@ -134,7 +133,7 @@ public class EventListener implements Listener{
 				if(player.getDataFlag(Entity.DATA_FLAGS, Entity.DATA_FLAG_INVISIBLE) != invisible){
 					player.setDataFlag(Entity.DATA_FLAGS, Entity.DATA_FLAG_INVISIBLE, invisible);
 					player.setNameTagVisible(invisible ? false : true);
-					changes.add("§edisplay name §7-> §b" + displayName);
+					changes.add("§einvisibility §7-> §b" + displayName);
 				}
 
 				if(player.isSurvival() || player.isAdventure()){
