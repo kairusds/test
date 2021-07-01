@@ -40,7 +40,6 @@ public class EventListener implements Listener{
 	@EventHandler
 	public void onDamage(EntityDamageEvent event){
 		Entity entity = event.getEntity();
-		Level level = entity.getLevel();
 		if(entity instanceof Player){
 			if(event.getCause() == FALL && entity.namedTag.contains("boosted")){ // i used nbt bc i dont wanna define an arraylist again
 				event.setCancelled();
