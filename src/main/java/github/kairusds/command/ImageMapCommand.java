@@ -25,6 +25,9 @@ public class ImageMapCommand extends BaseCommand{
 			return true;
 		}
 
+		plugin.getImageMapManager().addUser((Player) sender);
+
+		/* to be moved
 		ItemMap map = new ItemMap();
 		Inventory inventory = ((Player) sender).getInventory(); // fuck java for this unholy solution
 
@@ -51,6 +54,7 @@ public class ImageMapCommand extends BaseCommand{
 		if(inventory.canAddItem(map)){
 			inventory.addItem(map);
 		}
+		*/
 		return true;
 	}
 
