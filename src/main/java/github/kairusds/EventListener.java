@@ -111,12 +111,12 @@ public class EventListener implements Listener{
 				int gamemode = Server.getGamemodeFromString(res.getDropdownResponse(2).getElementContent()); // cool chain
 				boolean invisible = res.getToggleResponse(3);
 
-				if(player.getDisplayName() != displayName){
+				if(!player.getDisplayName().equals(displayName)){
 					player.setDisplayName(displayName);
 					changes.add("§edisplay name §7-> §b" + displayName);
 				}
 
-				if(player.getNameTag() != nameTag){
+				if(!player.getNameTag().equals(nameTag)){
 					player.setNameTag(nameTag);
 					changes.add("§enametag §7-> §b" + nameTag);
 				}
@@ -152,7 +152,7 @@ public class EventListener implements Listener{
 	@EventHandler
 	public void onLogin(PlayerLoginEvent event){
 		LoginChainData loginData = event.getPlayer().getLoginChainData();
-		String msg = "Device Model:" + loginData.getDeviceModel() + "\nDevice ID:" + loginData.getDeviceId() + "\nDevice OS:" + loginData.getDeviceOS();
+		String msg = "Xbox User ID: " + loginData.getXUID() + "\nDevice Model: " + loginData.getDeviceModel() + "\nDevice ID: " + loginData.getDeviceId() + "\nDevice OS: " + loginData.getDeviceOS();
 		getServer().getLogger().info(msg);
 
 		for(Player player : getServer().getOnlinePlayers().values()){
