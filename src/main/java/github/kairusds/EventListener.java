@@ -24,6 +24,7 @@ import cn.nukkit.item.ItemMap;
 import cn.nukkit.inventory.Inventory;
 import github.kairusds.manager.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class EventListener implements Listener{
 
@@ -104,7 +105,7 @@ public class EventListener implements Listener{
 			}
 
 			if(settingsManager.isUser(player)){
-				StringBuilder changes = new StringBuilder();
+				ArrayList<String> changes = new ArrayList<>();
 				String displayName = res.getInputResponse(0);
 				String nameTag = res.getInputResponse(1);
 				int gamemode = Server.getGamemodeFromString(res.getDropdownResponse(2).getElementContent()); // cool chain
@@ -112,23 +113,23 @@ public class EventListener implements Listener{
 
 				if(player.getDisplayName() != displayName){
 					player.setDisplayName(displayName);
-					changes.append("§edisplay name §7-> §b" + displayName);
+					changes.add("§edisplay name §7-> §b" + displayName);
 				}
 
 				if(player.getNameTag() != nameTag){
 					player.setNameTag(nameTag);
-					changes.append("§enametag §7-> §b" + nameTag);
+					changes.add("§enametag §7-> §b" + nameTag);
 				}
 
 				if(player.getGamemode() != gamemode){
 					player.setGamemode(gamemode);
-					changes.append("§egamemode §7-> §b" + Server.getGamemodeString(gamemode));
+					changes.add("§egamemode §7-> §b" + Server.getGamemodeString(gamemode));
 				}
 
 				if(player.getDataFlag(Entity.DATA_FLAGS, Entity.DATA_FLAG_INVISIBLE) != invisible){
 					player.setDataFlag(Entity.DATA_FLAGS, Entity.DATA_FLAG_INVISIBLE, invisible);
 					player.setNameTagVisible(invisible ? false : true);
-					changes.append("§edisplay name §7-> §b" + displayName);
+					changes.add("§edisplay name §7-> §b" + displayName);
 				}
 
 				if(player.isSurvival() || player.isAdventure()){
@@ -136,11 +137,11 @@ public class EventListener implements Listener{
 					boolean flight = res.getToggleResponse(5);
 					if(player.isFoodEnabled() != hunger){
 						player.setFoodEnabled(hunger);
-						changes.append("§ehunger §7-> §b" + (hunger ? "on" : "off"));
+						changes.add("§ehunger §7-> §b" + (hunger ? "on" : "off"));
 					}
 					if(player.getAllowFlight() != flight){
 						player.setAllowFlight(flight);
-						changes.append("§eflight §7-> §b" + (flight ? "on" : "off"));
+						changes.add("§eflight §7-> §b" + (flight ? "on" : "off"));
 					}
 				}
 				player.sendMessage("§7Settings saved. Changes: " + String.join("§8, ", changes));
