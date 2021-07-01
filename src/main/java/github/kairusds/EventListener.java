@@ -50,7 +50,7 @@ public class EventListener implements Listener{
 		if(entity instanceof Player){
 			if(event.getCause() == FALL && entity.namedTag.contains("boosted")){ // i used nbt bc i dont wanna define an arraylist again
 				event.setCancelled();
-				player.setAllowFlight(false);
+				entity.setAllowFlight(false);
 				entity.namedTag.remove("boosted");
 				level.addSound(entity, Sound.FALL_AMETHYST_BLOCK);
 				level.addParticle(new LavaDripParticle(position.north(1)));

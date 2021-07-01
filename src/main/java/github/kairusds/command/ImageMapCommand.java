@@ -27,8 +27,9 @@ public class ImageMapCommand extends BaseCommand{
 		}
 
 		ImageMapManager manager = plugin.getImageMapManager();
+		Player player = (Player) sender;
 		if(manager.isUser(player)) return true; // spamming the command?
-		manager.addUser((Player) sender);
+		manager.addUser(sender);
 
 		/* to be moved
 		ItemMap map = new ItemMap();
