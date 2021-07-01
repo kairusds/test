@@ -2,14 +2,15 @@ package github.kairusds.command;
 
 import cn.nukkit.Player;
 import cn.nukkit.command.CommandSender;
-import cn.nukkit.item.ItemMap;
-import cn.nukkit.inventory.Inventory;
 import github.kairusds.Main;
 import github.kairusds.manager.ImageMapManager;
+/*
+import cn.nukkit.item.ItemMap;
+import cn.nukkit.inventory.Inventory;
 import java.net.URL;
 import java.net.HttpURLConnection;
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImage;*/
 
 public class ImageMapCommand extends BaseCommand{
 
@@ -26,8 +27,8 @@ public class ImageMapCommand extends BaseCommand{
 			return true;
 		}
 
-		ImageMapManager manager = plugin.getImageMapManager();
 		Player player = (Player) sender;
+		ImageMapManager manager = plugin.getImageMapManager();
 		if(manager.isUser(player)) return true; // spamming the command?
 		manager.addUser(sender);
 
