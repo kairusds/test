@@ -26,7 +26,7 @@ public class HtopTask extends PluginTask<Main>{
 					tpsColor = "§c";
 				}
 	
-				int ping = ((Player) sender).getPing();
+				int ping = player.getPing();
 				Runtime runtime = Runtime.getRuntime();
 				double totalMB = NukkitMath.round(((double) runtime.totalMemory()) / 1024 / 1024, 2);
 				double usedMB = NukkitMath.round((double) (runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024, 2);
