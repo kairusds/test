@@ -26,20 +26,22 @@ public class HtopTask extends PluginTask<Main>{
 					tpsColor = "§c";
 				}
 	
+				int ping = ((Player) sender).getPing();
 				Runtime runtime = Runtime.getRuntime();
 				double totalMB = NukkitMath.round(((double) runtime.totalMemory()) / 1024 / 1024, 2);
 				double usedMB = NukkitMath.round((double) (runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024, 2);
 				double maxMB = NukkitMath.round(((double) runtime.maxMemory()) / 1024 / 1024, 2);
 				double usage = usedMB / maxMB * 100;
 				String usageColor = "§a";
-	
+				String pingColor = "§a";
+
 				if(usage < 70){
 					usageColor = "§e";
 				}else if(usage > 70){
 					usageColor = "§c";
 				}
 
-				StringBuilder msg = new StringBuilder("§7TPS: " + tpsColor + NukkitMath.round(tps, 2) + " §8— §7Load: " + tpsColor + server.getTickUsage() + "§7%§r\n");
+				StringBuilder msg = new StringBuilder("§7TPS: " + tpsColor + NukkitMath.round(tps, 2) + " §8— §7Current Latency: " + pingColor + ping + "§7ms §8— §7Load: " + tpsColor + server.getTickUsage() + "§7%§r\n");
 				msg.append("§7Memory: " + usageColor + usedMB + "§8/§b" + totalMB + "MB §8(" + usageColor + NukkitMath.round(usage, 2) + "§7%§8)");
 				player.sendActionBar(msg.toString());
 			}

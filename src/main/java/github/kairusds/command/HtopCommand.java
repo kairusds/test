@@ -8,7 +8,7 @@ import github.kairusds.manager.HtopManager;
 public class HtopCommand extends BaseCommand{
 
 	public HtopCommand(Main plugin){
-		super(plugin, "htop", "toggle server status hud");
+		super(plugin, "htop", "toggle server & player status hud");
 		setPermission("kairusds.command.htop");
 	}
 
