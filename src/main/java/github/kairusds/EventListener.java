@@ -149,7 +149,7 @@ public class EventListener implements Listener{
 						changes.add("§eflight §7-> §b" + (flight ? "on" : "off"));
 					}
 				}
-				if(changes.size > 0) player.sendMessage("§7Settings saved. Changes: " + String.join("§8, ", changes));
+				if(changes.size() > 0) player.sendMessage("§7Settings saved. Changes: " + String.join("§8, ", changes));
 				settingsManager.removeUser(player);
 			}
 		}
