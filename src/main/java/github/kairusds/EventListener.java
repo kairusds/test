@@ -50,12 +50,13 @@ public class EventListener implements Listener{
 		if(entity instanceof Player){
 			if(event.getCause() == FALL && entity.namedTag.contains("boosted")){ // i used nbt bc i dont wanna define an arraylist again
 				event.setCancelled();
+				player.setAllowFlight(false);
 				entity.namedTag.remove("boosted");
-				level.addSound(entity, Sound.FALL_AMETHYST_BLOCK, 4.0f, 3.0f);
-				level.addParticle(new LavaDripParticle(position.north()));
-				level.addParticle(new LavaDripParticle(position.south()));
-				level.addParticle(new LavaDripParticle(position.east()));
-				level.addParticle(new LavaDripParticle(position.west()));
+				level.addSound(entity, Sound.FALL_AMETHYST_BLOCK);
+				level.addParticle(new LavaDripParticle(position.north(1)));
+				level.addParticle(new LavaDripParticle(position.south(1)));
+				level.addParticle(new LavaDripParticle(position.east(1)));
+				level.addParticle(new LavaDripParticle(position.west(1)));
 			}
 		}
 	}
@@ -116,12 +117,13 @@ public class EventListener implements Listener{
 		if(event.getAction() == RIGHT_CLICK_AIR && player.getInventory().getItemInHand().getId() == 280){
 			event.setCancelled();
 			if(!player.namedTag.contains("boosted")) player.namedTag.putByte("boosted", 1);
-			player.setMotion(touchVector.up(10));
+			player.setAllowFlight(true);
+			player.setMotion(touchVector.multiply(1.3));
 			level.addSound(player, Sound.MOB_SHULKER_SHOOT, 4.0f, 5.0f);
-			level.addParticle(new CriticalParticle(touchVector.north(10)));
-			level.addParticle(new CriticalParticle(touchVector.south(10)));
-			level.addParticle(new CriticalParticle(touchVector.east(10)));
-			level.addParticle(new CriticalParticle(touchVector.west(10)));
+			level.addParticle(new CriticalParticle(touchVector.north(1)));
+			level.addParticle(new CriticalParticle(touchVector.south(1)));
+			level.addParticle(new CriticalParticle(touchVector.east(1)));
+			level.addParticle(new CriticalParticle(touchVector.west(1)));
 		}
 	}
 

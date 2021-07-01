@@ -5,6 +5,7 @@ import cn.nukkit.command.CommandSender;
 import cn.nukkit.item.ItemMap;
 import cn.nukkit.inventory.Inventory;
 import github.kairusds.Main;
+import github.kairusds.manager.ImageMapManager;
 import java.net.URL;
 import java.net.HttpURLConnection;
 import javax.imageio.ImageIO;
@@ -25,7 +26,9 @@ public class ImageMapCommand extends BaseCommand{
 			return true;
 		}
 
-		plugin.getImageMapManager().addUser((Player) sender);
+		ImageMapManager manager = plugin.getImageMapManager();
+		if(manager.isUser(player)) return true; // spamming the command?
+		manager.addUser((Player) sender);
 
 		/* to be moved
 		ItemMap map = new ItemMap();
