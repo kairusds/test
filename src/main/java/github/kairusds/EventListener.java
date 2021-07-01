@@ -74,7 +74,7 @@ public class EventListener implements Listener{
 					return;
 				}
 
-				String imageUrl = ((FormResponseSimple) response).getInputResponse(0);
+				String imageUrl = ((FormResponseCustom) response).getInputResponse(0);
 				if(imageUrl.isEmpty()){
 					player.sendMessage("§7Image URL cannot be empty");
 					return;
