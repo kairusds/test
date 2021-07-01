@@ -20,11 +20,7 @@ import cn.nukkit.form.element.Element;
 import cn.nukkit.form.window.FormWindow;
 import cn.nukkit.form.window.FormWindowCustom;
 import cn.nukkit.form.window.FormWindowSimple;
-import cn.nukkit.level.Level;
 import cn.nukkit.level.Sound;
-import cn.nukkit.level.particle.CriticalParticle;
-import cn.nukkit.level.particle.LavaDripParticle;
-import cn.nukkit.math.Vector3;
 import cn.nukkit.utils.LoginChainData;
 import github.kairusds.manager.*;
 import java.util.HashMap;
@@ -45,17 +41,12 @@ public class EventListener implements Listener{
 	public void onDamage(EntityDamageEvent event){
 		Entity entity = event.getEntity();
 		Level level = entity.getLevel();
-		Vector3 position = entity.getPosition();
 		if(entity instanceof Player){
 			if(event.getCause() == FALL && entity.namedTag.contains("boosted")){ // i used nbt bc i dont wanna define an arraylist again
 				event.setCancelled();
 				((Player) entity).setAllowFlight(false);
 				entity.namedTag.remove("boosted");
-				level.addSound(entity, Sound.FALL_AMETHYST_BLOCK);
-				level.addParticle(new LavaDripParticle(position.north(1)));
-				level.addParticle(new LavaDripParticle(position.south(1)));
-				level.addParticle(new LavaDripParticle(position.east(1)));
-				level.addParticle(new LavaDripParticle(position.west(1)));
+				entity.getLevel().addSound(entity, Sound.FALL_AMETHYST_BLOCK);
 			}
 		}
 	}
@@ -118,19 +109,12 @@ public class EventListener implements Listener{
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event){
 		Player player = event.getPlayer();
-		Vector3 touchVector = event.getTouchVector();
-		Level level = player.getLevel();
-
 		if(event.getAction() == RIGHT_CLICK_AIR && player.getInventory().getItemInHand().getId() == 280){
 			event.setCancelled();
 			if(!player.namedTag.contains("boosted")) player.namedTag.putByte("boosted", 1);
 			player.setAllowFlight(true);
-			player.setMotion(touchVector.multiply(1.7));
-			level.addSound(player, Sound.MOB_SHULKER_SHOOT);
-			level.addParticle(new CriticalParticle(touchVector.north(1)));
-			level.addParticle(new CriticalParticle(touchVector.south(1)));
-			level.addParticle(new CriticalParticle(touchVector.east(1)));
-			level.addParticle(new CriticalParticle(touchVector.west(1)));
+			player.setMotion(event.getTouchVector().multiply(2.5));
+			player.getLevel().addSound(player, Sound.MOB_SHULKER_SHOOT);
 		}
 	}
 

@@ -23,7 +23,7 @@ public class ImageMapManager{
 
 	public void addUser(Player player){
 		ArrayList<Element> contents = new ArrayList<>();
-		contents.add(new ElementInput("this is text yeah?", "Image URL", "https://placeimg.com/128/128/tech"));
+		contents.add(new ElementInput("this is text yeah?", "Placeholder", "https://placeimg.com/128/128/tech"));
 		plugin.getFormManager().sendCustomForm(player, "Image Map", contents);
 		users.add(player.getUniqueId());
 	}
