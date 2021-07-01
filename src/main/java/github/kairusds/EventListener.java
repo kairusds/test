@@ -50,7 +50,7 @@ public class EventListener implements Listener{
 		if(entity instanceof Player){
 			if(event.getCause() == FALL && entity.namedTag.contains("boosted")){ // i used nbt bc i dont wanna define an arraylist again
 				event.setCancelled();
-				entity.setAllowFlight(false);
+				((Player) entity).setAllowFlight(false);
 				entity.namedTag.remove("boosted");
 				level.addSound(entity, Sound.FALL_AMETHYST_BLOCK);
 				level.addParticle(new LavaDripParticle(position.north(1)));
@@ -69,11 +69,18 @@ public class EventListener implements Listener{
 		ImageMapManager manager = plugin.getImageMapManager();
 
 		if(event.wasClosed()){
+			if(manager.isUser(player)){
+				manager.removeUser(player);
+			}
 			player.sendMessage("§7Form closed.");
 		}
 
 		if(window instanceof FormWindowCustom){
 			if(manager.isUser(player)){
+				if(response == null){
+					manager.removeUser(player);
+					return;
+				}
 				for(HashMap.Entry<Integer, Object> element : ((FormResponseCustom) response).getResponses().entrySet()){
 					player.sendMessage(element.getKey() + " - " + element.getValue().toString());
 				}
