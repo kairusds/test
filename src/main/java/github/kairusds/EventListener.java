@@ -105,6 +105,11 @@ public class EventListener implements Listener{
 			}
 
 			if(settingsManager.isUser(player)){
+				if(response == null){
+					settingsManager.removeUser(player);
+					return;
+				}
+
 				ArrayList<String> changes = new ArrayList<>();
 				String displayName = res.getInputResponse(0);
 				String nameTag = res.getInputResponse(1);
@@ -144,7 +149,8 @@ public class EventListener implements Listener{
 						changes.add("§eflight §7-> §b" + (flight ? "on" : "off"));
 					}
 				}
-				player.sendMessage("§7Settings saved. Changes: " + String.join("§8, ", changes));
+				if(changes.size > 0) player.sendMessage("§7Settings saved. Changes: " + String.join("§8, ", changes));
+				settingsManager.removeUser(player);
 			}
 		}
 	}
