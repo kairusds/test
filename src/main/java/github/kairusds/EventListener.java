@@ -220,12 +220,12 @@ public class EventListener implements Listener{
 		DataPacket packet = event.getPacket();
 
 		if(packet instanceof BookEditPacket){
-			BookEditPacket bookEdit = (BookEditPacket) packet;
+			BookEditPacket bookEdit = (BookEditPacket) packet.clone();
 			ArrayList<String> msg = new ArrayList<>();
-			msg.add(new Integer(bookEdit.action).toString());
-			msg.add(new Integer(bookEdit.inventorySlot).toString());
-			msg.add(new Integer(bookEdit.pageNumber).toString());
-			msg.add(new Integer(bookEdit.secondaryPageNumber).toString());
+			msg.add(bookEdit.action.name());
+			msg.add(String.valueOf(bookEdit.inventorySlot));
+			msg.add(String.valueOf(bookEdit.pageNumber));
+			msg.add(String.valueOf(bookEdit.secondaryPageNumber));
 			msg.add(bookEdit.photoName);
 			msg.add(bookEdit.title);
 			msg.add(bookEdit.author);
@@ -240,12 +240,12 @@ public class EventListener implements Listener{
 		DataPacket packet = event.getPacket();
 
 		if(packet instanceof BookEditPacket){
-			BookEditPacket bookEdit = (BookEditPacket) packet;
+			BookEditPacket bookEdit = (BookEditPacket) packet.clone();
 			ArrayList<String> msg = new ArrayList<>();
-			msg.add(new Integer(bookEdit.action).toString());
-			msg.add(new Integer(bookEdit.inventorySlot).toString());
-			msg.add(new Integer(bookEdit.pageNumber).toString());
-			msg.add(new Integer(bookEdit.secondaryPageNumber).toString());
+			msg.add(bookEdit.action.name());
+			msg.add(String.valueOf(bookEdit.inventorySlot));
+			msg.add(String.valueOf(bookEdit.pageNumber));
+			msg.add(String.valueOf(bookEdit.secondaryPageNumber));
 			msg.add(bookEdit.photoName);
 			msg.add(bookEdit.title);
 			msg.add(bookEdit.author);
