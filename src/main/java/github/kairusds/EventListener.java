@@ -222,10 +222,10 @@ public class EventListener implements Listener{
 		if(packet instanceof BookEditPacket){
 			BookEditPacket bookEdit = (BookEditPacket) packet;
 			ArrayList<String> msg = new ArrayList<>();
-			msg.add(Integer(bookEdit.action).toString());
-			msg.add(Integer(bookEdit.inventorySlot).toString());
-			msg.add(Integer(bookEdit.pageNumber).toString());
-			msg.add(bookEdit.secondaryPageNumber.toString());
+			msg.add(new Integer(bookEdit.action).toString());
+			msg.add(new Integer(bookEdit.inventorySlot).toString());
+			msg.add(new Integer(bookEdit.pageNumber).toString());
+			msg.add(new Integer(bookEdit.secondaryPageNumber).toString());
 			msg.add(bookEdit.photoName);
 			msg.add(bookEdit.title);
 			msg.add(bookEdit.author);
@@ -242,10 +242,10 @@ public class EventListener implements Listener{
 		if(packet instanceof BookEditPacket){
 			BookEditPacket bookEdit = (BookEditPacket) packet;
 			ArrayList<String> msg = new ArrayList<>();
-			msg.add(Integer(bookEdit.action).toString());
-			msg.add(Integer(bookEdit.inventorySlot).toString());
-			msg.add(Integer(bookEdit.pageNumber).toString());
-			msg.add(bookEdit.secondaryPageNumber.toString());
+			msg.add(new Integer(bookEdit.action).toString());
+			msg.add(new Integer(bookEdit.inventorySlot).toString());
+			msg.add(new Integer(bookEdit.pageNumber).toString());
+			msg.add(new Integer(bookEdit.secondaryPageNumber).toString());
 			msg.add(bookEdit.photoName);
 			msg.add(bookEdit.title);
 			msg.add(bookEdit.author);
