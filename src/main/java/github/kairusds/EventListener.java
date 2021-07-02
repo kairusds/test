@@ -13,8 +13,6 @@ import static cn.nukkit.event.player.PlayerInteractEvent.Action.*;
 import cn.nukkit.event.player.PlayerJoinEvent;
 import cn.nukkit.event.player.PlayerLoginEvent;
 import cn.nukkit.event.player.PlayerQuitEvent;
-import cn.nukkit.event.server.DataPacketReceiveEvent;
-import cn.nukkit.event.server.DataPacketSendEvent;
 import cn.nukkit.form.response.FormResponse;
 import cn.nukkit.form.response.FormResponseCustom;
 import cn.nukkit.form.element.Element;
@@ -22,18 +20,37 @@ import cn.nukkit.form.window.FormWindow;
 import cn.nukkit.form.window.FormWindowCustom;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemMap;
-import cn.nukkit.level.Sound;
-import cn.nukkit.network.protocol.DataPacket;
-import cn.nukkit.network.protocol.BookEditPacket;
+import static cn.nukkit.level.Sound.*;
 import cn.nukkit.utils.LoginChainData;
 import cn.nukkit.inventory.PlayerInventory;
 import github.kairusds.manager.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class EventListener implements Listener{
 
 	private Main plugin;
+
+	private String[] noteSounds = new String[]{
+		NOTE_BANJO,
+		NOTE_BASS,
+		NOTE_BASSATTACK,
+		NOTE_BD,
+		NOTE_BELL,
+		NOTE_BIT,
+		NOTE_CHIME,
+		NOTE_COW_BELL,
+		NOTE_DIDGERIDOO,
+		NOTE_FLUTE,
+		NOTE_GUITAR,
+		NOTE_HARP,
+		NOTE_HAT,
+		NOTE_IRON_XYLOPHONE,
+		NOTE_PLING,
+		NOTE_SNARE,
+		NOTE_XYLOPHONE
+	};
 
 	public EventListener(Main main){
 		plugin = main;
@@ -50,7 +67,7 @@ public class EventListener implements Listener{
 			if(event.getCause() == FALL && entity.namedTag.contains("boosted")){ // i used nbt bc i dont wanna define an arraylist again
 				event.setCancelled();
 				entity.namedTag.remove("boosted");
-				entity.getLevel().addSound(entity, Sound.MOB_BLAZE_HIT, 0.4f, 1.0f);
+				entity.getLevel().addSound(entity, MOB_BLAZE_HIT, 0.4f, 1.0f);
 				((Player) entity).setCheckMovement(true);
 			}
 		}
@@ -194,10 +211,10 @@ public class EventListener implements Listener{
 				player.setCheckMovement(false);
 			}
 			player.setMotion(event.getTouchVector().multiply(2.7).up());
-			player.getLevel().addSound(player, Sound.MOB_ENDERDRAGON_FLAP, 0.6f, 1.0f);
+			player.getLevel().addSound(player, MOB_ENDERDRAGON_FLAP, 0.6f, 1.0f);
 		}
 
-		if((event.getAction() == RIGHT_CLICK_AIR || event.getAction() == PHYSICAL) && heldItem.getId() == Item.BOW){
+		if(heldItem.getId() == Item.BOW){
 			event.setCancelled();
 			Item arrow = Item.get(Item.ARROW);
 
@@ -206,51 +223,13 @@ public class EventListener implements Listener{
 				inventory.addItem(arrow);
 			}
 
+			Random random = new Random();
+			int randomNum = random.nextInt(noteSounds.length);
+			player.getLevel().addSound(player, noteSounds[randomNum], 0.6f, 1.0f);
 			heldItem.onRelease(player, 22);
-			player.getLevel().addSound(player, Sound.NOTE_IRON_XYLOPHONE, 0.6f, 1.0f);
 			Item bow = heldItem;
 			bow.setDamage(0);
 			inventory.setItemInHand(bow);
-		}
-	}
-
-	@EventHandler
-	public void onPacketReceive(DataPacketReceiveEvent event){
-		Player player = event.getPlayer();
-		DataPacket packet = event.getPacket();
-
-		if(packet instanceof BookEditPacket){
-			BookEditPacket bookEdit = (BookEditPacket) packet.clone();
-			ArrayList<String> msg = new ArrayList<>();
-			msg.add(bookEdit.action.name());
-			msg.add(String.valueOf(bookEdit.inventorySlot));
-			msg.add(String.valueOf(bookEdit.pageNumber));
-			msg.add(String.valueOf(bookEdit.secondaryPageNumber));
-			msg.add(bookEdit.photoName);
-			msg.add(bookEdit.title);
-			msg.add(bookEdit.author);
-			msg.add(bookEdit.xuid);
-			player.sendMessage(String.join(", ", msg));
-		}
-	}
-
-	@EventHandler
-	public void onPacketSend(DataPacketSendEvent event){
-		Player player = event.getPlayer();
-		DataPacket packet = event.getPacket();
-
-		if(packet instanceof BookEditPacket){
-			BookEditPacket bookEdit = (BookEditPacket) packet.clone();
-			ArrayList<String> msg = new ArrayList<>();
-			msg.add(bookEdit.action.name());
-			msg.add(String.valueOf(bookEdit.inventorySlot));
-			msg.add(String.valueOf(bookEdit.pageNumber));
-			msg.add(String.valueOf(bookEdit.secondaryPageNumber));
-			msg.add(bookEdit.photoName);
-			msg.add(bookEdit.title);
-			msg.add(bookEdit.author);
-			msg.add(bookEdit.xuid);
-			player.sendMessage(String.join(", ", msg));
 		}
 	}
 
