@@ -10,8 +10,8 @@ public class SetScorePacket extends DataPacket{
 	
 	public static final byte NETWORK_ID = 0x6c;
 
-	public static final int TYPE_CHANGE = 0;
-	public static final int TYPE_REMOVE = 1;
+	public static final int CHANGE = 0;
+	public static final int REMOVE = 1;
 
 	public int type;
 	public List<Entry> entries = new ArrayList<>();
@@ -29,14 +29,14 @@ public class SetScorePacket extends DataPacket{
 			entry.scoreboardId = getVarLong();
 			entry.objectiveName = getString();
 			entry.score = getLInt();
-			if(type != TYPE_REMOVE){
+			if(type != REMOVE){
 				entry.type = getByte();
 				switch(entry.type){
-					case Entry.TYPE_PLAYER:
-					case Entry.TYPE_ENTITY:
+					case Entry.PLAYER:
+					case Entry.ENTITY:
 						entry.entityUniqueId = getEntityUniqueId();
 						break;
-					case Entry.TYPE_FAKE_PLAYER:
+					case Entry.FAKE_PLAYER:
 						entry.customName = getString();
 						break;
 					default:
@@ -55,14 +55,14 @@ public class SetScorePacket extends DataPacket{
 			putVarLong(entry.scoreboardId);
 			putString(entry.objectiveName);
 			putLInt(entry.score);
-			if(type != TYPE_REMOVE){
+			if(type != REMOVE){
 				putByte((byte) entry.type);
 				switch(entry.type){
-					case Entry.TYPE_PLAYER:
-					case Entry.TYPE_ENTITY:
+					case Entry.PLAYER:
+					case Entry.ENTITY:
 						putEntityUniqueId(entry.entityUniqueId);
 						break;
-					case Entry.TYPE_FAKE_PLAYER:
+					case Entry.FAKE_PLAYER:
 						putString(entry.customName);
 						break;
 					default:
@@ -74,9 +74,9 @@ public class SetScorePacket extends DataPacket{
 
 	@ToString
 	public static class Entry{
-		public static final int TYPE_PLAYER = 1;
-		public static final int TYPE_ENTITY = 2;
-		public static final int TYPE_FAKE_PLAYER = 3;
+		public static final int PLAYER = 1;
+		public static final int ENTITY = 2;
+		public static final int FAKE_PLAYER = 3;
 
 		public long scoreboardId;
 		public String objectiveName;

@@ -13,6 +13,8 @@ import static cn.nukkit.event.player.PlayerInteractEvent.Action.*;
 import cn.nukkit.event.player.PlayerJoinEvent;
 import cn.nukkit.event.player.PlayerLoginEvent;
 import cn.nukkit.event.player.PlayerQuitEvent;
+import cn.nukkit.event.server.DataPacketReceiveEvent;
+import cn.nukkit.event.server.DataPacketSendEvent;
 import cn.nukkit.form.response.FormResponse;
 import cn.nukkit.form.response.FormResponseCustom;
 import cn.nukkit.form.element.Element;
@@ -21,6 +23,8 @@ import cn.nukkit.form.window.FormWindowCustom;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemMap;
 import cn.nukkit.level.Sound;
+import cn.nukkit.network.protocol.DataPacket;
+import cn.nukkit.network.protocol.BookEditPacket;
 import cn.nukkit.utils.LoginChainData;
 import cn.nukkit.inventory.PlayerInventory;
 import github.kairusds.manager.*;
@@ -207,6 +211,48 @@ public class EventListener implements Listener{
 			Item bow = heldItem;
 			bow.setDamage(0);
 			inventory.setItemInHand(bow);
+		}
+	}
+
+	@EventHandler
+	public void onPacketReceive(DataPacketReceiveEvent event){
+		Player player = event.getPlayer();
+		DataPacket packet = event.getPacket();
+
+		if(packet instanceof BookEditPacket){
+			BookEditPacket bookEdit = (BookEditPacket) packet;
+			if(bookEdit.text == null) player.sendMessage("BookEditPacket text field is null");
+			ArrayList<String> fields = new ArrayList<>();
+			fields.add(bookEdit.action.name());
+			fields.add(bookEdit.action);
+			fields.add(bookEdit.inventorySlot);
+			fields.add(bookEdit.pageNumber);
+			fields.add(bookEdit.photoName);
+			fields.add(bookEdit.title);
+			fields.add(bookEdit.author);
+			fields.add(bookEdit.xuid);
+			player.sendMessage(String.join(", ", fields));
+		}
+	}
+
+	@EventHandler
+	public void onPacketSend(DataPacketSendEvent event){
+		Player player = event.getPlayer();
+		DataPacket packet = event.getPacket();
+
+		if(packet instanceof BookEditPacket){
+			BookEditPacket bookEdit = (BookEditPacket) packet;
+			if(bookEdit.text == null) player.sendMessage("BookEditPacket text field is null");
+			ArrayList<String> fields = new ArrayList<>();
+			fields.add(bookEdit.action.name());
+			fields.add(bookEdit.action);
+			fields.add(bookEdit.inventorySlot);
+			fields.add(bookEdit.pageNumber);
+			fields.add(bookEdit.photoName);
+			fields.add(bookEdit.title);
+			fields.add(bookEdit.author);
+			fields.add(bookEdit.xuid);
+			player.sendMessage(String.join(", ", fields));
 		}
 	}
 
