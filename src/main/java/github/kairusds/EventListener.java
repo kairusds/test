@@ -203,7 +203,7 @@ public class EventListener implements Listener{
 			}
 
 			heldItem.onRelease(player, 22);
-			player.getLevel().addSound(player, Sound.NOTE_BASSATTACK, 0.6f, 1.0f);
+			player.getLevel().addSound(player, Sound.NOTE_IRON_XYLOPHONE, 0.6f, 1.0f);
 			Item bow = heldItem;
 			bow.setDamage(0);
 			inventory.setItemInHand(bow);
