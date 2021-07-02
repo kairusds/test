@@ -221,11 +221,10 @@ public class EventListener implements Listener{
 
 		if(packet instanceof BookEditPacket){
 			BookEditPacket bookEdit = (BookEditPacket) packet;
-			if(bookEdit.text == null) player.sendMessage("BookEditPacket text field is null");
 			ArrayList<String> msg = new ArrayList<>();
-			msg.add(bookEdit.action.toString());
-			msg.add(bookEdit.inventorySlot.toString());
-			msg.add(bookEdit.pageNumber.toString());
+			msg.add(Integer.toString(bookEdit.action)));
+			msg.add(Integer.toString(bookEdit.inventorySlot)));
+			msg.add(Integer.toString(bookEdit.pageNumber)));
 			msg.add(bookEdit.secondaryPageNumber.toString());
 			msg.add(bookEdit.photoName);
 			msg.add(bookEdit.title);
@@ -242,11 +241,10 @@ public class EventListener implements Listener{
 
 		if(packet instanceof BookEditPacket){
 			BookEditPacket bookEdit = (BookEditPacket) packet;
-			if(bookEdit.text == null) player.sendMessage("BookEditPacket text field is null");
 			ArrayList<String> msg = new ArrayList<>();
-			msg.add(bookEdit.action.toString());
-			msg.add(bookEdit.inventorySlot.toString());
-			msg.add(bookEdit.pageNumber.toString());
+			msg.add(Integer.toString(bookEdit.action)));
+			msg.add(Integer.toString(bookEdit.inventorySlot)));
+			msg.add(Integer.toString(bookEdit.pageNumber)));
 			msg.add(bookEdit.secondaryPageNumber.toString());
 			msg.add(bookEdit.photoName);
 			msg.add(bookEdit.title);
