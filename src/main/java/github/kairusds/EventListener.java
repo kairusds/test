@@ -138,7 +138,7 @@ public class EventListener implements Listener{
 					changes.add("§einvisibility §7> §b" + (invisible ? "on" : "off"));
 				}
 
-				if(player.isSurvival() || player.isAdventure()){
+				if(res.getResponses().size() > 4){
 					boolean hunger = res.getToggleResponse(4);
 					boolean flight = res.getToggleResponse(5);
 					if(player.isFoodEnabled() != hunger){
