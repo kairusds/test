@@ -20,7 +20,7 @@ import cn.nukkit.form.window.FormWindow;
 import cn.nukkit.form.window.FormWindowCustom;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemMap;
-import static cn.nukkit.level.Sound.*;
+import cn.nukkit.level.Sound;
 import cn.nukkit.utils.LoginChainData;
 import cn.nukkit.inventory.PlayerInventory;
 import github.kairusds.manager.*;
@@ -31,26 +31,6 @@ import java.util.Random;
 public class EventListener implements Listener{
 
 	private Main plugin;
-
-	private String[] noteSounds = new String[]{
-		NOTE_BANJO,
-		NOTE_BASS,
-		NOTE_BASSATTACK,
-		NOTE_BD,
-		NOTE_BELL,
-		NOTE_BIT,
-		NOTE_CHIME,
-		NOTE_COW_BELL,
-		NOTE_DIDGERIDOO,
-		NOTE_FLUTE,
-		NOTE_GUITAR,
-		NOTE_HARP,
-		NOTE_HAT,
-		NOTE_IRON_XYLOPHONE,
-		NOTE_PLING,
-		NOTE_SNARE,
-		NOTE_XYLOPHONE
-	};
 
 	public EventListener(Main main){
 		plugin = main;
@@ -67,7 +47,7 @@ public class EventListener implements Listener{
 			if(event.getCause() == FALL && entity.namedTag.contains("boosted")){ // i used nbt bc i dont wanna define an arraylist again
 				event.setCancelled();
 				entity.namedTag.remove("boosted");
-				entity.getLevel().addSound(entity, MOB_BLAZE_HIT, 0.4f, 1.0f);
+				entity.getLevel().addSound(entity, Sound.MOB_BLAZE_HIT, 0.4f, 1.0f);
 				((Player) entity).setCheckMovement(true);
 			}
 		}
@@ -211,7 +191,7 @@ public class EventListener implements Listener{
 				player.setCheckMovement(false);
 			}
 			player.setMotion(event.getTouchVector().multiply(2.7).up());
-			player.getLevel().addSound(player, MOB_ENDERDRAGON_FLAP, 0.6f, 1.0f);
+			player.getLevel().addSound(player, Sound.MOB_ENDERDRAGON_FLAP, 0.6f, 1.0f);
 		}
 
 		if(heldItem.getId() == Item.BOW){
@@ -223,9 +203,13 @@ public class EventListener implements Listener{
 				inventory.addItem(arrow);
 			}
 
-			Random random = new Random();
-			int randomNum = random.nextInt(noteSounds.length);
-			player.getLevel().addSound(player, noteSounds[randomNum], 0.6f, 1.0f);
+			ArrayList<Sound> noteSounds = new ArrayList<>();
+			for(Sound sound : Sound.values()){
+				if(sound.getSound().startsWith("note.")) noteSounds.add(sound);
+			}
+
+			int rnd = new Random().nextInt(noteSounds.size());
+			player.getLevel().addSound(player, noteSounds.get(rnd), 0.6f, 1.0f);
 			heldItem.onRelease(player, 22);
 			Item bow = heldItem;
 			bow.setDamage(0);
