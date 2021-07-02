@@ -222,16 +222,16 @@ public class EventListener implements Listener{
 		if(packet instanceof BookEditPacket){
 			BookEditPacket bookEdit = (BookEditPacket) packet;
 			if(bookEdit.text == null) player.sendMessage("BookEditPacket text field is null");
-			ArrayList<String> fields = new ArrayList<>();
-			fields.add(bookEdit.action.name());
-			fields.add(bookEdit.action);
-			fields.add(bookEdit.inventorySlot);
-			fields.add(bookEdit.pageNumber);
-			fields.add(bookEdit.photoName);
-			fields.add(bookEdit.title);
-			fields.add(bookEdit.author);
-			fields.add(bookEdit.xuid);
-			player.sendMessage(String.join(", ", fields));
+			ArrayList<String> msg = new ArrayList<>();
+			msg.add(bookEdit.action.toString());
+			msg.add(bookEdit.inventorySlot.toString());
+			msg.add(bookEdit.pageNumber.toString());
+			msg.add(bookEdit.secondaryPageNumber.toString());
+			msg.add(bookEdit.photoName);
+			msg.add(bookEdit.title);
+			msg.add(bookEdit.author);
+			msg.add(bookEdit.xuid);
+			player.sendMessage(String.join(", ", msg));
 		}
 	}
 
@@ -243,16 +243,16 @@ public class EventListener implements Listener{
 		if(packet instanceof BookEditPacket){
 			BookEditPacket bookEdit = (BookEditPacket) packet;
 			if(bookEdit.text == null) player.sendMessage("BookEditPacket text field is null");
-			ArrayList<String> fields = new ArrayList<>();
-			fields.add(bookEdit.action.name());
-			fields.add(bookEdit.action);
-			fields.add(bookEdit.inventorySlot);
-			fields.add(bookEdit.pageNumber);
-			fields.add(bookEdit.photoName);
-			fields.add(bookEdit.title);
-			fields.add(bookEdit.author);
-			fields.add(bookEdit.xuid);
-			player.sendMessage(String.join(", ", fields));
+			ArrayList<String> msg = new ArrayList<>();
+			msg.add(bookEdit.action.toString());
+			msg.add(bookEdit.inventorySlot.toString());
+			msg.add(bookEdit.pageNumber.toString());
+			msg.add(bookEdit.secondaryPageNumber.toString());
+			msg.add(bookEdit.photoName);
+			msg.add(bookEdit.title);
+			msg.add(bookEdit.author);
+			msg.add(bookEdit.xuid);
+			player.sendMessage(String.join(", ", msg));
 		}
 	}
 
