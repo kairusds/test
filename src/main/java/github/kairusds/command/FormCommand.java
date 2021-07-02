@@ -28,6 +28,7 @@ public class FormCommand extends BaseCommand{
 
 		if(args.length < 2){
 			sender.sendMessage("§7" + usageMessage);
+			return true;
 		}
 
 		plugin.getFormManager().sendSimpleForm((Player) sender, args[0], args[1]);
