@@ -193,14 +193,20 @@ public class EventListener implements Listener{
 			player.getLevel().addSound(player, Sound.MOB_ENDERDRAGON_FLAP, 0.6f, 1.0f);
 		}
 
-		if(event.getAction() == RIGHT_CLICK_AIR && heldItem.getId() == Item.BOW){
+		if((event.getAction() == RIGHT_CLICK_AIR || event.getAction() == PHYSICAL) && heldItem.getId() == Item.BOW){
 			event.setCancelled();
 			Item arrow = Item.get(Item.ARROW);
-			if(!inventory.contains(arrow) && !inventory.canAddItem(arrow)) return;
-			inventory.addItem(arrow);
-			heldItem.onRelease(player, 6);
-			player.getLevel().addSound(player, Sound.NOTE_BASS, 0.6f, 1.0f);
-			inventory.setItemInHand(Item.get(heldItem.getId(), 0));
+
+			if(!inventory.contains(arrow)){
+				if(!inventory.canAddItem(arrow)) return;
+				inventory.addItem(arrow);
+			}
+
+			heldItem.onRelease(player, 22);
+			player.getLevel().addSound(player, Sound.NOTE_BASSATTACK, 0.6f, 1.0f);
+			Item bow = heldItem;
+			bow.setDamage(0);
+			inventory.setItemInHand(bow);
 		}
 	}
 
