@@ -117,6 +117,8 @@ public class EventListener implements Listener{
 				int gamemode = Server.getGamemodeFromString(res.getDropdownResponse(2).getElementContent()); // cool chain
 				boolean invisible = res.getToggleResponse(3);
 
+				player.sendMessage(String.valueOf(res.getResponses().size()));
+
 				if(!player.getDisplayName().equals(displayName)){
 					player.setDisplayName(displayName);
 					changes.add("§edisplay name §7> §b" + displayName);
