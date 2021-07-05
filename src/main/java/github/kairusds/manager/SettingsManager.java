@@ -11,6 +11,7 @@ import cn.nukkit.form.element.ElementToggle;
 import github.kairusds.Main;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class SettingsManager{
@@ -29,7 +30,7 @@ public class SettingsManager{
 
 	public void addUser(Player player){
 		ArrayList<Element> contents = new ArrayList<>();
-		ArrayList<String> gamemodes = Arrays.asList("Survival", "Creative", "Adventure", "Spectator");
+		List<String> gamemodes = Arrays.asList("Survival", "Creative", "Adventure", "Spectator");
 
 		contents.add(new ElementInput("", "Display Name", player.getDisplayName()));
 		contents.add(new ElementInput("", "Nametag", player.getNameTag()));
