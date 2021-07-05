@@ -29,11 +29,7 @@ public class SettingsManager{
 
 	public void addUser(Player player){
 		ArrayList<Element> contents = new ArrayList<>();
-		ArrayList<String> gamemodes = new ArrayList<>();
-		gamemodes.add("Survival");
-		gamemodes.add("Creative");
-		gamemodes.add("Adventure");
-		gamemodes.add("Spectator");
+		ArrayList<String> gamemodes = Arrays.asList("Survival", "Creative", "Adventure", "Spectator");
 
 		contents.add(new ElementInput("", "Display Name", player.getDisplayName()));
 		contents.add(new ElementInput("", "Nametag", player.getNameTag()));
