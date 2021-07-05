@@ -22,7 +22,7 @@ public class BaseCommand extends Command implements PluginIdentifiableCommand{
 	public BaseCommand(Main main, String name, String description, String usageMessage, String[] aliases){
 		super(name, description, usageMessage, aliases);
 		plugin = main;
-   }
+	}
 
 	@Override
 	public Main getPlugin(){
