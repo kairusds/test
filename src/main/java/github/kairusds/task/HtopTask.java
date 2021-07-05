@@ -20,7 +20,7 @@ public class HtopTask extends PluginTask<Main>{
 				String tpsColor = "§a";
 				float tps = server.getTicksPerSecond();
 	
-				if(tps < 17){
+				if(tps < 17 && tps > 12){
 					tpsColor = "§e";
 				}else if (tps < 12){
 					tpsColor = "§c";
@@ -35,7 +35,7 @@ public class HtopTask extends PluginTask<Main>{
 				String pingColor = "§a";
 				String usageColor = "§a";
 
-				if(ping > 99){
+				if(ping > 99 && ping < 199){
 					pingColor = "§e";
 				}else if(ping > 199){
 					pingColor = "§c";
