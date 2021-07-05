@@ -1,11 +1,11 @@
-name: ${project.name}
+name: Magnolia
 main: github.kairusds.Main
-version: ${project.version}
+version: "1.2.2"
 api: ["1.0.13"]
 load: POSTWORLD
 author: kairusds
-description: ${project.description}
-website: ${project.url}
+description: "Life is an endless abyss with no purpose, we were all born to slave away for nothing and then die in complete agony."
+website: "https://github.com/kairusds"
 
 permissions:
   kairusds:
