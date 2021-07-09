@@ -5,7 +5,6 @@ import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.math.NukkitMath;
 import cn.nukkit.scheduler.PluginTask;
-import java.util.ArrayList;
 
 public class HtopTask extends PluginTask<Main>{
 
@@ -19,13 +18,13 @@ public class HtopTask extends PluginTask<Main>{
 			if(getOwner().getHtopManager().isUser(player)){
 				String tpsColor = "§a";
 				float tps = server.getTicksPerSecond();
-	
+
 				if(tps < 17 && tps > 12){
 					tpsColor = "§e";
 				}else if (tps < 12){
 					tpsColor = "§c";
 				}
-	
+
 				int ping = player.getPing();
 				Runtime runtime = Runtime.getRuntime();
 				double totalMB = NukkitMath.round(((double) runtime.totalMemory()) / 1024 / 1024, 2);

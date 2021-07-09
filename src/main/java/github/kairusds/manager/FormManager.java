@@ -1,7 +1,6 @@
 package github.kairusds.manager;
 
 import cn.nukkit.Player;
-import cn.nukkit.Server;
 import cn.nukkit.form.element.Element;
 import cn.nukkit.form.element.ElementButton;
 import cn.nukkit.form.element.ElementButtonImageData;
@@ -9,10 +8,8 @@ import cn.nukkit.form.window.FormWindowCustom;
 import cn.nukkit.form.window.FormWindowModal;
 import cn.nukkit.form.window.FormWindowSimple;
 import github.kairusds.Main;
-import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 // api kinda wack
 public class FormManager{
