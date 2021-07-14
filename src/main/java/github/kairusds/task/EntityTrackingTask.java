@@ -23,6 +23,7 @@ public class EntityTrackingTask extends PluginTask<Main>{
 		for(Player player : getOwner().getServer().getOnlinePlayers().values()){
 			if(manager.isUser(player)){
 				Entity entity = manager.getEntity(player);
+				if(!entity.isAlive()) manager.removeUser(player);
 				Item heldItem = player.getInventory().getItemInHand();
 				if(heldItem.getId() == Item.COMPASS){
 					player.sendTip("§7Distance from §e" + entity.getName() + "§7:§e" + player.distanceSquared((Vector3) entity));

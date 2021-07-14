@@ -23,6 +23,7 @@ public class BlockTrackingTask extends PluginTask<Main>{
 		for(Player player : getOwner().getServer().getOnlinePlayers().values()){
 			if(manager.isUser(player)){
 				Block block = manager.getBlock(player);
+				if(!block.isSolid()) manager.removeUser(player);
 				Item heldItem = player.getInventory().getItemInHand();
 				if(heldItem.getId() == Item.COMPASS){
 					player.sendTip("§7Distance from §e" + block.getName() + "§7:§e" + player.distanceSquared((Vector3) block));

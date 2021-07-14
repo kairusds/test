@@ -47,19 +47,19 @@ public class EventListener implements Listener{
 		Entity entity = event.getEntity();
 
 		if(event instanceof EntityDamageByEntityEvent){ // attack hook
-			Entity damager = event.getDamager();
+			Entity damager = ((EntityDamageByEntityEvent) event).getDamager();
 			Item heldItem = damager.getInventory().getItemInHand();
 
 			if(damager instanceof Player && heldItem.getId() == Item.COMPASS){
 				event.setCancelled();
 				EntityTrackingManager manager = plugin.getEntityTrackingManager();
 				BlockTrackingManager manager1 = plugin.getBlockTrackingManager();
-				if(!manager.isUser(player) && !manager1.isUser(player)){
-					player.sendMessage("§7Started tracking distance of §e" + entity.getName());
-					manager.addUser(player, entity);
-				}else if(manager.isUser(player) && !manager1.isUser(player)){
-					player.sendMessage("§7Stopped tracking §e" + manager.getEntity(player).getName());
-					manager.removeUser(player);
+				if(!manager.isUser(damager) && !manager1.isUser(damager)){
+					damager.sendMessage("§7Started tracking distance of §e" + entity.getName());
+					manager.addUser(damager, entity);
+				}else if(manager.isUser(damager) && !manager1.isUser(damager)){
+					damager.sendMessage("§7Stopped tracking §e" + manager.getEntity(damager).getName());
+					manager.removeUser(damager);
 				}
 			}
 		}
@@ -283,7 +283,7 @@ public class EventListener implements Listener{
 	public void onJoin(PlayerJoinEvent event){
 		HtopManager manager = plugin.getHtopManager();
 		BlockTrackingManager manager1 = plugin.getBlockTrackingManager();
-		EntityTrackingManager manager2 = plugin.getBlockTrackingManager();
+		EntityTrackingManager manager2 = plugin.getEntityTrackingManager();
 		if(!manager.isTaskActive() && !manager2.isTaskActive() && !manager2.isTaskActive()){
 			manager.startTask();
 			manager1.startTask();
@@ -320,12 +320,13 @@ public class EventListener implements Listener{
 	public void onQuit(PlayerQuitEvent event){
 		HtopManager manager = plugin.getHtopManager();
 		BlockTrackingManager manager1 = plugin.getBlockTrackingManager();
-		EntityTrackingManager manager2 = plugin.getBlockTrackingManager();
-		if(manager.isTaskActive() && manager1.isTaskActive() && manager2.isTaskActive() && getServer().getOnlinePlayers().size() <= 1){
+		EntityTrackingManager manager2 = plugin.getEntityTrackingManager();
+		if(manager.isTaskActive() && manager1.isTaskActive() && manager2.isTaskActive() && rainbowArmorTask != null
+			&& getServer().getOnlinePlayers().size() <= 1){
 			manager.stopTask();
 			manager1.stopTask();
 			manager2.stopTask();
-			rainbowArmorTask.stop();
+			rainbowArmorTask.cancel();
 			rainbowArmorTask = null;
 			getServer().getLogger().info("Disabled tasks.");
 		}
