@@ -12,7 +12,7 @@ public class RainbowArmorTask extends PluginTask<Main>{
 	private Player player;
 	private int colorIndex = 0;
 
-	public BlockTrackingTask(Main owner){
+	public RainbowArmorTask(Main owner){
 		super(owner);
 	}
 
