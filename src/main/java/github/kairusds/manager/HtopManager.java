@@ -18,17 +18,13 @@ public class HtopManager{
 		plugin = main;
 	}
 
-	Server getServer(){
-		return plugin.getServer();
-	}
-
 	public boolean isTaskActive(){
 		return task != null;
 	}
 
 	public void startTask(){
 		task = new HtopTask(plugin);
-		getServer().getScheduler().scheduleRepeatingTask(plugin, task, 20);
+		plugin.getServer().getScheduler().scheduleRepeatingTask(plugin, task, 20);
 	}
 
 	public void stopTask(){

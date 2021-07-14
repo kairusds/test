@@ -14,6 +14,9 @@ import java.util.UUID;
 public class Main extends PluginBase{
 
 	private static Main instance;
+
+	private BlockTrackingManager blockTrackingManager;
+	private EntityTrackingManager entityTrackingManager;
 	private FormManager formManager;
 	private HtopManager htopManager;
 	private ImageMapManager imageMapManager;
@@ -57,10 +60,20 @@ public class Main extends PluginBase{
 	}
 
 	public void setManagers(){
+		blockTrackingManager = new BlockTrackingManager(this);
+		entityTrackingManager = new EntityTrackingManager(this);
 		formManager = new FormManager(this);
 		htopManager = new HtopManager(this);
 		imageMapManager = new ImageMapManager(this);
 		settingsManager = new SettingsManager(this);
+	}
+
+	public BlockTrackingManager getBlockTrackingManager(){
+		return blockTrackingManager;
+	}
+
+	public EntityTrackingManager getEntityTrackingManager(){
+		return entityTrackingManager;
 	}
 
 	public FormManager getFormManager(){

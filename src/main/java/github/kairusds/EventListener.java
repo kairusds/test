@@ -2,18 +2,17 @@ package github.kairusds;
 
 import cn.nukkit.Player;
 import cn.nukkit.Server;
+import cn.nukkit.block.Block;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
-import cn.nukkit.event.entity.EntityDamageEvent;
-import static cn.nukkit.event.entity.EntityDamageEvent.DamageCause.*; // why am i doing this
+import cn.nukkit.event.entity.*;
+import static cn.nukkit.event.entity.EntityDamageEvent.DamageCause.*;
 import cn.nukkit.event.player.*;
 import static cn.nukkit.event.player.PlayerInteractEvent.Action.*;
-import cn.nukkit.form.response.FormResponse;
-import cn.nukkit.form.response.FormResponseCustom;
+import cn.nukkit.form.response.*;
 import cn.nukkit.form.element.Element;
-import cn.nukkit.form.window.FormWindow;
-import cn.nukkit.form.window.FormWindowCustom;
+import cn.nukkit.form.window.*;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemMap;
 import cn.nukkit.level.Location;
@@ -24,6 +23,7 @@ import cn.nukkit.scheduler.NukkitRunnable;
 import cn.nukkit.utils.LoginChainData;
 import cn.nukkit.inventory.PlayerInventory;
 import github.kairusds.manager.*;
+import github.kairusds.task.RainbowArmorTask;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
@@ -32,17 +32,37 @@ public class EventListener implements Listener{
 
 	private Main plugin;
 
+	private RainbowArmorTask rainbowArmorTask;
+
 	public EventListener(Main main){
 		plugin = main;
 	}
 
-	protected Server getServer(){
+	Server getServer(){
 		return plugin.getServer();
 	}
 
 	@EventHandler
 	public void onDamage(EntityDamageEvent event){
 		Entity entity = event.getEntity();
+
+		if(event instanceof EntityDamageByEntityEvent){ // attack hook
+			Entity damager = event.getDamager();
+			Item heldItem = damager.getInventory().getItemInHand();
+
+			if(damager instanceof Player && heldItem.getId() == Item.COMPASS){
+				event.setCancelled();
+				EntityTrackingManager manager = plugin.getEntityTrackingManager();
+				if(!manager.isUser(player)){
+					player.sendMessage("§7Started tracking distance of §e" + entity.getName());
+					manager.addUser(player, entity);
+				}else{
+					player.sendMessage("§7Stopped tracking §e" + manager.getEntity(player).getName());
+					manager.removeUser(player);
+				}
+			}
+		}
+
 		if(entity instanceof Player){
 			if(event.getCause() == FALL && entity.namedTag.contains("boosted")){ // i used nbt bc i dont wanna define an arraylist again
 				event.setCancelled();
@@ -172,19 +192,11 @@ public class EventListener implements Listener{
 	}
 
 	@EventHandler
-	public void onJoin(PlayerJoinEvent event){
-		HtopManager manager = plugin.getHtopManager();
-		if(!manager.isTaskActive()){
-			manager.startTask();
-			getServer().getLogger().info("Enabled htop task.");
-		}
-	}
-
-	@EventHandler
 	public void onInteract(PlayerInteractEvent event){
 		Player player = event.getPlayer();
 		PlayerInventory inventory = player.getInventory();
 		Item heldItem = inventory.getItemInHand();
+		Block block = event.getBlock();
 
 		if(event.getAction() == RIGHT_CLICK_AIR && heldItem.getId() == Item.STICK){
 			event.setCancelled();
@@ -194,6 +206,18 @@ public class EventListener implements Listener{
 			}
 			player.setMotion(event.getTouchVector().multiply(2.7).up());
 			player.getLevel().addSound(player, Sound.MOB_ENDERDRAGON_FLAP, 0.6f, 1.0f);
+		}
+
+		if(heldItem.getId() == Item.COMPASS && block.isSolid()){
+			event.setCancelled();
+			BlockTrackingManager manager = plugin.getBlockTrackingManager();
+			if(!manager.isUser(player)){
+				player.sendMessage("§7Started tracking distance of §e" + block.getName());
+				manager.addUser(player, block);
+			}else{
+				player.sendMessage("§7Stopped tracking §e" + manager.getBlock(player).getName());
+				manager.removeUser(player);
+			}
 		}
 
 		if(heldItem.getId() == Item.BLAZE_ROD){
@@ -254,6 +278,21 @@ public class EventListener implements Listener{
 	}
 
 	@EventHandler
+	public void onJoin(PlayerJoinEvent event){
+		HtopManager manager = plugin.getHtopManager();
+		BlockTrackingManager manager1 = plugin.getBlockTrackingManager();
+		EntityTrackingManager manager2 = plugin.getBlockTrackingManager();
+		if(!manager.isTaskActive() && !manager2.isTaskActive() && !manager2.isTaskActive()){
+			manager.startTask();
+			manager1.startTask();
+			manager2.startTask();
+			rainbowArmorTask = new RainbowArmorTask(plugin);
+			plugin.getServer().getScheduler().scheduleRepeatingTask(plugin, rainbowArmorTask, 20);
+			getServer().getLogger().info("Enabled tasks.");
+		}
+	}
+
+	@EventHandler
 	public void onJump(PlayerJumpEvent event){
 		Player player = event.getPlayer();
 		if(!player.namedTag.contains("jumped")) player.namedTag.putByte("jumped", 1);
@@ -278,9 +317,15 @@ public class EventListener implements Listener{
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event){
 		HtopManager manager = plugin.getHtopManager();
-		if(manager.isTaskActive() && getServer().getOnlinePlayers().size() <= 1){
+		BlockTrackingManager manager1 = plugin.getBlockTrackingManager();
+		EntityTrackingManager manager2 = plugin.getBlockTrackingManager();
+		if(manager.isTaskActive() && manager1.isTaskActive() && manager2.isTaskActive() && getServer().getOnlinePlayers().size() <= 1){
 			manager.stopTask();
-			getServer().getLogger().info("Disabled htop task.");
+			manager1.stopTask();
+			manager2.stopTask();
+			rainbowArmorTask.stop();
+			rainbowArmorTask = null;
+			getServer().getLogger().info("Disabled tasks.");
 		}
 	}
 }

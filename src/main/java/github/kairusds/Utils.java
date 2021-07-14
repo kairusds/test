@@ -25,9 +25,14 @@ public class Utils{
 	}
 
 	public static BufferedImage getImageFromBase64(String data){
-		byte[] imageBytes = Base64.getDecoder().decode(data);
-		InputStream inputStream = new ByteArrayInputStream(imageBytes);
-		return ImageIO.read(inputStream);
+		try{
+			byte[] imageBytes = Base64.getDecoder().decode(data);
+			InputStream inputStream = new ByteArrayInputStream(imageBytes);
+			return ImageIO.read(inputStream);
+		}catch(Exception error){
+			error.printStackTrace();
+			return null;
+		}
 	}
 
 	public static BufferedImage getImageFromUrl(String url){
