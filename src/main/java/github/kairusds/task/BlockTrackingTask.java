@@ -24,7 +24,7 @@ public class BlockTrackingTask extends PluginTask<Main>{
 				Block block = manager.getBlock(player);
 				Item heldItem = player.getInventory().getItemInHand();
 				if(heldItem.getId() == Item.COMPASS){
-					player.sendTip("§7Distance from §e" + block.getName() + "§7:§e" + player.distanceSquared((Vector3) block)));
+					player.sendTip("§7Distance from §e" + block.getName() + "§7:§e" + player.distanceSquared((Vector3) block));
 					SetSpawnPositionPacket pk = new SetSpawnPositionPacket();
 					pk.spawnType = SetSpawnPositionPacket.TYPE_WORLD_SPAWN;
 					pk.x = block.getFloorX();
