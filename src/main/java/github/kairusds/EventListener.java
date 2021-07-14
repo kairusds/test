@@ -50,20 +50,20 @@ public class EventListener implements Listener{
 			Entity damager = ((EntityDamageByEntityEvent) event).getDamager();
 
 			if(damager instanceof Player){
-				damager = (Player) damager;
-				Item heldItem = damager.getInventory().getItemInHand();
+				Player attacker = (Player) damager;
+				Item heldItem = attacker.getInventory().getItemInHand();
 
 				if(heldItem.getId() == Item.COMPASS){
 					event.setCancelled();
 					EntityTrackingManager manager = plugin.getEntityTrackingManager();
 					BlockTrackingManager manager1 = plugin.getBlockTrackingManager();
 
-					if(!manager.isUser(damager) && !manager1.isUser(damager)){
-						damager.sendMessage("§7Started tracking distance of §e" + entity.getName());
-						manager.addUser(damager, entity);
-					}else if(manager.isUser(damager) && !manager1.isUser(damager)){
-						damager.sendMessage("§7Stopped tracking §e" + manager.getEntity(damager).getName());
-						manager.removeUser(damager);
+					if(!manager.isUser(attacker) && !manager1.isUser(attacker)){
+						attacker.sendMessage("§7Started tracking distance of §e" + entity.getName());
+						manager.addUser(attacker, entity);
+					}else if(manager.isUser(attacker) && !manager1.isUser(attacker)){
+						attacker.sendMessage("§7Stopped tracking §e" + manager.getEntity(attacker).getName());
+						manager.removeUser(attacker);
 					}
 				}
 			}
