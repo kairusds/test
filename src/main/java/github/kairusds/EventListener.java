@@ -48,18 +48,23 @@ public class EventListener implements Listener{
 
 		if(event instanceof EntityDamageByEntityEvent){ // attack hook
 			Entity damager = ((EntityDamageByEntityEvent) event).getDamager();
-			Item heldItem = damager.getInventory().getItemInHand();
 
-			if(damager instanceof Player && heldItem.getId() == Item.COMPASS){
-				event.setCancelled();
-				EntityTrackingManager manager = plugin.getEntityTrackingManager();
-				BlockTrackingManager manager1 = plugin.getBlockTrackingManager();
-				if(!manager.isUser(damager) && !manager1.isUser(damager)){
-					damager.sendMessage("§7Started tracking distance of §e" + entity.getName());
-					manager.addUser(damager, entity);
-				}else if(manager.isUser(damager) && !manager1.isUser(damager)){
-					damager.sendMessage("§7Stopped tracking §e" + manager.getEntity(damager).getName());
-					manager.removeUser(damager);
+			if(damager instanceof Player){
+				damager = (Player) damager;
+				Item heldItem = damager.getInventory().getItemInHand();
+
+				if(heldItem.getId() == Item.COMPASS){
+					event.setCancelled();
+					EntityTrackingManager manager = plugin.getEntityTrackingManager();
+					BlockTrackingManager manager1 = plugin.getBlockTrackingManager();
+
+					if(!manager.isUser(damager) && !manager1.isUser(damager)){
+						damager.sendMessage("§7Started tracking distance of §e" + entity.getName());
+						manager.addUser(damager, entity);
+					}else if(manager.isUser(damager) && !manager1.isUser(damager)){
+						damager.sendMessage("§7Stopped tracking §e" + manager.getEntity(damager).getName());
+						manager.removeUser(damager);
+					}
 				}
 			}
 		}
@@ -215,7 +220,7 @@ public class EventListener implements Listener{
 			EntityTrackingManager manager1 = plugin.getEntityTrackingManager();
 			if(!manager.isUser(player) && !manager1.isUser(player)){
 				player.sendMessage("§7Started tracking distance of §e" + block.getName());
-				manager.addUser(player, block);
+				manager.addUser(player, block.clone());
 			}else if(manager.isUser(player) && !manager1.isUser(player)){
 				player.sendMessage("§7Stopped tracking §e" + manager.getBlock(player).getName());
 				manager.removeUser(player);
