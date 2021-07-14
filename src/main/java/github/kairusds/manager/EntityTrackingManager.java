@@ -1,9 +1,10 @@
 package github.kairusds.manager;
 
 import cn.nukkit.Player;
-import cn.nukkiy.entity.Entity;
+import cn.nukkit.entity.Entity;
 import cn.nukkit.level.Position;
 import cn.nukkit.network.protocol.SetSpawnPositionPacket;
+import github.kairusds.Main;
 import github.kairusds.task.EntityTrackingTask;
 import java.util.HashMap;
 import java.util.UUID;

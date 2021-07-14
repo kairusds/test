@@ -4,6 +4,7 @@ import cn.nukkit.Player;
 import cn.nukkit.inventory.PlayerInventory;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemColorArmor;
+import cn.nukkit.scheduler.PluginTask;
 import cn.nukkit.utils.DyeColor;
 import github.kairusds.Main;
 
