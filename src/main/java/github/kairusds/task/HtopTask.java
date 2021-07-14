@@ -19,7 +19,7 @@ public class HtopTask extends PluginTask<Main>{
 				String tpsColor = "§a";
 				float tps = server.getTicksPerSecond();
 
-				if(tps < 17 && tps > 12){
+				if(tps > 12 && tps < 17){
 					tpsColor = "§e";
 				}else if (tps < 12){
 					tpsColor = "§c";

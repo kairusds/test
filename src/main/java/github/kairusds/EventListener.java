@@ -17,6 +17,7 @@ import cn.nukkit.form.window.FormWindowCustom;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemMap;
 import cn.nukkit.level.Sound;
+import cn.nukkit.scheduler.NukkitRunnable;
 import cn.nukkit.utils.LoginChainData;
 import cn.nukkit.inventory.PlayerInventory;
 import github.kairusds.manager.*;
@@ -192,6 +193,40 @@ public class EventListener implements Listener{
 			player.getLevel().addSound(player, Sound.MOB_ENDERDRAGON_FLAP, 0.6f, 1.0f);
 		}
 
+		if(heldItem.getId() == Item.BLAZE_ROD){
+			player.getLevel().addSound(player, Sound.PISTON_IN, 0.6f, 1.0f);
+			new NukkitRunnable(){
+				Location location = (Location) player; // might need to implement eyeheight if needed
+				Vector3 direction = player.getDirectionVector();
+				double time = 0;
+				double rotation = 0;
+
+				@Override
+				public void run(){
+					time += 1;
+					double xtrav = direction.getX() * time;
+					double ytrav = direction.getY() * time;
+					double ztrav = direction.getZ() * time;
+					location.add(xtrav, ytrav, ztrav);
+			
+					for(double i = 0; i <= 2 * Math.PI; i += Math.PI / 32){
+						double x = rotation * Math.cos(i);
+						double y = rotation * Math.cos(i) + 1.5;
+						double z = rotation * Math.sin(i);
+						location.add(x, y, z);
+						player.getLevel().addParticle(new DustParticle((Vector3) location, 48, 48, 48));
+						player.getLevel().addSound((Vector3) location, Sound.PISTON_OUT, 0.4f, 1.0f);
+						location.subtract(x, y, z);
+					}
+					location.subtract(xtrav, ytrav, ztrav);
+					rotation += 0.1;
+					if(time > 20){
+						cancel();
+					}
+				}
+			}.runTaskTimer(plugin, 0, 1);
+		}
+
 		if(heldItem.getId() == Item.BOW){
 			event.setCancelled();
 			Item arrow = Item.get(Item.ARROW);
@@ -217,7 +252,24 @@ public class EventListener implements Listener{
 
 	@EventHandler
 	public void onJump(PlayerJumpEvent event){
-		event.getPlayer().sendPopup("jumped");
+		Player player = event.getPlayer();
+		if(!player.namedTag.contains("jumped")) player.namedTag.putByte("jumped", 1);
+		new NukkitRunnable(){
+			@Override
+			public void run(){
+				player.namedTag.remove("jumped");
+			}
+		}.runTaskLater(plugin, 11);
+
+		if(player.namedTag.contains("jumped")){
+			if(!player.namedTag.contains("boosted") && (player.isSurvival() || player.isAdventure())){
+				player.setCheckMovement(false);
+				player.namedTag.putByte("boosted", 1);
+			}
+
+			player.setMotion(player.getDirectionVector().multiply(1.1).up());
+			player.getLevel().addSound(player, Sound.ELYTRA_LOOP, 0.6f, 1.0f);
+		}
 	}
 
 	@EventHandler
