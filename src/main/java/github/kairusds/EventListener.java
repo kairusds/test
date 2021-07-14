@@ -24,7 +24,7 @@ import cn.nukkit.scheduler.NukkitRunnable;
 import cn.nukkit.utils.LoginChainData;
 import github.kairusds.manager.*;
 import github.kairusds.task.RainbowArmorTask;
-// import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 
