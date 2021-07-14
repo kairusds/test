@@ -7,12 +7,8 @@ import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.entity.EntityDamageEvent;
 import static cn.nukkit.event.entity.EntityDamageEvent.DamageCause.*; // why am i doing this
-import cn.nukkit.event.player.PlayerFormRespondedEvent;
-import cn.nukkit.event.player.PlayerInteractEvent;
+import cn.nukkit.event.player.*;
 import static cn.nukkit.event.player.PlayerInteractEvent.Action.*;
-import cn.nukkit.event.player.PlayerJoinEvent;
-import cn.nukkit.event.player.PlayerLoginEvent;
-import cn.nukkit.event.player.PlayerQuitEvent;
 import cn.nukkit.form.response.FormResponse;
 import cn.nukkit.form.response.FormResponseCustom;
 import cn.nukkit.form.element.Element;
@@ -217,6 +213,11 @@ public class EventListener implements Listener{
 			bow.setDamage(0);
 			inventory.setItemInHand(bow);
 		}
+	}
+
+	@EventHandler
+	public void onJump(PlayerJumpEvent event){
+		event.getPlayer().sendPopup("jumped");
 	}
 
 	@EventHandler
