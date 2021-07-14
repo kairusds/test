@@ -16,7 +16,10 @@ import cn.nukkit.form.window.FormWindow;
 import cn.nukkit.form.window.FormWindowCustom;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemMap;
+import cn.nukkit.level.Location;
 import cn.nukkit.level.Sound;
+import cn.nukkit.level.particle.DustParticle;
+import cn.nukkit.math.Vector3;
 import cn.nukkit.scheduler.NukkitRunnable;
 import cn.nukkit.utils.LoginChainData;
 import cn.nukkit.inventory.PlayerInventory;
@@ -194,7 +197,7 @@ public class EventListener implements Listener{
 		}
 
 		if(heldItem.getId() == Item.BLAZE_ROD){
-			player.getLevel().addSound(player, Sound.PISTON_IN, 0.6f, 1.0f);
+			player.getLevel().addSound(player, Sound.TILE_PISTON_IN, 0.6f, 1.0f);
 			new NukkitRunnable(){
 				Location location = (Location) player; // might need to implement eyeheight if needed
 				Vector3 direction = player.getDirectionVector();
@@ -215,7 +218,7 @@ public class EventListener implements Listener{
 						double z = rotation * Math.sin(i);
 						location.add(x, y, z);
 						player.getLevel().addParticle(new DustParticle((Vector3) location, 48, 48, 48));
-						player.getLevel().addSound((Vector3) location, Sound.PISTON_OUT, 0.4f, 1.0f);
+						player.getLevel().addSound((Vector3) location, Sound.TILE_PISTON_OUT, 0.4f, 1.0f);
 						location.subtract(x, y, z);
 					}
 					location.subtract(xtrav, ytrav, ztrav);
