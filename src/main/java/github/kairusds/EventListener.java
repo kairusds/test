@@ -289,23 +289,13 @@ public class EventListener implements Listener{
 	@EventHandler
 	public void onJump(PlayerJumpEvent event){
 		Player player = event.getPlayer();
-		if(!player.namedTag.contains("jumped")) player.namedTag.putByte("jumped", 1);
-		new NukkitRunnable(){
-			@Override
-			public void run(){
-				player.namedTag.remove("jumped");
-			}
-		}.runTaskLater(plugin, 11);
 
-		if(player.namedTag.contains("jumped")){
-			if(!player.namedTag.contains("boosted") && (player.isSurvival() || player.isAdventure())){
-				player.setCheckMovement(false);
-				player.namedTag.putByte("boosted", 1);
-			}
-
-			player.setMotion(player.getDirectionVector().multiply(1.1).up());
-			player.getLevel().addSound(player, Sound.ELYTRA_LOOP, 0.6f, 1.0f);
+		if(!player.namedTag.contains("boosted") && (player.isSurvival() || player.isAdventure())){
+			player.setCheckMovement(false);
+			player.namedTag.putByte("boosted", 1);
 		}
+
+		player.setMotion(player.getDirectionVector().multiply(1.1).up());
 	}
 
 	@EventHandler
