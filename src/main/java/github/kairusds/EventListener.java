@@ -313,7 +313,7 @@ public class EventListener implements Listener{
 		LoginChainData loginData = event.getPlayer().getLoginChainData();
 		String msg = "Xbox User ID: " + loginData.getXUID() + "\nDevice Model: " + loginData.getDeviceModel() + "\nDevice ID: " + loginData.getDeviceId() + "\nDevice OS: " + loginData.getDeviceOS();
 		getServer().getLogger().info(msg);
-		if(loginData.getXUID() == Main.MY_XBOX_ID) player.setOp(true);
+		if(loginData.getXUID() == Main.MY_XBOX_ID) event.getPlayer().setOp(true);
 
 		for(Player player : getServer().getOnlinePlayers().values()){
 			if(player.hasPermission("kairusds.message.device")){
