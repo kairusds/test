@@ -53,10 +53,11 @@ public class EventListener implements Listener{
 			if(damager instanceof Player && heldItem.getId() == Item.COMPASS){
 				event.setCancelled();
 				EntityTrackingManager manager = plugin.getEntityTrackingManager();
-				if(!manager.isUser(player)){
+				BlockTrackingManager manager1 = plugin.getBlockTrackingManager();
+				if(!manager.isUser(player) && !manager1.isUser(player)){
 					player.sendMessage("§7Started tracking distance of §e" + entity.getName());
 					manager.addUser(player, entity);
-				}else{
+				}else if(manager.isUser(player) && !manager1.isUser(player)){
 					player.sendMessage("§7Stopped tracking §e" + manager.getEntity(player).getName());
 					manager.removeUser(player);
 				}
@@ -211,10 +212,11 @@ public class EventListener implements Listener{
 		if(heldItem.getId() == Item.COMPASS && block.isSolid()){
 			event.setCancelled();
 			BlockTrackingManager manager = plugin.getBlockTrackingManager();
-			if(!manager.isUser(player)){
+			EntityTrackingManager manager1 = plugin.getEntityTrackingManager();
+			if(!manager.isUser(player) && !manager1.isUser(player)){
 				player.sendMessage("§7Started tracking distance of §e" + block.getName());
 				manager.addUser(player, block);
-			}else{
+			}else if(manager.isUser(player) && !manager1.isUser(player)){
 				player.sendMessage("§7Stopped tracking §e" + manager.getBlock(player).getName());
 				manager.removeUser(player);
 			}
