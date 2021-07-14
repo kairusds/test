@@ -27,19 +27,19 @@ public class RainbowArmorTask extends PluginTask<Main>{
 			PlayerInventory inventory = player.getInventory();
 
 			if(inventory.getHelmet().getId() == Item.LEATHER_CAP){
-				((ItemColorArmor) inventory.getHelmet()).setColor(DyeColor.getByDyeData(colorIndex));
+				player.getInventory().setHelmet(((ItemColorArmor) inventory.getHelmet()).setColor(DyeColor.getByDyeData(colorIndex)));
 			}
 
-			if(inventory.getHelmet().getId() == Item.LEATHER_TUNIC){
-				((ItemColorArmor) inventory.getChestplate()).setColor(DyeColor.getByDyeData(colorIndex));
+			if(inventory.getChestplate().getId() == Item.LEATHER_TUNIC){
+				player.getInventory().setChestplate(((ItemColorArmor) inventory.getChestplate()).setColor(DyeColor.getByDyeData(colorIndex)));
 			}
 
-			if(inventory.getHelmet().getId() == Item.LEATHER_PANTS){
-				((ItemColorArmor) inventory.getLeggings()).setColor(DyeColor.getByDyeData(colorIndex));
+			if(inventory.getLeggings().getId() == Item.LEATHER_PANTS){
+				player.getInventory().setLeggings(((ItemColorArmor) inventory.getLeggings()).setColor(DyeColor.getByDyeData(colorIndex)));
 			}
 
-			if(inventory.getHelmet().getId() == Item.LEATHER_BOOTS){
-				((ItemColorArmor) inventory.getBoots()).setColor(DyeColor.getByDyeData(colorIndex));
+			if(inventory.getBoots().getId() == Item.LEATHER_BOOTS){
+				player.getInventory().setBoots(((ItemColorArmor) inventory.getBoots()).setColor(DyeColor.getByDyeData(colorIndex)));
 			}
 		}
 	}
