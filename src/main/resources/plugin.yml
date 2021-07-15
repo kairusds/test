@@ -28,9 +28,12 @@ permissions:
             default: true
           kairusds.command.imagemap:
             description: "poggers"
-            default: op
+            default: true
           kairusds.command.settings:
             description: "ara"
+            default: op
+          kairusds.command.summon:
+            description: "hehe"
             default: op
           kairusds.command.trainingdummy:
             default: "yamete"
