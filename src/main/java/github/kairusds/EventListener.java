@@ -234,8 +234,8 @@ public class EventListener implements Listener{
 					double radius = Math.sin(t);
 					for(double angle = 0; angle < Math.PI * 2; angle += Math.PI / 8){
 						Vector3 vector = new Vector3(Math.sin(angle) * radius, 0, Math.cos(angle) * radius);
-						Utils.rotateAroundX(vector, player.getPitch() + 90.0);
-						Utils.rotateAroundY(vector, -player.getYaw());
+						Utils.rotateAroundAxisX(vector, player.getPitch() + 90.0);
+						Utils.rotateAroundAxisY(vector, -player.getYaw());
 						player.getLevel().addParticleEffect(location.add(vector), ParticleEffect.BLUE_FLAME);
 						player.getLevel().addSound(location.add(vector), Sound.FIREWORK_BLAST, 0.2f, 1.0f);
 					}
