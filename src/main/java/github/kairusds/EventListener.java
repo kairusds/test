@@ -217,8 +217,48 @@ public class EventListener implements Listener{
 			}
 		}
 
-		if(heldItem.getId() == Item.BLAZE_ROD){
+		if(event.getAction() == RIGHT_CLICK_AIR && heldItem.getId() == Item.NETHERITE_HOE){
 			player.getLevel().addSound(player, Sound.FIREWORK_LAUNCH, 0.6f, 1.0f);
+			if(player.namedTag.contains("cooldown_blaze") || player.namedTag.contains("cooldown_hoe")) return;
+			player.namedTag.putByte("cooldown_hoe", 1);
+			String itemName = heldItem.clone().getName();
+
+			new NukkitRunnable(){
+				Location location = player.getLocation();
+				Vector3 direction = location.getDirectionVector();//.multiply(1 - speed);
+				double t = 0;
+				int time = 0;
+				@Override
+				public void run(){
+					time++;
+					double radius = Math.sin(t);
+					for(double angle = 0; angle < Math.PI * 2; angle += Math.PI / 8){
+						Vector3 vector = new Vector3(Math.sin(angle) * radius, 0, Math.cos(angle) * radius);
+						Utils.rotateAroundX(vector, player.getPitch() + 90.0);
+						Utils.rotateAroundY(vector, -player.getYaw());
+						player.getLevel().addParticleEffect(location.add(vector), ParticleEffect.BLUE_FLAME);
+						player.getLevel().addSound(location.add(vector), Sound.FIREWORK_BLAST, 0.2f, 1.0f);
+					}
+					t += Math.PI / 8;
+					if(t > Math.PI * 2) t = 0;
+					location.add(direction);
+					player.sendTip("§7Cooldown (§e" + itemName + "§7)§8: §e" + time);
+
+					if(time > 40){
+						player.namedTag.remove("cooldown_hoe");
+						player.sendTip("§7Cooldown (§e" + itemName + "§7)§8: §aOK");
+						cancel();
+					}
+				}
+			}.runTaskTimer(plugin, 0, 1);
+		}
+
+		if(event.getAction() == RIGHT_CLICK_AIR && heldItem.getId() == Item.BLAZE_ROD){
+			player.getLevel().addSound(player, Sound.FIREWORK_LAUNCH, 0.6f, 1.0f);
+			if(player.namedTag.contains("cooldown_blaze") || player.namedTag.contains("cooldown_hoe")) return;
+			player.namedTag.putByte("cooldown_blaze", 1);
+			String itemName = heldItem.clone().getName();
+
 			new NukkitRunnable(){
 				Location location = player.getLocation();
 				Vector3 direction = location.getDirectionVector();
@@ -227,24 +267,28 @@ public class EventListener implements Listener{
 
 				@Override
 				public void run(){
-					time += 1;
+					time++;
 					double xtrav = direction.getX() * time;
 					double ytrav = direction.getY() * time;
 					double ztrav = direction.getZ() * time;
-					location = location.add(xtrav, ytrav, ztrav);
+					location.add(xtrav, ytrav, ztrav);
 			
 					for(double i = 0; i <= 2 * Math.PI; i += Math.PI / 32){
 						double x = rotation * Math.cos(i);
 						double y = rotation * Math.cos(i) + 1.5;
 						double z = rotation * Math.sin(i);
-						location = location.add(x, y, z);
-						player.getLevel().addParticleEffect(location, ParticleEffect.SPARKLER);
-						player.getLevel().addSound(location, Sound.FIREWORK_BLAST, 0.4f, 1.0f);
-						location = location.subtract(x, y, z);
+						location.add(x, y, z);
+						player.getLevel().addParticleEffect(location, ParticleEffect.BLUE_FLAME);
+						player.getLevel().addSound(location, Sound.FIREWORK_BLAST, 0.2f, 1.0f);
+						location.subtract(x, y, z);
 					}
-					location = location.subtract(xtrav, ytrav, ztrav);
+					location.subtract(xtrav, ytrav, ztrav);
 					rotation += 0.1;
-					if(time > 20){
+					player.sendTip("§7Cooldown (§e" + itemName + "§7)§8: §e" + time);
+
+					if(time > 40){
+						player.namedTag.remove("cooldown_hoe");
+						player.sendTip("§7Cooldown (§e" + itemName + "§7)§8: §aOK");
 						cancel();
 					}
 				}

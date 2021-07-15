@@ -1,6 +1,7 @@
 package github.kairusds;
 
 import cn.nukkit.level.Location;
+import cn.nukkit.math.Vector3;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -43,6 +44,24 @@ public class Utils{
 			error.printStackTrace();
 			return null;
 		}
+	}
+
+	public static Vector3 rotateAroundAxisX(Vector3 vector, double angle){
+		angle = Math.toRadians(angle);
+		double cos = Math.cos(angle);
+		double sin = Math.sin(angle);
+		double y = vector.getY() * cos - vector.getZ() * sin;
+		double z = vector.getY() * sin + vector.getZ() * cos;
+		return vector.setY(y).setZ(z);
+	}
+
+	public static Vector3 rotateAroundAxisY(Vector3 vector, double angle){
+		angle = Math.toRadians(angle);
+		double cos = Math.cos(angle);
+		double sin = Math.sin(angle);
+		double x = vector.getX() * cos + vector.getZ() * sin;
+		double z = vector.getX() * -sin + vector.getZ() * cos;
+		return vector.setX(x).setZ(z);
 	}
 
 	public static String getCardinalDirection(Location location){
