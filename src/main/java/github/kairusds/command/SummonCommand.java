@@ -58,8 +58,8 @@ public class SummonCommand extends BaseCommand{
 
 		if(args.length > 1 && args.length < 5){
 			double x = Double.parseDouble(args[1].replace("~", String.valueOf(player.getX())));
-				double y = Double.parseDouble(args[2].replace("~", String.valueOf(player.getY())));
-				double z = Double.parseDouble(args[3].replace("~", String.valueOf(player.getZ())));
+			double y = Double.parseDouble(args[2].replace("~", String.valueOf(player.getY())));
+			double z = Double.parseDouble(args[3].replace("~", String.valueOf(player.getZ())));
 			
 			if((entity = Entity.createEntity(mob, new Position (x, y, z))) != null){
 				entity.spawnToAll();
