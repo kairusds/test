@@ -14,13 +14,13 @@ public class SummonCommand extends BaseCommand{
 
 	public SummonCommand(Main plugin){
 		super(plugin, "summon", "summon a nukkit entity", "/summon <entityType> [spawnPos: x y z] [nameTag]");
-		setPermission("kairusds.command.summon");
 		commandParameters.clear();
 		commandParameters.put("default", new CommandParameter[]{
 			CommandParameter.newType("entityType", CommandParamType.STRING), // will change to entity_list once it becomes available 
 			CommandParameter.newType("spawnPos", true, CommandParamType.POSITION), // too lazy to implement spawn event
 			CommandParameter.newType("nameTag", true, CommandParamType.STRING)
 		});
+		setPermission("kairusds.command.summon");
 	}
 
 	@Override

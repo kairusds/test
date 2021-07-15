@@ -5,8 +5,8 @@ import cn.nukkit.inventory.PlayerInventory;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemColorArmor;
 import cn.nukkit.scheduler.PluginTask;
-import cn.nukkit.utils.DyeColor;
 import github.kairusds.Main;
+import java.util.Random;
 
 public class RainbowArmorTask extends PluginTask<Main>{
 
@@ -25,21 +25,24 @@ public class RainbowArmorTask extends PluginTask<Main>{
 
 		for(Player player : getOwner().getServer().getOnlinePlayers().values()){
 			PlayerInventory inventory = player.getInventory();
+			int r = new Random().nextInt(255);
+			int g = new Random().nextInt(255);
+			int b = new Random().nextInt(255);
 
 			if(inventory.getHelmet().getId() == Item.LEATHER_CAP){
-				player.getInventory().setHelmet(((ItemColorArmor) inventory.getHelmet()).setColor(DyeColor.getByDyeData(colorIndex)));
+				player.getInventory().setHelmet(((ItemColorArmor) inventory.getHelmet()).setColor(r, g, b));
 			}
 
 			if(inventory.getChestplate().getId() == Item.LEATHER_TUNIC){
-				player.getInventory().setChestplate(((ItemColorArmor) inventory.getChestplate()).setColor(DyeColor.getByDyeData(colorIndex)));
+				player.getInventory().setChestplate(((ItemColorArmor) inventory.getChestplate()).setColor(r, g, b));
 			}
 
 			if(inventory.getLeggings().getId() == Item.LEATHER_PANTS){
-				player.getInventory().setLeggings(((ItemColorArmor) inventory.getLeggings()).setColor(DyeColor.getByDyeData(colorIndex)));
+				player.getInventory().setLeggings(((ItemColorArmor) inventory.getLeggings()).setColor(r, g, b));
 			}
 
 			if(inventory.getBoots().getId() == Item.LEATHER_BOOTS){
-				player.getInventory().setBoots(((ItemColorArmor) inventory.getBoots()).setColor(DyeColor.getByDyeData(colorIndex)));
+				player.getInventory().setBoots(((ItemColorArmor) inventory.getBoots()).setColor(r, g, b));
 			}
 		}
 	}

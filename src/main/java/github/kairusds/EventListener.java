@@ -16,7 +16,6 @@ import cn.nukkit.form.window.*;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemMap;
 import cn.nukkit.inventory.PlayerInventory;
-import cn.nukkit.level.Location;
 import cn.nukkit.level.ParticleEffect;
 import cn.nukkit.level.Sound;
 import cn.nukkit.math.Vector3;
@@ -220,28 +219,27 @@ public class EventListener implements Listener{
 		if(heldItem.getId() == Item.BLAZE_ROD){
 			player.getLevel().addSound(player, Sound.FIREWORK_LAUNCH, 0.6f, 1.0f);
 			new NukkitRunnable(){
-				Location location = (Location) player; // might need to implement eyeheight if needed
 				double time = 0;
 				double rotation = 0;
 
 				@Override
 				public void run(){
 					time += 1;
-					double xtrav = touchVector.getX() * time;
-					double ytrav = touchVector.getY() * time;
-					double ztrav = touchVector.getZ() * time;
-					location.add(xtrav, ytrav, ztrav);
+					double xtrav = player.getDirectionVector().getX() * time;
+					double ytrav = player.getDirectionVector().getY() * time;
+					double ztrav = player.getDirectionVector().getZ() * time;
+					player.add(xtrav, ytrav, ztrav);
 			
 					for(double i = 0; i <= 2 * Math.PI; i += Math.PI / 32){
 						double x = rotation * Math.cos(i);
 						double y = rotation * Math.cos(i) + 1.5;
 						double z = rotation * Math.sin(i);
-						location.add(x, y, z);
-						player.getLevel().addParticleEffect(location, ParticleEffect.LAVA_PARTICLE);
-						player.getLevel().addSound(location, Sound.FIREWORK_BLAST, 0.4f, 1.0f);
-						location.subtract(x, y, z);
+						player.add(x, y, z);
+						player.getLevel().addParticleEffect(player, ParticleEffect.SPARKLER);
+						player.getLevel().addSound(player, Sound.FIREWORK_BLAST, 0.4f, 1.0f);
+						player.subtract(x, y, z);
 					}
-					location.subtract(xtrav, ytrav, ztrav);
+					player.subtract(xtrav, ytrav, ztrav);
 					rotation += 0.1;
 					if(time > 20){
 						cancel();
@@ -284,7 +282,7 @@ public class EventListener implements Listener{
 			manager1.startTask();
 			manager2.startTask();
 			rainbowArmorTask = new RainbowArmorTask(plugin);
-			plugin.getServer().getScheduler().scheduleRepeatingTask(plugin, rainbowArmorTask, 1);
+			plugin.getServer().getScheduler().scheduleRepeatingTask(plugin, rainbowArmorTask, 5);
 			getServer().getLogger().info("Enabled tasks.");
 		}
 	}
