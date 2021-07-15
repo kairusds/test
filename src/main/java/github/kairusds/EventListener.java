@@ -231,18 +231,18 @@ public class EventListener implements Listener{
 					double xtrav = direction.getX() * time;
 					double ytrav = direction.getY() * time;
 					double ztrav = direction.getZ() * time;
-					location.add(xtrav, ytrav, ztrav);
+					location = location.add(xtrav, ytrav, ztrav);
 			
 					for(double i = 0; i <= 2 * Math.PI; i += Math.PI / 32){
 						double x = rotation * Math.cos(i);
 						double y = rotation * Math.cos(i) + 1.5;
 						double z = rotation * Math.sin(i);
-						location.add(x, y, z);
-						player.getLevel().addParticleEffect(player, ParticleEffect.SPARKLER);
+						location = location.add(x, y, z);
+						player.getLevel().addParticleEffect(player, ParticleEffect.EVAPORATION_ELEPHANT_TOOTHPASTE);
 						player.getLevel().addSound(player, Sound.FIREWORK_BLAST, 0.4f, 1.0f);
-						location.subtract(x, y, z);
+						location = location.subtract(x, y, z);
 					}
-					location.subtract(xtrav, ytrav, ztrav);
+					location = location.subtract(xtrav, ytrav, ztrav);
 					rotation += 0.1;
 					if(time > 20){
 						cancel();
