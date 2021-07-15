@@ -243,7 +243,7 @@ public class EventListener implements Listener{
 				@Override
 				public void run(){
 					time++;
-					player.sendTip("§7Cooldown (§e" + itemName + "§7)§8: §e" + time + "§8/§e60.0");
+					player.sendTip("§7Cooldown (§e" + itemName + "§7)§8: §e" + time + "§8/§e20.0");
 					double radius = Math.sin(t);
 					for(double angle = 0; angle < Math.PI * 2; angle += Math.PI / 8){
 						Vector3 vector = new Vector3(Math.sin(angle) * radius, 0, Math.cos(angle) * radius);
@@ -256,7 +256,7 @@ public class EventListener implements Listener{
 					if(t > Math.PI * 2) t = 0;
 					location = location.add(direction);
 
-					if(time > 60){
+					if(time > 20){
 						player.namedTag.remove("cooldown_hoe");
 						player.sendTip("§7Cooldown (§e" + itemName + "§7)§8: §aOK");
 						cancel();
@@ -280,7 +280,7 @@ public class EventListener implements Listener{
 				@Override
 				public void run(){
 					time++;
-					player.sendTip("§7Cooldown (§e" + itemName + "§7)§8: §e" + time + "§8/§e60.0");
+					player.sendTip("§7Cooldown (§e" + itemName + "§7)§8: §e" + time + "§8/§e20.0");
 					double xtrav = direction.getX() * time;
 					double ytrav = direction.getY() * time;
 					double ztrav = direction.getZ() * time;
@@ -298,7 +298,7 @@ public class EventListener implements Listener{
 					location = location.subtract(xtrav, ytrav, ztrav);
 					rotation += 0.1;
 
-					if(time > 60){
+					if(time > 20){
 						player.namedTag.remove("cooldown_blaze");
 						player.sendTip("§7Cooldown (§e" + itemName + "§7)§8: §aOK");
 						cancel();
