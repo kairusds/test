@@ -47,14 +47,16 @@ public class SummonCommand extends BaseCommand{
 
 		Player player = (Player) sender;
 		Entity entity;
-		if((entity = Entity.createEntity(mob, player)) != null){
-			entity.spawnToAll();
-			sender.sendMessage("§7Summoned §e" + entity.getName() + " §7at §e" + player.getX() + "§7, §e" + player.getY() + "§7, §e" + player.getZ());
-		}else{
-			sender.sendMessage("§7Unknown entity §c" + args[0]);
-		}
-
-		if(args.length > 1 && args.length < 5){
+		if(args.length < 2){
+			if((entity = Entity.createEntity(mob, player)) != null){
+				entity.spawnToAll();
+				sender.sendMessage("§7Summoned §e" + entity.getName() + " §7at §e" + player.getX() + "§7, §e" + player.getY() + "§7, §e" + player.getZ());
+				return true;
+			}else{
+				sender.sendMessage("§7Unknown entity §c" + args[0]);
+				return true;
+			}
+		}else if(args.length > 1 && args.length < 5){
 			double x = Double.parseDouble(args[1].replace("~", String.valueOf(player.getX())));
 			double y = Double.parseDouble(args[2].replace("~", String.valueOf(player.getY())));
 			double z = Double.parseDouble(args[3].replace("~", String.valueOf(player.getZ())));
@@ -87,7 +89,6 @@ public class SummonCommand extends BaseCommand{
 			sender.sendMessage("§7Usage: §e" + usageMessage);
 			return true;
 		}
-		return true;
 	}
 
 }
