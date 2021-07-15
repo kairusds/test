@@ -70,10 +70,11 @@ public class SummonCommand extends BaseCommand{
 				return true;
 			}
 		}else if(args.length > 4){
+			double x = Double.parseDouble(args[1].replace("~", String.valueOf(player.getX())));
+			double y = Double.parseDouble(args[2].replace("~", String.valueOf(player.getY())));
+			double z = Double.parseDouble(args[3].replace("~", String.valueOf(player.getZ())));
+
 			if((entity = Entity.createEntity(mob, new Position (x, y, z))) != null){
-				double x = Double.parseDouble(args[1].replace("~", String.valueOf(player.getX())));
-				double y = Double.parseDouble(args[2].replace("~", String.valueOf(player.getY())));
-				double z = Double.parseDouble(args[3].replace("~", String.valueOf(player.getZ())));
 				String[] nameTag = Arrays.copyOfRange(args, 4, args.length);
 
 				entity.setNameTag(String.join(" ", nameTag));
