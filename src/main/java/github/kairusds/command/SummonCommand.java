@@ -40,7 +40,7 @@ public class SummonCommand extends BaseCommand{
 		String mob = Character.toUpperCase(args[0].charAt(0)) + args[0].substring(1);
 		int max = mob.length() - 1;
 		for(int x = 2; x < max; x++){
-			if(mob.charAt(x) == "_"){
+			if(mob.charAt(x) == '_'){
 				mob = mob.substring(0, x) + Character.toUpperCase(mob.charAt(x + 1)) + mob.substring(x + 2);
 			}
 		}
@@ -57,9 +57,9 @@ public class SummonCommand extends BaseCommand{
 		}
 
 		if(args.length > 1 && args.length < 5){
-			double x = Double.parseDouble(String.valueOf(args[1]).replace("~", player.getX()));
-			double y = Double.parseDouble(String.valueOf(args[2]).replace("~", player.getY()));
-			double z = Double.parseDouble(String.valueOf(args[3]).replace("~", player.getZ()));
+			double x = Double.parseDouble(args[1].replace("~", String.valueOf(player.getX())));
+				double y = Double.parseDouble(args[2].replace("~", String.valueOf(player.getY())));
+				double z = Double.parseDouble(args[3].replace("~", String.valueOf(player.getZ())));
 			
 			if((entity = Entity.createEntity(mob, new Position (x, y, z))) != null){
 				entity.spawnToAll();
@@ -71,9 +71,9 @@ public class SummonCommand extends BaseCommand{
 			}
 		}else if(args.length > 4){
 			if((entity = Entity.createEntity(mob, new Position (x, y, z))) != null){
-				double x = Double.parseDouble(String.valueOf(args[1]).replace("~", player.getX()));
-				double y = Double.parseDouble(String.valueOf(args[2]).replace("~", player.getY()));
-				double z = Double.parseDouble(String.valueOf(args[3]).replace("~", player.getZ()));
+				double x = Double.parseDouble(args[1].replace("~", String.valueOf(player.getX())));
+				double y = Double.parseDouble(args[2].replace("~", String.valueOf(player.getY())));
+				double z = Double.parseDouble(args[3].replace("~", String.valueOf(player.getZ())));
 				String[] nameTag = Arrays.copyOfRange(args, 4, args.length);
 
 				entity.setNameTag(String.join(" ", nameTag));
