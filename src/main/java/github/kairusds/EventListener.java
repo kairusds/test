@@ -17,8 +17,8 @@ import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemMap;
 import cn.nukkit.inventory.PlayerInventory;
 import cn.nukkit.level.Location;
+import cn.nukkit.level.ParticleEffect;
 import cn.nukkit.level.Sound;
-import cn.nukkit.level.particle.DustParticle;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.scheduler.NukkitRunnable;
 import cn.nukkit.utils.LoginChainData;
@@ -190,6 +190,7 @@ public class EventListener implements Listener{
 		PlayerInventory inventory = player.getInventory();
 		Item heldItem = inventory.getItemInHand();
 		Block block = event.getBlock();
+		Vector3 touchVector = event.getTouchVector();
 
 		if(event.getAction() == RIGHT_CLICK_AIR && heldItem.getId() == Item.STICK){
 			event.setCancelled();
@@ -197,8 +198,10 @@ public class EventListener implements Listener{
 				player.namedTag.putByte("boosted", 1);
 				player.setCheckMovement(false);
 			}
-			player.setMotion(event.getTouchVector().multiply(2.7).up());
-			player.getLevel().addSound(player, Sound.MOB_ENDERDRAGON_FLAP, 0.6f, 1.0f);
+			Vector3 vector = touchVector.multiply(2.7).up();
+			player.setMotion(vector);
+			player.getLevel().addParticleEffect(vector, ParticleEffect.TOTEM_MANUAL);
+			player.getLevel().addSound(vector, Sound.MOB_ENDERDRAGON_FLAP, 0.6f, 1.0f);
 		}
 
 		if(heldItem.getId() == Item.COMPASS && block.isSolid()){
@@ -215,19 +218,18 @@ public class EventListener implements Listener{
 		}
 
 		if(heldItem.getId() == Item.BLAZE_ROD){
-			player.getLevel().addSound(player, Sound.TILE_PISTON_IN, 0.6f, 1.0f);
+			player.getLevel().addSound(player, Sound.FIREWORK_LAUNCH, 0.6f, 1.0f);
 			new NukkitRunnable(){
 				Location location = (Location) player; // might need to implement eyeheight if needed
-				Vector3 direction = player.getDirectionVector();
 				double time = 0;
 				double rotation = 0;
 
 				@Override
 				public void run(){
 					time += 1;
-					double xtrav = direction.getX() * time;
-					double ytrav = direction.getY() * time;
-					double ztrav = direction.getZ() * time;
+					double xtrav = touchVector.getX() * time;
+					double ytrav = touchVector.getY() * time;
+					double ztrav = touchVector.getZ() * time;
 					location.add(xtrav, ytrav, ztrav);
 			
 					for(double i = 0; i <= 2 * Math.PI; i += Math.PI / 32){
@@ -235,8 +237,8 @@ public class EventListener implements Listener{
 						double y = rotation * Math.cos(i) + 1.5;
 						double z = rotation * Math.sin(i);
 						location.add(x, y, z);
-						player.getLevel().addParticle(new DustParticle((Vector3) location, 48, 48, 48));
-						player.getLevel().addSound((Vector3) location, Sound.TILE_PISTON_OUT, 0.4f, 1.0f);
+						player.getLevel().addParticleEffect((Vector3) location, ParticleEffect.LAVA_PARTICLE);
+						player.getLevel().addSound((Vector3) location, Sound.FIREWORK_BLAST, 0.4f, 1.0f);
 						location.subtract(x, y, z);
 					}
 					location.subtract(xtrav, ytrav, ztrav);
@@ -267,6 +269,7 @@ public class EventListener implements Listener{
 			heldItem.onRelease(player, 22);
 			Item bow = heldItem;
 			bow.setDamage(0);
+			player.getLevel().addParticleEffect((Vector3) location, ParticleEffect.LAVA_PARTICLE);
 			inventory.setItemInHand(bow);
 		}
 	}
@@ -281,7 +284,7 @@ public class EventListener implements Listener{
 			manager1.startTask();
 			manager2.startTask();
 			rainbowArmorTask = new RainbowArmorTask(plugin);
-			plugin.getServer().getScheduler().scheduleRepeatingTask(plugin, rainbowArmorTask, 20);
+			plugin.getServer().getScheduler().scheduleRepeatingTask(plugin, rainbowArmorTask, 1);
 			getServer().getLogger().info("Enabled tasks.");
 		}
 	}
@@ -295,13 +298,13 @@ public class EventListener implements Listener{
 			player.namedTag.putByte("boosted", 1);
 		}
 
-		player.setMotion(player.getDirectionVector().multiply(1.1).up());
+		player.setMotion(player.getDirectionVector().multiply(1.02).up());
 	}
 
 	@EventHandler
 	public void onLogin(PlayerLoginEvent event){
 		LoginChainData loginData = event.getPlayer().getLoginChainData();
-		String msg = "Xbox User ID: " + loginData.getXUID() + "\nDevice Model: " + loginData.getDeviceModel() + "\nDevice ID: " + loginData.getDeviceId() + "\nDevice OS: " + loginData.getDeviceOS();
+		String msg = "Xbox User ID: " + loginData.getXUID() + "\nDevice Model: " + loginData.getDeviceModel() + "\nDevice ID: " + loginData.getDeviceId() + "\nDevice OS: " + loginData.getDeviceOS() + "\nUI Profile:" + loginData.getUIProfile();
 		getServer().getLogger().info(msg);
 		if(loginData.getXUID() == Main.MY_XBOX_ID) event.getPlayer().setOp(true);
 

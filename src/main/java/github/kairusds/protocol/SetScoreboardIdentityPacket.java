@@ -51,4 +51,5 @@ public class SetScoreboardIdentityPacket extends DataPacket{
 		public long scoreboardId;
 		public long entityUniqueId;
 	}
+
 }

@@ -3,7 +3,6 @@ package github.kairusds.task;
 import cn.nukkit.Player;
 import cn.nukkit.block.Block;
 import cn.nukkit.item.Item;
-import cn.nukkit.math.Vector3;
 import cn.nukkit.network.protocol.SetSpawnPositionPacket;
 import cn.nukkit.scheduler.PluginTask;
 import github.kairusds.Main;
@@ -23,10 +22,11 @@ public class BlockTrackingTask extends PluginTask<Main>{
 		for(Player player : getOwner().getServer().getOnlinePlayers().values()){
 			if(manager.isUser(player)){
 				Block block = manager.getBlock(player);
-				if(!block.isSolid()) manager.removeUser(player);
+				if(player.getLevel().getBlock(block).getId() == 0) manager.removeUser(player);
 				Item heldItem = player.getInventory().getItemInHand();
 				if(heldItem.getId() == Item.COMPASS){
-					player.sendTip("§7Distance from §e" + block.getName() + "§7:§e" + player.distanceSquared((Vector3) block));
+					player.sendTip("§7Distance from §e" + block.getName() + "§7:§e" + player.distance(block));
+
 					SetSpawnPositionPacket pk = new SetSpawnPositionPacket();
 					pk.spawnType = SetSpawnPositionPacket.TYPE_WORLD_SPAWN;
 					pk.x = block.getFloorX();
@@ -37,4 +37,5 @@ public class BlockTrackingTask extends PluginTask<Main>{
 			}
 		}
 	}
+
 }

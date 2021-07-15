@@ -98,4 +98,5 @@ public class Main extends PluginBase{
 	public void onDisable(){
 		getLogger().info(TextFormat.DARK_RED + "deez nuts");
 	}
+
 }

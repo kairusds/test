@@ -25,4 +25,5 @@ public class RemoveObjectivePacket extends DataPacket{
 		reset();
 		putString(objectiveName);
 	}
+
 }

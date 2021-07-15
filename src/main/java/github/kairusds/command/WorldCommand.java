@@ -14,7 +14,7 @@ public class WorldCommand extends BaseCommand{
 		super(plugin, "world", "teleport to a world or list available ones", "/world [worldName]");
 		commandParameters.clear();
 		commandParameters.put("default", new CommandParameter[]{
-			CommandParameter.newType("worldName", CommandParamType.STRING)
+			CommandParameter.newType("worldName", true, CommandParamType.STRING)
 		});
 		setPermission("kairusds.command.world");
 	}
@@ -32,6 +32,7 @@ public class WorldCommand extends BaseCommand{
 			for(Level level : getServer().getLevels().values()){
 				worlds.add(level.getName());
 			}
+			sender.sendMessage("§7Usage: §e" + usageMessage);
 			sender.sendMessage("§7Available worlds: §e" + String.join("§8, §e", worlds));
 			return true;
 		}

@@ -44,4 +44,5 @@ public class SetDisplayObjectivePacket extends DataPacket{
 		putString(criteriaName);
 		putVarInt(sortOrder);
 	}
+
 }

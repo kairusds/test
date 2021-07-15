@@ -55,4 +55,5 @@ public class EntityTrackingManager{
 	public Entity getEntity(Player player){
 		return users.get(player.getUniqueId());
 	}
+
 }

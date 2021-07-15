@@ -43,4 +43,5 @@ public class HtopManager{
 	public void removeUser(Player player){
 		users.remove(users.indexOf(player.getUniqueId()));
 	}
+
 }

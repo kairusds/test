@@ -86,4 +86,5 @@ public class SetScorePacket extends DataPacket{
 		public long entityUniqueId;
 		public String customName;
 	}
+
 }

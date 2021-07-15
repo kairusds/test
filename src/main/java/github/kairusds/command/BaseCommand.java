@@ -40,4 +40,5 @@ public class BaseCommand extends Command implements PluginIdentifiableCommand{
 		}
 		return true;
 	}
+
 }

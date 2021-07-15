@@ -19,7 +19,7 @@ public class RainbowArmorTask extends PluginTask<Main>{
 
 	public void onRun(int currentTick){
 		colorIndex++;
-		if(colorIndex > 15){ // exceeds length of dye colors
+		if(colorIndex > 15){
 			colorIndex = 0;
 		}
 
@@ -43,4 +43,5 @@ public class RainbowArmorTask extends PluginTask<Main>{
 			}
 		}
 	}
+
 }
