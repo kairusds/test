@@ -218,6 +218,17 @@ public class EventListener implements Listener{
 			}
 		}
 
+		if(heldItem.getId() == Item.BOOK && player.isOp()){
+			if(player.namedTag.contains("cooldown_blaze")){
+				player.namedTag.remove("cooldown_blaze");
+				player.sendMessage("§7ROD §aOK");
+			}
+			if(player.namedTag.contains("cooldown_hoe")){
+				player.namedTag.remove("cooldown_hoe");
+				player.sendMessage("§7HOE §aOK");
+			}
+		}
+
 		if(event.getAction() == RIGHT_CLICK_AIR && heldItem.getId() == Item.NETHERITE_HOE){
 			player.getLevel().addSound(player, Sound.FIREWORK_LAUNCH, 0.6f, 1.0f);
 			if(player.namedTag.contains("cooldown_blaze") || player.namedTag.contains("cooldown_hoe")) return;
@@ -231,7 +242,8 @@ public class EventListener implements Listener{
 				int time = 0;
 				@Override
 				public void run(){
-					time++;
+					time += 1;
+					player.sendTip("§7Cooldown (§e" + itemName + "§7)§8: §e" + time + "§8/§e40.0");
 					double radius = Math.sin(t);
 					for(double angle = 0; angle < Math.PI * 2; angle += Math.PI / 8){
 						Vector3 vector = new Vector3(Math.sin(angle) * radius, 0, Math.cos(angle) * radius);
@@ -243,7 +255,6 @@ public class EventListener implements Listener{
 					t += Math.PI / 8;
 					if(t > Math.PI * 2) t = 0;
 					location = location.add(direction);
-					player.sendTip("§7Cooldown (§e" + itemName + "§7)§8: §e" + time);
 
 					if(time > 40){
 						player.namedTag.remove("cooldown_hoe");
@@ -268,7 +279,8 @@ public class EventListener implements Listener{
 
 				@Override
 				public void run(){
-					time++;
+					time += 1;
+					player.sendTip("§7Cooldown (§e" + itemName + "§7)§8: §e" + time + "§8/§e40.0");
 					double xtrav = direction.getX() * time;
 					double ytrav = direction.getY() * time;
 					double ztrav = direction.getZ() * time;
@@ -285,7 +297,6 @@ public class EventListener implements Listener{
 					}
 					location = location.subtract(xtrav, ytrav, ztrav);
 					rotation += 0.1;
-					player.sendTip("§7Cooldown (§e" + itemName + "§7)§8: §e" + time);
 
 					if(time > 40){
 						player.namedTag.remove("cooldown_blaze");
