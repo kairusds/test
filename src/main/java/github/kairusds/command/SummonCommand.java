@@ -1,4 +1,4 @@
-package cn.nukkit.command.defaults;
+package github.kairusds.command;
 
 import cn.nukkit.Player;
 import cn.nukkit.command.Command;
