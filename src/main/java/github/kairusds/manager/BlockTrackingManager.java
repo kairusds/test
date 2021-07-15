@@ -26,7 +26,7 @@ public class BlockTrackingManager{
 
 	public void startTask(){
 		task = new BlockTrackingTask(plugin);
-		plugin.getServer().getScheduler().scheduleRepeatingTask(plugin, task, 20);
+		plugin.getServer().getScheduler().scheduleRepeatingTask(plugin, task, 1);
 	}
 
 	public void stopTask(){

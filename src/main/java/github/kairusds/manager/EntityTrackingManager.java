@@ -25,7 +25,7 @@ public class EntityTrackingManager{
 
 	public void startTask(){
 		task = new EntityTrackingTask(plugin);
-		plugin.getServer().getScheduler().scheduleRepeatingTask(plugin, task, 20);
+		plugin.getServer().getScheduler().scheduleRepeatingTask(plugin, task, 1);
 	}
 
 	public void stopTask(){

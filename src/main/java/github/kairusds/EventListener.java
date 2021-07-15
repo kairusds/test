@@ -238,8 +238,8 @@ public class EventListener implements Listener{
 						double y = rotation * Math.cos(i) + 1.5;
 						double z = rotation * Math.sin(i);
 						location = location.add(x, y, z);
-						player.getLevel().addParticleEffect(player, ParticleEffect.EVAPORATION_ELEPHANT_TOOTHPASTE);
-						player.getLevel().addSound(player, Sound.FIREWORK_BLAST, 0.4f, 1.0f);
+						player.getLevel().addParticleEffect(location, ParticleEffect.SPARKLER);
+						player.getLevel().addSound(location, Sound.FIREWORK_BLAST, 0.4f, 1.0f);
 						location = location.subtract(x, y, z);
 					}
 					location = location.subtract(xtrav, ytrav, ztrav);
