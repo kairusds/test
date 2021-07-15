@@ -17,6 +17,7 @@ import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemMap;
 import cn.nukkit.inventory.PlayerInventory;
 import cn.nukkit.level.Location;
+import cn.nukkit.level.particle.*;
 import cn.nukkit.level.ParticleEffect;
 import cn.nukkit.level.Sound;
 import cn.nukkit.math.Vector3;
@@ -236,7 +237,8 @@ public class EventListener implements Listener{
 						Vector3 vector = new Vector3(Math.sin(angle) * radius, 0, Math.cos(angle) * radius);
 						vector = Utils.rotateAroundAxisX(vector, player.getPitch() + 90.0);
 						vector = Utils.rotateAroundAxisY(vector, -player.getYaw());
-						player.getLevel().addParticleEffect(location.add(vector), ParticleEffect.BLUE_FLAME);
+						player.getLevel().addParticle(new DustParticle(location.add(vector), 50, 168, 82));
+						// player.getLevel().addParticleEffect(location.add(vector), ParticleEffect.BLUE_FLAME);
 						player.getLevel().addSound(location.add(vector), Sound.FIREWORK_BLAST, 0.2f, 1.0f);
 					}
 					t += Math.PI / 8;
@@ -278,7 +280,8 @@ public class EventListener implements Listener{
 						double y = rotation * Math.cos(i) + 1.5;
 						double z = rotation * Math.sin(i);
 						location = location.add(x, y, z);
-						player.getLevel().addParticleEffect(location, ParticleEffect.BLUE_FLAME);
+						player.getLevel().addParticle(new DustParticle(location.add(vector), 50, 168, 82));
+						// player.getLevel().addParticleEffect(location.add(vector), ParticleEffect.BLUE_FLAME);
 						player.getLevel().addSound(location, Sound.FIREWORK_BLAST, 0.2f, 1.0f);
 						location = location.subtract(x, y, z);
 					}
