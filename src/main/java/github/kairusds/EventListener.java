@@ -237,8 +237,8 @@ public class EventListener implements Listener{
 						double y = rotation * Math.cos(i) + 1.5;
 						double z = rotation * Math.sin(i);
 						location.add(x, y, z);
-						player.getLevel().addParticleEffect((Vector3) location, ParticleEffect.LAVA_PARTICLE);
-						player.getLevel().addSound((Vector3) location, Sound.FIREWORK_BLAST, 0.4f, 1.0f);
+						player.getLevel().addParticleEffect(location, ParticleEffect.LAVA_PARTICLE);
+						player.getLevel().addSound(location, Sound.FIREWORK_BLAST, 0.4f, 1.0f);
 						location.subtract(x, y, z);
 					}
 					location.subtract(xtrav, ytrav, ztrav);
@@ -269,7 +269,7 @@ public class EventListener implements Listener{
 			heldItem.onRelease(player, 22);
 			Item bow = heldItem;
 			bow.setDamage(0);
-			player.getLevel().addParticleEffect((Vector3) location, ParticleEffect.LAVA_PARTICLE);
+			player.getLevel().addParticleEffect(player, ParticleEffect.LAVA_PARTICLE);
 			inventory.setItemInHand(bow);
 		}
 	}

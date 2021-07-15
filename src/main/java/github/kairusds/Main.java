@@ -49,6 +49,7 @@ public class Main extends PluginBase{
 		commands.add(new HtopCommand(this));
 		commands.add(new ImageMapCommand(this));
 		commands.add(new WorldCommand(this));
+		commands.add(new SummonCommand(this));
 		commands.add(new SettingsCommand(this));
 		getServer().getCommandMap().registerAll("test", commands);
 	}
