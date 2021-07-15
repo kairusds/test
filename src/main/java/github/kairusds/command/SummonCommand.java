@@ -61,7 +61,7 @@ public class SummonCommand extends BaseCommand{
 			double y = Double.parseDouble(args[2].replace("~", String.valueOf(player.getY())));
 			double z = Double.parseDouble(args[3].replace("~", String.valueOf(player.getZ())));
 			
-			if((entity = Entity.createEntity(mob, new Position(x, y, z))) != null){
+			if((entity = Entity.createEntity(mob, new Position(x, y, z, player.getLevel()))) != null){
 				entity.spawnToAll();
 				sender.sendMessage("§7Summoned §e" + entity.getName() + " §7at §e" + entity.getX() + "§7, §e" + entity.getY() + "§7, §e" + entity.getZ());
 				return true;
@@ -74,7 +74,7 @@ public class SummonCommand extends BaseCommand{
 			double y = Double.parseDouble(args[2].replace("~", String.valueOf(player.getY())));
 			double z = Double.parseDouble(args[3].replace("~", String.valueOf(player.getZ())));
 
-			if((entity = Entity.createEntity(mob, new Position(x, y, z))) != null){
+			if((entity = Entity.createEntity(mob, new Position(x, y, z, player.getLevel()))) != null){
 				String[] nameTag = Arrays.copyOfRange(args, 4, args.length);
 
 				entity.setNameTag(String.join(" ", nameTag));
