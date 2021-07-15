@@ -234,14 +234,14 @@ public class EventListener implements Listener{
 					double radius = Math.sin(t);
 					for(double angle = 0; angle < Math.PI * 2; angle += Math.PI / 8){
 						Vector3 vector = new Vector3(Math.sin(angle) * radius, 0, Math.cos(angle) * radius);
-						Utils.rotateAroundAxisX(vector, player.getPitch() + 90.0);
-						Utils.rotateAroundAxisY(vector, -player.getYaw());
+						vector = Utils.rotateAroundAxisX(vector, player.getPitch() + 90.0);
+						vector = Utils.rotateAroundAxisY(vector, -player.getYaw());
 						player.getLevel().addParticleEffect(location.add(vector), ParticleEffect.BLUE_FLAME);
 						player.getLevel().addSound(location.add(vector), Sound.FIREWORK_BLAST, 0.2f, 1.0f);
 					}
 					t += Math.PI / 8;
 					if(t > Math.PI * 2) t = 0;
-					location.add(direction);
+					location = location.add(direction);
 					player.sendTip("§7Cooldown (§e" + itemName + "§7)§8: §e" + time);
 
 					if(time > 40){
@@ -277,17 +277,17 @@ public class EventListener implements Listener{
 						double x = rotation * Math.cos(i);
 						double y = rotation * Math.cos(i) + 1.5;
 						double z = rotation * Math.sin(i);
-						location.add(x, y, z);
+						location = location.add(x, y, z);
 						player.getLevel().addParticleEffect(location, ParticleEffect.BLUE_FLAME);
 						player.getLevel().addSound(location, Sound.FIREWORK_BLAST, 0.2f, 1.0f);
-						location.subtract(x, y, z);
+						location = location.subtract(x, y, z);
 					}
-					location.subtract(xtrav, ytrav, ztrav);
+					location = location.subtract(xtrav, ytrav, ztrav);
 					rotation += 0.1;
 					player.sendTip("§7Cooldown (§e" + itemName + "§7)§8: §e" + time);
 
 					if(time > 40){
-						player.namedTag.remove("cooldown_hoe");
+						player.namedTag.remove("cooldown_blaze");
 						player.sendTip("§7Cooldown (§e" + itemName + "§7)§8: §aOK");
 						cancel();
 					}
