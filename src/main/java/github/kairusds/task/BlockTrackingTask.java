@@ -25,7 +25,7 @@ public class BlockTrackingTask extends PluginTask<Main>{
 				if(player.getLevel().getBlock(block).getId() == 0) manager.removeUser(player);
 				Item heldItem = player.getInventory().getItemInHand();
 				if(heldItem.getId() == Item.COMPASS){
-					player.sendTip("§7Distance from §e" + block.getName() + "§7: §e" + Math.round(player.distance(block)));
+					player.sendTip("§7Distance from §e" + block.getName() + "§7: §e" + Math.floor(player.distance(block)));
 
 					SetSpawnPositionPacket pk = new SetSpawnPositionPacket();
 					pk.spawnType = SetSpawnPositionPacket.TYPE_WORLD_SPAWN;

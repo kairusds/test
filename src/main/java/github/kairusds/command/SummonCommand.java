@@ -50,7 +50,7 @@ public class SummonCommand extends BaseCommand{
 		if(args.length < 2){
 			if((entity = Entity.createEntity(mob, player)) != null){
 				entity.spawnToAll();
-				sender.sendMessage("§7Summoned §e" + entity.getName() + " §7at §e" + player.getX() + "§7, §e" + player.getY() + "§7, §e" + player.getZ());
+				sender.sendMessage("§7Summoned §e" + entity.getName() + " §7at §e" + entity.floor().getX() + "§7, §e" + entity.floor().getY() + "§7, §e" + entity.floor().getZ());
 				return true;
 			}else{
 				sender.sendMessage("§7Unknown entity §c" + args[0]);
@@ -63,7 +63,7 @@ public class SummonCommand extends BaseCommand{
 			
 			if((entity = Entity.createEntity(mob, new Position(x, y, z, player.getLevel()))) != null){
 				entity.spawnToAll();
-				sender.sendMessage("§7Summoned §e" + entity.getName() + " §7at §e" + entity.getX() + "§7, §e" + entity.getY() + "§7, §e" + entity.getZ());
+				sender.sendMessage("§7Summoned §e" + entity.getName() + " §7at §e" + entity.floor().getX() + "§7, §e" + entity.floor().getY() + "§7, §e" + entity.floor().getZ());
 				return true;
 			}else{
 				sender.sendMessage("§7Unknown entity §c" + args[0]);
@@ -79,7 +79,7 @@ public class SummonCommand extends BaseCommand{
 
 				entity.setNameTag(String.join(" ", nameTag));
 				entity.spawnToAll();
-				sender.sendMessage("§7Summoned §e" + entity.getNameTag() + " §7at §e" + entity.getX() + "§7, §e" + entity.getY() + "§7, §e" + entity.getZ());
+				sender.sendMessage("§7Summoned §e" + entity.getNameTag() + " §7at §e" + entity.floor().getX() + "§7, §e" + entity.floor().getY() + "§7, §e" + entity.floor().getZ());
 				return true;
 			}else{
 				sender.sendMessage("§7Unknown entity §c" + args[0]);

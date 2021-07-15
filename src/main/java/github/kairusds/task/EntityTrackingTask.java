@@ -25,7 +25,7 @@ public class EntityTrackingTask extends PluginTask<Main>{
 				if(!entity.isAlive()) manager.removeUser(player);
 				Item heldItem = player.getInventory().getItemInHand();
 				if(heldItem.getId() == Item.COMPASS){
-					player.sendTip("§7Distance from §e" + entity.getName() + "§7: §e" + Math.round(player.distance(entity)));
+					player.sendTip("§7Distance from §e" + entity.getName() + "§7: §e" + Math.floor(player.distance(entity)));
 
 					SetSpawnPositionPacket pk = new SetSpawnPositionPacket();
 					pk.spawnType = SetSpawnPositionPacket.TYPE_WORLD_SPAWN;

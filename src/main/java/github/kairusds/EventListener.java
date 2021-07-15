@@ -16,6 +16,7 @@ import cn.nukkit.form.window.*;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemMap;
 import cn.nukkit.inventory.PlayerInventory;
+import cn.nukkit.level.Location;
 import cn.nukkit.level.ParticleEffect;
 import cn.nukkit.level.Sound;
 import cn.nukkit.math.Vector3;
@@ -219,27 +220,29 @@ public class EventListener implements Listener{
 		if(heldItem.getId() == Item.BLAZE_ROD){
 			player.getLevel().addSound(player, Sound.FIREWORK_LAUNCH, 0.6f, 1.0f);
 			new NukkitRunnable(){
+				Location location = player.getLocation();
+				Vector3 direction = location.getDirectionVector();
 				double time = 0;
 				double rotation = 0;
 
 				@Override
 				public void run(){
 					time += 1;
-					double xtrav = player.getDirectionVector().getX() * time;
-					double ytrav = player.getDirectionVector().getY() * time;
-					double ztrav = player.getDirectionVector().getZ() * time;
-					player.add(xtrav, ytrav, ztrav);
+					double xtrav = direction.getX() * time;
+					double ytrav = direction.getY() * time;
+					double ztrav = direction.getZ() * time;
+					location.add(xtrav, ytrav, ztrav);
 			
 					for(double i = 0; i <= 2 * Math.PI; i += Math.PI / 32){
 						double x = rotation * Math.cos(i);
 						double y = rotation * Math.cos(i) + 1.5;
 						double z = rotation * Math.sin(i);
-						player.add(x, y, z);
+						location.add(x, y, z);
 						player.getLevel().addParticleEffect(player, ParticleEffect.SPARKLER);
 						player.getLevel().addSound(player, Sound.FIREWORK_BLAST, 0.4f, 1.0f);
-						player.subtract(x, y, z);
+						location.subtract(x, y, z);
 					}
-					player.subtract(xtrav, ytrav, ztrav);
+					location.subtract(xtrav, ytrav, ztrav);
 					rotation += 0.1;
 					if(time > 20){
 						cancel();
@@ -285,18 +288,6 @@ public class EventListener implements Listener{
 			plugin.getServer().getScheduler().scheduleRepeatingTask(plugin, rainbowArmorTask, 5);
 			getServer().getLogger().info("Enabled tasks.");
 		}
-	}
-
-	@EventHandler
-	public void onJump(PlayerJumpEvent event){
-		Player player = event.getPlayer();
-
-		if(!player.namedTag.contains("boosted") && (player.isSurvival() || player.isAdventure())){
-			player.setCheckMovement(false);
-			player.namedTag.putByte("boosted", 1);
-		}
-
-		player.setMotion(player.getDirectionVector().multiply(1.02).up());
 	}
 
 	@EventHandler
