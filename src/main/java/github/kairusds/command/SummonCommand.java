@@ -50,10 +50,8 @@ public class SummonCommand extends BaseCommand{
 		if((entity = Entity.createEntity(mob, player)) != null){
 			entity.spawnToAll();
 			sender.sendMessage("§7Summoned §e" + entity.getName() + " §7at §e" + player.getX() + "§7, §e" + player.getY() + "§7, §e" + player.getZ());
-			return true;
 		}else{
 			sender.sendMessage("§7Unknown entity §c" + args[0]);
-			return true;
 		}
 
 		if(args.length > 1 && args.length < 5){
