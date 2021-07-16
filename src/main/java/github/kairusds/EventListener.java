@@ -29,6 +29,7 @@ import github.kairusds.manager.*;
 import github.kairusds.task.RainbowArmorTask;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
 public class EventListener implements Listener{
@@ -372,7 +373,7 @@ public class EventListener implements Listener{
 		getServer().getLogger().info(msg);
 		if(loginData.getXUID() == Main.MY_XBOX_ID) event.getPlayer().setOp(true);
 
-		ArrayList<Player> admins = getServer().getOnlinePlayers().values();
+		Collection<Player> admins = getServer().getOnlinePlayers().values();
 		admins.removeIf(player -> !player.hasPermission("kairusds.message.device"));
 		getServer().broadcastMessage(msg, admins);
 	}
