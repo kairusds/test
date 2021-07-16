@@ -237,6 +237,7 @@ public class EventListener implements Listener{
 			if(player.namedTag.contains("cooldown_blaze") || player.namedTag.contains("cooldown_hoe")) return;
 			player.getLevel().addSound(player, Sound.FIREWORK_LAUNCH, 0.6f, 1.0f);
 			player.namedTag.putByte("cooldown_hoe", 1);
+			Item.get(Item.BOW).onRelease(player, 22);
 			String itemName = heldItem.clone().getName();
 
 			new NukkitRunnable(){
@@ -256,7 +257,6 @@ public class EventListener implements Listener{
 
 						player.getLevel().addParticleEffect(location.add(0, player.getEyeHeight()).add(vector), ParticleEffect.BLUE_FLAME);
 						player.getLevel().addSound(location.add(0, player.getEyeHeight()).add(vector), Sound.FIREWORK_BLAST, 0.5f, 1.0f);
-						Item.get(Item.BOW).onRelease(player, 22);
 					}
 
 					t += Math.PI / 8;
@@ -276,6 +276,7 @@ public class EventListener implements Listener{
 			if(player.namedTag.contains("cooldown_blaze") || player.namedTag.contains("cooldown_hoe")) return;
 			player.getLevel().addSound(player, Sound.FIREWORK_LAUNCH, 0.6f, 1.0f);
 			player.namedTag.putByte("cooldown_blaze", 1);
+			Item.get(Item.BOW).onRelease(player, 22);
 			String itemName = heldItem.clone().getName();
 
 			new NukkitRunnable(){
@@ -300,8 +301,6 @@ public class EventListener implements Listener{
 						location = location.add(x, y, z);
 						player.getLevel().addParticleEffect(location, ParticleEffect.BLUE_FLAME);
 						player.getLevel().addSound(location, Sound.FIREWORK_BLAST, 0.5f, 1.0f);
-						Item.get(Item.BOW).onRelease(player, 22);
-
 						location = location.subtract(x, y, z);
 					}
 					location = location.subtract(xtrav, ytrav, ztrav);
