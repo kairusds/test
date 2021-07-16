@@ -256,13 +256,7 @@ public class EventListener implements Listener{
 
 						player.getLevel().addParticleEffect(location.add(0, player.getEyeHeight()).add(vector), ParticleEffect.BLUE_FLAME);
 						player.getLevel().addSound(location.add(0, player.getEyeHeight()).add(vector), Sound.FIREWORK_BLAST, 0.5f, 1.0f);
-
-						for(Entity victim : player.getLevel().getNearbyEntities(new SimpleAxisAlignedBB(location.add(0, player.getEyeHeight()).add(vector), location.add(0, player.getEyeHeight()).add(vector)))){
-							if(victim instanceof EntityCreature){
-								EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent(player, victim, ENTITY_ATTACK, 0.5f);
-								victim.attack(ev);
-							}
-						}
+						Item.get(Item.BOW).onRelease(player, 22);
 					}
 
 					t += Math.PI / 8;
@@ -306,13 +300,7 @@ public class EventListener implements Listener{
 						location = location.add(x, y, z);
 						player.getLevel().addParticleEffect(location, ParticleEffect.BLUE_FLAME);
 						player.getLevel().addSound(location, Sound.FIREWORK_BLAST, 0.5f, 1.0f);
-
-						for(Entity victim : player.getLevel().getNearbyEntities(new SimpleAxisAlignedBB(location, location))){
-							if(victim instanceof EntityCreature){
-								EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent(player, victim, ENTITY_ATTACK, 1.0f);
-								victim.attack(ev);
-							}
-						}
+						Item.get(Item.BOW).onRelease(player, 22);
 
 						location = location.subtract(x, y, z);
 					}
