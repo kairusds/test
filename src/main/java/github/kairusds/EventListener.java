@@ -255,8 +255,7 @@ public class EventListener implements Listener{
 						player.getLevel().addParticleEffect(location.add(0, player.getEyeHeight()).add(vector), ParticleEffect.BLUE_FLAME);
 						player.getLevel().addSound(location.add(0, player.getEyeHeight()).add(vector), Sound.FIREWORK_BLAST, 0.5f, 1.0f);
 
-						Entity[] victims = player.getLevel().getNearbyEntities(new SimpleAxisAlignedBB(location, location));
-						for(Entity victim : victims.values()){
+						for(Entity victim : player.getLevel().getNearbyEntities(new SimpleAxisAlignedBB(location, location))){
 							if(victim instanceof EntityCreature){
 								EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent(player, victim, ENTITY_ATTACK, 3.0f);
 								victim.attack(ev);
@@ -306,8 +305,7 @@ public class EventListener implements Listener{
 						player.getLevel().addParticleEffect(location.add(0, player.getEyeHeight()), ParticleEffect.BLUE_FLAME);
 						player.getLevel().addSound(location.add(0, player.getEyeHeight()), Sound.FIREWORK_BLAST, 0.5f, 1.0f);
 
-						Entity[] victims = player.getLevel().getNearbyEntities(new SimpleAxisAlignedBB(location, location));
-						for(Entity victim : victims.values()){
+						for(Entity victim : player.getLevel().getNearbyEntities(new SimpleAxisAlignedBB(location, location))){
 							if(victim instanceof EntityCreature){
 								EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent(player, victim, ENTITY_ATTACK, 4.5f);
 								victim.attack(ev);
