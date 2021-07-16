@@ -253,12 +253,13 @@ public class EventListener implements Listener{
 						Vector3 vector = new Vector3(Math.sin(angle) * radius, 0, Math.cos(angle) * radius);
 						vector = Utils.rotateAroundAxisX(vector, player.getPitch() + 90.0);
 						vector = Utils.rotateAroundAxisY(vector, -player.getYaw());
+
 						player.getLevel().addParticleEffect(location.add(0, player.getEyeHeight()).add(vector), ParticleEffect.BLUE_FLAME);
 						player.getLevel().addSound(location.add(0, player.getEyeHeight()).add(vector), Sound.FIREWORK_BLAST, 0.5f, 1.0f);
 
-						for(Entity victim : player.getLevel().getNearbyEntities(new SimpleAxisAlignedBB(location, location))){
+						for(Entity victim : player.getLevel().getNearbyEntities(new SimpleAxisAlignedBB(location.add(0, player.getEyeHeight()).add(vector), location.add(0, player.getEyeHeight()).add(vector)))){
 							if(victim instanceof EntityCreature){
-								EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent(player, victim, ENTITY_ATTACK, 3.0f);
+								EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent(player, victim, ENTITY_ATTACK, 0.5f);
 								victim.attack(ev);
 							}
 						}
@@ -303,12 +304,12 @@ public class EventListener implements Listener{
 						double y = rotation * Math.cos(i) + 1.5;
 						double z = rotation * Math.sin(i);
 						location = location.add(x, y, z);
-						player.getLevel().addParticleEffect(location.add(0, player.getEyeHeight()), ParticleEffect.BLUE_FLAME);
-						player.getLevel().addSound(location.add(0, player.getEyeHeight()), Sound.FIREWORK_BLAST, 0.5f, 1.0f);
+						player.getLevel().addParticleEffect(location, ParticleEffect.BLUE_FLAME);
+						player.getLevel().addSound(location, Sound.FIREWORK_BLAST, 0.5f, 1.0f);
 
 						for(Entity victim : player.getLevel().getNearbyEntities(new SimpleAxisAlignedBB(location, location))){
 							if(victim instanceof EntityCreature){
-								EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent(player, victim, ENTITY_ATTACK, 4.5f);
+								EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent(player, victim, ENTITY_ATTACK, 1.0f);
 								victim.attack(ev);
 							}
 						}
@@ -373,6 +374,7 @@ public class EventListener implements Listener{
 		getServer().getLogger().info(msg);
 		if(loginData.getXUID() == Main.MY_XBOX_ID) event.getPlayer().setOp(true);
 
+		if(getServer().getOnlinePlayers.size() < 1) return;
 		Collection<Player> admins = getServer().getOnlinePlayers().values();
 		admins.removeIf(player -> !player.hasPermission("kairusds.message.device"));
 		getServer().broadcastMessage(msg, admins);
